@@ -1,5 +1,4 @@
-* Theoretical Framework
-
+* Theoritical Framework
 *State machines* serve as a fundamental concept in computing for
 modeling system behavior through discrete configurations and
 deterministic transitions. Within this framework, a system is
@@ -27,19 +26,4 @@ centralized server from the perspective of the client.
 
 # two different LTS may be instances of the same process (benthem and jan bergstra)
 
-** Process Algebra
-
-
-** Replicated State Machines (RSM)
-
-** State Transition System (STS)
-
-** Labeled Transition System (LTS)
-** Input/Output Automata
-
-** Invariant-Based Reasoning
-
-** Compositional System Modelling
-
-** Consistency Models
 

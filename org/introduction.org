@@ -38,7 +38,6 @@ reliable connectivity between these fragmented hubs. This fragmentation
 has motivated extensive research and development in blockchain
 interoperability, which is discussed next.
 
-*** Interoperability
 Blockchain interoperability in is the ability of distinct and
 independent blockchains to seamlessly exchange digital assets, data, and
 arbitrary messages
@@ -65,7 +64,6 @@ fundamental strategies ranging from lock-and-mint mechanisms to
 light-client verification---that contemporary bridge protocols utilize
 today [cite:@singh2025comprehensive].
 
-*** Protocols
 Existing interoperability solutions are typically classified based on
 their technical architecture, trust model, and functional capability
 [cite:@singh2025comprehensive]. Architectural classifications
@@ -159,7 +157,6 @@ To develop a formal semantic framework that distinguishes asset from
 data interoperability in cross-chain systems using state-machine
 modeling and invariant analysis to provide rigorous safety guarantees
 for multi-chain interactions.
-
 *** Specific Objectives
 - To formalize asset interoperability semantics by defining state
   variables, transition functions, and conservation invariants, which
@@ -188,7 +185,6 @@ for multi-chain interactions.
 This research focuses on the underlying logical properties rather than
 the implementation details or empirical performance of certain
 blockchain protocols.
-
 *** Scope
 
 This research will use state-machine modelling invariant analysis to

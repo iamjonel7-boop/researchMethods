@@ -1,4 +1,5 @@
-* Review of Related Systems and Literature
+* Review of Related Literature
+
 ** Blockchain Formalisations
 
 One of the edges of blockchain against traditional database storage  is its capability to store  and execute programming codes [cite:@Shorish_2018]. These are called *Smart Contracts*. Together, its storage and execution capabilities makes itself heuristically definable as a finite automata or finite state machine [cite:@Shorish_2018].   
@@ -355,6 +356,7 @@ finality of a message.
 The following table summarizes what is currently covered in the
 literature versus the specific elements that remain missing:
 
+#+BEGIN_COMMENT
 | What literature covers                                              | What literature Misses                                                 |
 |---------------------------------------------------------------------+------------------------------------------------------------------------|
 | Architectural classification of protocols (hubs, relays, notaries)  | Formal semantic distinction between asset and data transitions         |
@@ -363,6 +365,7 @@ literature versus the specific elements that remain missing:
 | Technical mechanisms (lock-mint, HTLC, IBC TAO layer)               | State-machine models of semantic categories                            |
 | Verification of specific protocols (IBC in TLA+, Sonic in Isabelle) | Compositional semantics across distinct category types                 |
 #+caption: Overview of Literature Coverage and Gaps
+#+END_COMMENT
 
 While the literature successfully provides descriptive taxonomies and
 individual protocol audits, it lacks a unified formal state machine
@@ -381,6 +384,7 @@ state-transition models and invariant analysis to ensure that both
 economic and computational safety can be proven across heterogeneous
 domains.
 
+#+BEGIN_COMMENT
 | Citation                         | Primary Focus      | Arch                                 | Formal?          | Invariants               | Asset Props                                                          | Data Props                                       | Semantic?     | Gap                                                          |
 |----------------------------------+--------------------+--------------------------------------+------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------+---------------+--------------------------------------------------------------|
 | Citation                         | Primary Focus      | Arch                                 | Formal?          | Invariants               | Asset Props                                                          | Data Props                                       | Semantic?     | Gap                                                          |
@@ -417,6 +421,7 @@ domains.
 | [cite:@Duan2018]                 | Formal Modelling   | Hierarchical Modelling               | Telelogic Tau    | Safety and Security      | integer type abstraction                                             | structural integrity                             | No            | lack of specification detail                                 |
 #+caption: Summary of reviewed literature on blockchain interoperability
 (2020-2026)
+#+END_COMMENT
 
 The table shows that from 2021 to 2023, the studies are more focus on
 the technical taxonomies and the empirical verification of specific
