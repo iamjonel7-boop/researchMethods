@@ -1,82 +1,59 @@
 * Introduction
-# We start the intro with
-# what is blockchain
-# then what is interoperability
-# concisely enumarate the solutions
-# 
+# We start the intro with # what is blockchain # then what isinteroperability # concisely enumarate the solutions #
 
 # for our intro, we show scenerios where interoperability emerges, we show its importance
 
-The blockchain ecosystem today has now evolved into its multi-chain era.
-It is now characterized by a vast array of independent networks that
-follows diverse technological and architectural approaches
-[cite:@belenkov2025review]. The reason for this diversity is to
-accomodate different needs or priorities for their different goals or
-purposes. Designers make trade-offs between security, speed, and
-decentralization. For example, while Ethereum serves as a mature,
-primary ledger focused on liquidity and security, Solana on the other
-hand utilizes a different consensus model to achieve high-throughput,
-real-time verification. Another example is with the Specialized
-platforms like Hyperledger Fabric.They further differentiate themselves
-by offering "permissioned" environments with known identities, tailored
-for enterprise sectors such as healthcare and supply chain management
-where anonymity is impractical [cite:@alt2025distributed].
+Now far from their original design for cryptocurrencies, blockchain
+has found its way incorporating into other domains
+[cite:@sottomayor2024enterprise] [cite:@Kotey_2023] [cite:@Saleh2024]. 
 
-The disadvantage of this growing numbers of blockchain, however, is
-starting to emerge. Their isolated nature has resulted in significant
-fragmentation across the digital landscape [cite:@belenkov2025review].
-This fragmentation creates liquidity isolation and restrictive user and
-asset silos. This prevents us from seamlessly transferring value and
-data between disparate blockchains [cite:@belenkov2025review]. As
-decentralized applications become more complex and data volumes grow,
-the inability of these "walled gardens" to communicate has become a
-critical bottleneck
-[cite:@wilson2026exploringblockchaininteroperabilityframeworks].
+# Blockchain interoperability has four layers: technical, semantic, organisation, and legal.
+
+In order to create meaningful exchange between blockchains, agreement
+on the semantic level is necessary[cite:@sottomayor2024enterprise].
+This layer of blockchain interoperability receives little research
+attention [cite:@sottomayor2024enterprise]. The semantic layer is
+responsible for interpreting information format and its meaning. 
+
+
 Addressing these silos is now viewed as an existential requirement for
-the crypto economy. The success of the multi-chain future depends on the
-reliable connectivity between these fragmented hubs. This fragmentation
-has motivated extensive research and development in blockchain
-interoperability, which is discussed next.
+the crypto economy. The success of the multi-chain future depends on
+the reliable connectivity between these fragmented hubs. This
+fragmentation has motivated extensive research and development in
+blockchain interoperability.
 
 Blockchain interoperability in is the ability of distinct and
-independent blockchains to seamlessly exchange digital assets, data, and
-arbitrary messages
+independent blockchains to seamlessly exchange digital assets, data,
+and arbitrary messages
 [cite:@wilson2026exploringblockchaininteroperabilityframeworks]
 [cite:@belenkov2025review] [cite:@singh2025comprehensive]. This is
-essential if we want the blockchain ecosystems to be a cohesive network.
-This will prevent the fragmentation of liquidity and utility across the
-decentralized landscape
-[cite:@wilson2026exploringblockchaininteroperabilityframeworks]. Through
-this, complex applications can now function across multiple blockchains
-[cite:@belchior2021survey]. Early visions for this connected future were
-established by pivotal whitepapers, including Vitalik Buterin's (2016)
-conceptualizations for cross-chain connectivity
-[cite:@belenkov2025review] [cite:@Chaliasos2025-qs]. The Polkadot
-network, envisioned by Gavin Wood (2016), introduced a heterogeneous
-multi-chain framework where specialized "parachains" achieve
-interoperability via a central relay chain [cite:@kim2018first]
-[cite:@alt2025distributed]. Similarly, the Cosmos network, outlined by
-Kwon and Buchman (2016), proposed an "internet of blockchains"
-architecture using a hub-and-zone topology to facilitate trust-minimized
-communication through the Inter-Blockchain Communication (IBC) protocol
-[cite:@kim2018first] . These early frameworks established the
-fundamental strategies ranging from lock-and-mint mechanisms to
-light-client verification---that contemporary bridge protocols utilize
-today [cite:@singh2025comprehensive].
+essential if we want the blockchain ecosystems to be a cohesive
+network. This will prevent the fragmentation of liquidity and utility
+across the decentralized landscape
+[cite:@wilson2026exploringblockchaininteroperabilityframeworks].
+Through this, complex applications can now function across multiple
+blockchains [cite:@belchior2021survey]. Early visions for this
+connected future were established by pivotal whitepapers, including
+Vitalik Buterin's (2016) conceptualizations for cross-chain
+connectivity [cite:@belenkov2025review] [cite:@Chaliasos2025-qs]. The
+Polkadot network, envisioned by Gavin Wood (2016), introduced a
+heterogeneous multi-chain framework where specialized "parachains"
+achieve interoperability via a central relay chain
 
-Existing interoperability solutions are typically classified based on
-their technical architecture, trust model, and functional capability
-[cite:@singh2025comprehensive]. Architectural classifications
-distinguish between mechanisms such as lock-and-mint, burn-and-mint, and
-liquidity networks. On the otherhand, trust-based models separate
-"trusted" bridges from trustless or trust-minimized systems. The
-difference is that the former rely on external validators or
-multi-signaure sets meanwhile the latter utilize light clients or
-zero-knowledge proofs [cite:@singh2025comprehensive]
-[cite:@belenkov2025review].
+[cite:@kim2018first] [cite:@alt2025distributed]. Similarly, the Cosmos
+network, outlined by Kwon and Buchman (2016), proposed an "internet of
+blockchains" architecture using a hub-and-zone topology to facilitate
+trust-minimized communication through the Inter-Blockchain
+Communication (IBC) protocol [cite:@kim2018first] . These early
+frameworks established the fundamental strategies ranging from
+lock-and-mint mechanisms to light-client verification---that
+contemporary bridge protocols utilize today
+[cite:@singh2025comprehensive].
 
-From a functional standpoint, surveys categorize bridges by whether they
-support "asset transfer," "data transfer," or both
+
+
+From a functional standpoint, surveys categorize bridges by whether
+they support "asset transfer," "data transfer," or both
 [cite:@singh2025comprehensive]. However, it is critical to note that
 these prevailing classifications are primarily feature-based. That is,
 they focus on the operational mechanisms of message passing and
@@ -87,17 +64,17 @@ correctness of the data being exchanged [cite:@kim2018first].
 The most common significant risk in decentralised systems like
 decentralised finance or DeFi ecosystem is in the security. This is
 evident primarily in the cross-chain bridges. Security researchers
-highlight that they are particularly vulnerable because they often store
-vast amounts of collateral that back wrapped assets on secondary chains
-[cite:@chainalysis2022bridgehacks] [cite:@belenkov2025review]. According
-to Chainalysis, over $2 billion in cryptocurrency was stolen across 13
-separate bridge hacks in 2022 alone. This accounted for approximately
-69% of all funds stolen during that year
+highlight that they are particularly vulnerable because they often
+store vast amounts of collateral that back wrapped assets on secondary
+chains [cite:@chainalysis2022bridgehacks] [cite:@belenkov2025review].
+According to Chainalysis, over $2 billion in cryptocurrency was stolen
+across 13 separate bridge hacks in 2022 alone. This accounted for
+approximately 69% of all funds stolen during that year
 [cite:@chainalysis2022bridgehacks]. Another reports from CertiK and
 Elliptic further emphasize that the intersection of on-chain smart
 contract logic and off-chain communication components creates a
-significantly larger attack surface than that of isolated decentralized
-applications [cite:@ImmuneBytes_2023].
+significantly larger attack surface than that of isolated
+decentralized applications [cite:@ImmuneBytes_2023].
 
 A recurring pattern can be seen from these systematic bridge failures.
 These patterns centered on the violation of fundamental protocol
@@ -106,46 +83,49 @@ the unauthorized minting of unbacked tokens. In this mechanism, the
 attackers exploit the verification vulnerabilities of the system to
 create assets out of thin air. These assets are created on the
 destination chain without corresponding collateral on the source chain
-[cite:@Nguyen_2022] [cite:@certik2022incident]. This creates imbalance.
-Other incidents, such as the Nomad and Binance exploits, involved replay
-attacks or proof manipulation. In these incidents, the bridge was
-tricked into accepting fraudulent state updates
-[cite:@belchior2021survey] [cite:@certik2022incident]. These real-world
-failures represent a catastrophic breakdown in the conservation of
-assets. Here, the mathematical equilibrium that should exist between
-disparate ledgers was completely severed [cite:@coinsbench]
-[cite:@Chaliasos2025-qs] [cite:@maric2025formal]. These failures reveal
-that current interoperability approaches often lack clear semantic
-guarantees about what must always hold true during cross-chain
-operations.
+[cite:@Nguyen_2022] [cite:@certik2022incident]. This creates
+imbalance. Other incidents, such as the Nomad and Binance exploits,
+involved replay attacks or proof manipulation. In these incidents, the
+bridge was tricked into accepting fraudulent state updates
+[cite:@belchior2021survey] [cite:@certik2022incident]. These
+real-world failures represent a catastrophic breakdown in the
+conservation of assets. Here, the mathematical equilibrium that should
+exist between disparate ledgers was completely severed
+[cite:@coinsbench] [cite:@Chaliasos2025-qs] [cite:@maric2025formal].
+These failures reveal that current interoperability approaches often
+lack clear semantic guarantees about what must always hold true during
+cross-chain operations.
 
 Semantic compatibility is explicitly identified in the literature as a
 primary open challenge for blockchain connectivity
 [cite:@belchior2021survey]. This presents a significant barrier to the
 maturation of the multi-chain ecosystem. Specifically, current
-frameworks often facilitate the verification and transportation of data
-between chains without transporting the semantics of its proper use.
-This leaves a critical gap at the protocol/semantic interface.
+frameworks often facilitate the verification and transportation of
+data between chains without transporting the semantics of its proper
+use. This leaves a critical gap at the protocol/semantic interface.
 
 There is currently no unified model that formally separates these two
 categories based on the specific state-machine transitions and safety
-properties that they must preserve. This research addresses this problem
-by formally modelling cross-chain interoperability to demonstrate that
-data and asset transfer belong to different semantic classes.
-Specifically, this research aims to answer the following research
-questions:
+properties that they must preserve. This research addresses this
+problem by formally modelling cross-chain interoperability to
+demonstrate that data and asset transfer belong to different semantic
+classes. Specifically, this research aims to answer the following
+research questions:
 
-1. How can we model cross-chain interactions as unified state transition
-   system across a multiple replicated state machines?
+1. How can we model cross-chain interactions as unified state
+   transition system across a multiple replicated state machines?
 
 2. What invariants and transition properties formally characterises
    asset interoperability in cross-chain systems?
 
 3. What invariants and correctness properties formally characterises
-   data interoperability in cross-chain systems, and how do they differ
-   from asset interoperability?
+   data interoperability in cross-chain systems, and how do they
+   differ from asset interoperability?
 
-   # blockchain interoperability focused on crypto, but there is an increasing need for data interop, so we find out the semantic of these crypto based interop, and the semantic of data- based interop, and then find their differences.
+   # blockchain interoperability focused on crypto, but there is an
+increasing need for data interop, so we find out the semantic of these
+crypto based interop, and the semantic of data- based interop, and
+then find their differences.
 
 ** Objectives
 In order to address the lack of formal semantic distinction between
@@ -160,23 +140,25 @@ for multi-chain interactions.
 *** Specific Objectives
 - To formalize asset interoperability semantics by defining state
   variables, transition functions, and conservation invariants, which
-  are necessary to ensure the mathematical equilibrium of tokens across
-  disparate ledgers
+  are necessary to ensure the mathematical equilibrium of tokens
+  across disparate ledgers
 
-- To model data interoperability semantics by specifying state variables
-  for arbitrary message passing, rules for cross-chain delivery, and
-  integrity properties, which ensure that data remains synchronized and
-  correctly interpreted across heterogeneous environments.
+- To model data interoperability semantics by specifying state
+  variables for arbitrary message passing, rules for cross-chain
+  delivery, and integrity properties, which ensure that data remains
+  synchronized and correctly interpreted across heterogeneous
+  environments.
 
 - To conduct a comparative analysis of the invariant structures for
-  asset and data transfer to identify fundamental semantic differences,
-  specifically focusing on how safety, liveness, and fault tolerance are
-  uniquely preserved in each category.
+  asset and data transfer to identify fundamental semantic
+  differences, specifically focusing on how safety, liveness, and
+  fault tolerance are uniquely preserved in each category.
 
 - To demonstrate the framework's utility by mapping existing
-  interoperability protocols and their documented failure modes (such as
-  the Wormhole and Nomad exploits) to the proposed semantic categories
-  to verify their adherence to fundamental protocol invariants.
+  interoperability protocols and their documented failure modes (such
+  as the Wormhole and Nomad exploits) to the proposed semantic
+  categories to verify their adherence to fundamental protocol
+  invariants.
 
 ** Scope and Limitations
 
@@ -189,57 +171,58 @@ blockchain protocols.
 
 This research will use state-machine modelling invariant analysis to
 formalise how information and value move between independent ledgers
-plus identify and verify critical protocol invariants like conservation
-of assets and message integrity. This research will analyse established
-patterns in asset and data interoperability in order to develop a
-unified model to bridge the gap between protocol-level details and
-semantic-level interoperability. It will not propose new
-interoperability protocols nor provide functional bridge
-implementations.
+plus identify and verify critical protocol invariants like
+conservation of assets and message integrity. This research will
+analyse established patterns in asset and data interoperability in
+order to develop a unified model to bridge the gap between
+protocol-level details and semantic-level interoperability. It will
+not propose new interoperability protocols nor provide functional
+bridge implementations.
 
-This research will not benchmark metrics such as transactions per second
-(TPS), latency, or gas efficiency. It will not analyze the internal
-mathematical robustness of cryptographic primitives such as secp256k1
-and SHA2-256. It will not focus on providing machine-checked proofs in
-languages like Coq or Isabelle/HOL; but rather on framework definition
-and manual formalization. It will not consider incentive compatibility
-as well such as validator reward structures, or the economic cost of
-attacks. Lastly, legal and compliance frameworks, such as AML/KYC
-requirements or jurisdictional laws, are outside the scope of this
-technical analysis,.
+This research will not benchmark metrics such as transactions per
+second (TPS), latency, or gas efficiency. It will not analyze the
+internal mathematical robustness of cryptographic primitives such as
+secp256k1 and SHA2-256. It will not focus on providing machine-checked
+proofs in languages like Coq or Isabelle/HOL; but rather on framework
+definition and manual formalization. It will not consider incentive
+compatibility as well such as validator reward structures, or the
+economic cost of attacks. Lastly, legal and compliance frameworks,
+such as AML/KYC requirements or jurisdictional laws, are outside the
+scope of this technical analysis,.
 
 *** Limitations
 
-The proposal models in this research are abstract and minimal by design.
-They prioritize the "core logic" of state transitions and may not
-capture every low-level implementation detail of real-world protocols.
-This research limits the analysis to a selected set of representative
-protocols like Ethereum, Cosmos and Wormhole. It is not intended to be
-an exhaustive survey of all existing bridging solutions. This research
-does not implement testing on live testnets or mainnets; the
-verification remains at the formal specification level. Lastly, the
-findings are primarily theoretical and intended to inform design
-patterns. The practical deployment may require further adaptation to
-account for off-chain behaviors and network synchrony.
+The proposal models in this research are abstract and minimal by
+design. They prioritize the "core logic" of state transitions and may
+not capture every low-level implementation detail of real-world
+protocols. This research limits the analysis to a selected set of
+representative protocols like Ethereum, Cosmos and Wormhole. It is not
+intended to be an exhaustive survey of all existing bridging
+solutions. This research does not implement testing on live testnets
+or mainnets; the verification remains at the formal specification
+level. Lastly, the findings are primarily theoretical and intended to
+inform design patterns. The practical deployment may require further
+adaptation to account for off-chain behaviors and network synchrony.
 
 ** Significance
 
 This research fills a critical gap in existing literature by providing
-the formal semantic distinction between asset and data interoperability.
-It contributes a foundational abstraction for interoperability research.
-Thus, it directly address the "understudied aspect" of semantic
-compatibility identified in major surveys. By defining the
-protocol/semantic interface, this work enables more precise protocol
-classification and comparison than the prevailing feature-based
-taxonomies. Furthermore, the clarity that this framework provides by
-specifying the invariant requirements that protocols must uphold, future
-formal verification will be easier and robust. Thus also helps provides
-rigorous basis for automated reasoning in distribute systems.
+the formal semantic distinction between asset and data
+interoperability. It contributes a foundational abstraction for
+interoperability research. Thus, it directly address the "understudied
+aspect" of semantic compatibility identified in major surveys. By
+defining the protocol/semantic interface, this work enables more
+precise protocol classification and comparison than the prevailing
+feature-based taxonomies. Furthermore, the clarity that this framework
+provides by specifying the invariant requirements that protocols must
+uphold, future formal verification will be easier and robust. Thus
+also helps provides rigorous basis for automated reasoning in
+distribute systems.
 
 From a practical standpoint, this framework also helps protocol
 designers and architects. This research will help them understand the
-distinct semantic requirements of different interoperability models. It
-will clarify the technical necessity for conservation guarantees in
+distinct semantic requirements of different interoperability models.
+It will clarify the technical necessity for conservation guarantees in
 asset transfers while establishing that data transfers must prioritize
 integrity and schema alignment. By formalizing these requirements, the
 research aims to prevent design errors that have historically led to
