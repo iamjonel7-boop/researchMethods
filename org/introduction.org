@@ -196,6 +196,9 @@ for multi-chain interactions.
 :PROPERTIES:
 :CUSTOM_ID: scope-and-limitations
 :END:
+
+# we use Wanchain and AppXChain interoperability protocols
+
 This research focuses on the underlying logical properties rather than
 the implementation details or empirical performance of certain
 blockchain protocols.
