@@ -1,8 +1,24 @@
-all : clean sp
+all : clean ch1 ch2 ch3 ch4 pdf
 
-sp: sp.tex
+ch1: org/introduction.org
+	pandoc org/introduction.org -o chapters/introduction.tex
+	echo "intro"
+
+ch2: org/review.org
+	pandoc org/review.org -o chapters/review.tex
+	echo "review"
+
+ch3: org/techbackground.org
+	pandoc org/techbackground.org -o chapters/techbackground.tex
+	echo "techbackground"
+
+ch4: org/methodology.org
+	pandoc org/methodology.org -o chapters/methodology.tex
+	echo "methodology"
+
+pdf: sp.tex
 	pdflatex sp.tex
-	bibtex sp.aux
+	bibtex sp
 	pdflatex sp.tex
 	pdflatex sp.tex
 
