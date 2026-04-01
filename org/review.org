@@ -2,37 +2,23 @@
 :PROPERTIES:
 :CUSTOM_ID: review-of-related-systems-and-literature
 :END:
-** Blockchain as a Replicated State Machine
+** Blockchain Formalisations
 :PROPERTIES:
 :CUSTOM_ID: blockchain-as-a-replicated-state-machine
+:ID:       c55180fa-2585-11f1-9b76-fd45dec40749
 :END:
 
-One of the mature blockchains used today is the Ethereum. 
+One of the edges of blockchain against traditional database storage  is its capability to store  and execute programming codes [cite:@Shorish_2018]. These are called *Smart Contracts*. Together, its storage and execution capabilities makes itself heuristically definable as a finite automata or finite state machine [cite:@Shorish_2018].   
 
-*State machines* serve as a fundamental concept in computing for
-modeling system behavior through discrete configurations and
-deterministic transitions. Within this framework, a system is
-conceptualized as a series of *states*, where the execution of the
-system termed a "behavior" is represented by a sequence of these states.
-Formally, a state machine represents a configuration of algebraic
-structures where transitions are triggered by firing predefined rule
-constructors, such as guarded or parallel updates. More specialized
-models define these transition systems as an octuple comprising sets of
-custom datatypes, identifiers for initial and final states, and
-transition relations. And then they are implemented through functions
-that map a current state to its successor based on specific action
-triggers.
+One of the oldest blockchain implementation today is the Ethereum .  The entirety of Ethereum mirrors a *transaction-based state machine* [cite:@wood2014ethereum].  That is, its states changes from one to another based on  transactions. Furthermore, a state is only valid if it comes from a transaction [cite:@wood2014ethereum].  
 
-The *replicated state machine (RSM)* paradigm extends this concept to
-distributed systems to ensure high availability and fault tolerance.
-State Machine Replication (SMR) specifies a *strongly consistent
-replicated service* where a set of deterministic machines handle
-information processing through mutual communication and local storage.
-Replicas in an SMR system commit client commands into a *linearizable
-log*. This produces a consistent result equivalent to a single correct
-replica executing commands in the order they appear in the log. This
-model ensures that the distributed system behaves like a highly reliable
-centralized server from the perspective of the client.
+
+Bitcoin led the usage of blockchain. Since then, it becomes one of the sources for formalising blockchain as a state machine [cite:@Shorish_2018].
+
+Temporal transfer instantiated by the gate-way based approach has been formalised using Event-B method [cite:@Llamb_as_2025].
+
+# this paragraph fits more into the theoritical background section
+
 
 Blockchain technology is widely characterized in recent literature as a
 modern instantiation of the *replicated state machine*. By virtue of

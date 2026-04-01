@@ -2,7 +2,36 @@
 :PROPERTIES:
 :CUSTOM_ID: theoretical-framework
 :END:
-Introductory paragraph for Chapter 3 here.
+
+
+
+*State machines* serve as a fundamental concept in computing for
+modeling system behavior through discrete configurations and
+deterministic transitions. Within this framework, a system is
+conceptualized as a series of *states*, where the execution of the
+system termed a "behavior" is represented by a sequence of these states.
+Formally, a state machine represents a configuration of algebraic
+structures where transitions are triggered by firing predefined rule
+constructors, such as guarded or parallel updates. More specialized
+models define these transition systems as an octuple comprising sets of
+custom datatypes, identifiers for initial and final states, and
+transition relations. And then they are implemented through functions
+that map a current state to its successor based on specific action
+triggers.
+
+The *replicated state machine (RSM)* paradigm extends this concept to
+distributed systems to ensure high availability and fault tolerance.
+State Machine Replication (SMR) specifies a *strongly consistent
+replicated service* where a set of deterministic machines handle
+information processing through mutual communication and local storage.
+Replicas in an SMR system commit client commands into a *linearizable
+log*. This produces a consistent result equivalent to a single correct
+replica executing commands in the order they appear in the log. This
+model ensures that the distributed system behaves like a highly reliable
+centralized server from the perspective of the client.
+
+** Process Algebra
+
 
 ** Replicated State Machines (RSM)
 :PROPERTIES:
@@ -12,6 +41,7 @@ Introductory paragraph for Chapter 3 here.
 :PROPERTIES:
 :CUSTOM_ID: state-transition-system-sts
 :END:
+** Labeled Transition System (LTS)
 ** Input/Output Automata
 :PROPERTIES:
 :CUSTOM_ID: inputoutput-automata
