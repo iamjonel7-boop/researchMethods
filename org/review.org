@@ -1,45 +1,5 @@
 * Review of Related Literature
-
-** Blockchain Formalisations
-
-One of the edges of blockchain against traditional database storage  is its capability to store  and execute programming codes [cite:@Shorish_2018]. These are called *Smart Contracts*. Together, its storage and execution capabilities makes itself heuristically definable as a finite automata or finite state machine [cite:@Shorish_2018].   
-
-One of the oldest blockchain implementation today is the Ethereum .  The entirety of Ethereum mirrors a *transaction-based state machine* [cite:@wood2014ethereum].  That is, its states changes from one to another based on  transactions. Furthermore, a state is only valid if it comes from a transaction [cite:@wood2014ethereum].  
-
-
-Bitcoin led the usage of blockchain. Since then, it becomes one of the sources for formalising blockchain as a state machine [cite:@Shorish_2018].
-
-Temporal transfer instantiated by the gate-way based approach has been formalised using Event-B method [cite:@Llamb_as_2025].
-
-# this paragraph fits more into the theoritical background section
-
-
-Blockchain technology is widely characterized in recent literature as a
-modern instantiation of the *replicated state machine*. By virtue of
-their nature as replicated state machines, distributed ledgers maintain
-deterministic execution and continued agreement on an exact ruleset
-across a network. In this context, the blockchain serves as a
-*replicated, immutable event log* that records all participant
-transactions in a well-defined total order. Foundational views
-(initially established by Wood and Garay and reaffirmed in recent
-surveys) characterize the system as an append-only data structure where
-consensus mechanisms coordinate nodes to maintain a *consistent view of
-the global state* across the network.
-
-Recent formal modeling work between 2021 and 2026 has significantly
-extended this view, moving beyond simple ledgers to more complex
-abstractions. Some researchers now model the blockchain as an *abstract
-state machine \((V, \Sigma, T)\)*, where \(V\) represents typed state
-variables for all contracts, \(\Sigma\) denotes contract methods, and
-\(T\) is the deterministic transition function. Other extensions include
-the use of *category theory*, where state transitions are defined as
-chain-independent *abstract functors*. This allows for the modeling of
-cross-chain synchronization as a *natural transformation* between
-functors, enabling formal proofs of state preservation across
-heterogeneous domains. Furthermore, *multi-formalism approaches* have
-emerged that integrate Labelled Transition Systems (LTS) to capture
-non-determinism and concurrent transitions during complex smart contract
-interactions.
+This section begins with presenting the highest number of works done in the literature that mostly aims to systematise the knowledge in blockchain interoperability. Then, the discussion on formalisations done in the literature in specifying blockchains and their existing interoperability solutions follows. The formalisation of the semantic behind these interoperability solutions  immediately comes after. These literatures then expose to view the gap that this research aims to address.
 
 ** Blockchain Interoperability Protocols
 
@@ -106,6 +66,15 @@ functionally categorized, they do not analyze whether asset and data
 interoperability impose fundamentally different semantic requirements.
 This distinction is explored in the following sections by examining
 asset-specific mechanisms first, followed by data-specific mechanisms.
+
+** Blockchain Formalisations
+
+One of the oldest blockchain implementation today is the Ethereum .  The entirety of Ethereum mirrors a *transaction-based state machine* [cite:@wood2014ethereum].  That is, its states changes from one to another based on  transactions. Furthermore, a state is only valid if it comes from a transaction [cite:@wood2014ethereum].  
+
+
+Bitcoin led the usage of blockchain. Since then, it becomes one of the sources for formalising blockchain as a state machine [cite:@Shorish_2018].
+
+Temporal transfer instantiated by the gate-way based approach has been formalised using Event-B method [cite:@Llamb_as_2025].
 
 ** Asset Interoperability Mechanisms
 

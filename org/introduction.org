@@ -9,9 +9,11 @@ has found its way to incorporate itself into other domains
 # advantages here
 
 # use cases today
-FundChain is a blockchain implementation built by World Bank for monitoring their use of funds. Through this, they are able to track their disbursed funds from the governemnt down to PIUs, contractors, or to their end-beneficiries  [cite:@WBFundschain_2025]. 
+FundChain is a blockchain implementation built by World Bank for monitoring their use of funds. Through this, they are able to track their disbursed funds from the governemnt down to PIUs, contractors, or to their end-beneficiries  [cite:@WBFundschain_2025].
+# provide additional samples
 
-# Blockchain interoperability has four layers: technical, semantic, organisation, and legal.
+# then show how they can be more practical if they can communicate to other blockchain.
+
 
 In order to create meaningful exchange between blockchains, agreement
 on the semantic level is necessary[cite:@sottomayor2024enterprise].
@@ -26,6 +28,7 @@ the reliable connectivity between these fragmented hubs. This
 fragmentation has motivated extensive research and development in
 blockchain interoperability.
 
+# Blockchain interoperability has four layers: technical, semantic, organisation, and legal
 Blockchain interoperability in is the ability of distinct and
 independent blockchains to seamlessly exchange digital assets, data,
 and arbitrary messages

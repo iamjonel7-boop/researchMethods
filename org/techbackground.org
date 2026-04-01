@@ -1,4 +1,14 @@
-* Theoritical Framework
+* Theoretical Framework
+This section establishes the concepts and theories that supports the investigation of this research. Starting with the foundations of blockchain, proceeding with interoperability...
+
+
+
+
+
+
+
+
+
 *State machines* serve as a fundamental concept in computing for
 modeling system behavior through discrete configurations and
 deterministic transitions. Within this framework, a system is
