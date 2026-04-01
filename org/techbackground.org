@@ -30,6 +30,8 @@ replica executing commands in the order they appear in the log. This
 model ensures that the distributed system behaves like a highly reliable
 centralized server from the perspective of the client.
 
+# two different LTS may be instances of the same process (benthem and jan bergstra)
+
 ** Process Algebra
 
 
