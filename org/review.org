@@ -1,12 +1,5 @@
 * Review of Related Systems and Literature
-:PROPERTIES:
-:CUSTOM_ID: review-of-related-systems-and-literature
-:END:
 ** Blockchain Formalisations
-:PROPERTIES:
-:CUSTOM_ID: blockchain-as-a-replicated-state-machine
-:ID:       c55180fa-2585-11f1-9b76-fd45dec40749
-:END:
 
 One of the edges of blockchain against traditional database storage  is its capability to store  and execute programming codes [cite:@Shorish_2018]. These are called *Smart Contracts*. Together, its storage and execution capabilities makes itself heuristically definable as a finite automata or finite state machine [cite:@Shorish_2018].   
 
@@ -48,9 +41,7 @@ non-determinism and concurrent transitions during complex smart contract
 interactions.
 
 ** Blockchain Interoperability Protocols
-:PROPERTIES:
-:CUSTOM_ID: blockchain-interoperability-protocols
-:END:
+
 There are already several categories to which blockchain protocols are
 categorised in most surverys like by their underlying technical
 architecture and their associated trust model.
@@ -116,9 +107,7 @@ This distinction is explored in the following sections by examining
 asset-specific mechanisms first, followed by data-specific mechanisms.
 
 ** Asset Interoperability Mechanisms
-:PROPERTIES:
-:CUSTOM_ID: asset-interoperability-mechanisms
-:END:
+
 Asset interoperability refers to the capacity for autonomous and diverse
 blockchain networks to interact, exchange, and transfer digital assets,
 including fungible tokens, cryptocurrencies, and non-fungible tokens
@@ -200,9 +189,9 @@ obscuring the distinct economic risks inherent in asset-driven state
 transitions.
 
 ** Data Interoperability Mechanisms
-:PROPERTIES:
-:CUSTOM_ID: data-interoperability-mechanisms
-:END:
+
+# the paper of kotey says that data comms is newer than the asset transfer, mention this
+
 Data interoperability is often characterized as cross-chain messaging or
 state communication. It refers to the "creation of protocols, data
 models, and data mapping mechanisms that facilitate the seamless
@@ -302,9 +291,7 @@ permanent state inconsistencies between connected chains
 [cite:@wei2023formal].
 
 ** Semantic Compatibility Issues
-:PROPERTIES:
-:CUSTOM_ID: semantic-compatibility-issues
-:END:
+
 Blockchain semantic compatibility refers to the shared and accurate
 meaning of exchanged information. It also refers to the consistent
 interpretation across heterogeneous distributed systems. It involves

@@ -1,9 +1,4 @@
 * Theoretical Framework
-:PROPERTIES:
-:CUSTOM_ID: theoretical-framework
-:END:
-
-
 
 *State machines* serve as a fundamental concept in computing for
 modeling system behavior through discrete configurations and
@@ -36,31 +31,15 @@ centralized server from the perspective of the client.
 
 
 ** Replicated State Machines (RSM)
-:PROPERTIES:
-:CUSTOM_ID: replicated-state-machines-rsm
-:END:
+
 ** State Transition System (STS)
-:PROPERTIES:
-:CUSTOM_ID: state-transition-system-sts
-:END:
+
 ** Labeled Transition System (LTS)
 ** Input/Output Automata
-:PROPERTIES:
-:CUSTOM_ID: inputoutput-automata
-:END:
+
 ** Invariant-Based Reasoning
-:PROPERTIES:
-:CUSTOM_ID: invariant-based-reasoning
-:END:
-*** Floyd's Invariant Principle
-:PROPERTIES:
-:CUSTOM_ID: floyds-invariant-principle
-:END:
+
 ** Compositional System Modelling
-:PROPERTIES:
-:CUSTOM_ID: compositional-system-modelling
-:END:
+
 ** Consistency Models
-:PROPERTIES:
-:CUSTOM_ID: consistency-models
-:END:
+

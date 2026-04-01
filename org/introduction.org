@@ -1,7 +1,12 @@
 * Introduction
-:PROPERTIES:
-:CUSTOM_ID: introduction
-:END:
+# We start the intro with
+# what is blockchain
+# then what is interoperability
+# concisely enumarate the solutions
+# 
+
+# for our intro, we show scenerios where interoperability emerges, we show its importance
+
 The blockchain ecosystem today has now evolved into its multi-chain era.
 It is now characterized by a vast array of independent networks that
 follows diverse technological and architectural approaches
@@ -34,9 +39,6 @@ has motivated extensive research and development in blockchain
 interoperability, which is discussed next.
 
 *** Interoperability
-:PROPERTIES:
-:CUSTOM_ID: interoperability
-:END:
 Blockchain interoperability in is the ability of distinct and
 independent blockchains to seamlessly exchange digital assets, data, and
 arbitrary messages
@@ -64,9 +66,6 @@ light-client verification---that contemporary bridge protocols utilize
 today [cite:@singh2025comprehensive].
 
 *** Protocols
-:PROPERTIES:
-:CUSTOM_ID: protocols
-:END:
 Existing interoperability solutions are typically classified based on
 their technical architecture, trust model, and functional capability
 [cite:@singh2025comprehensive]. Architectural classifications
@@ -87,9 +86,6 @@ tokenization rather than the underlying semantics or the formal
 correctness of the data being exchanged [cite:@kim2018first].
 
 ** Problem Statement
-:PROPERTIES:
-:CUSTOM_ID: problem-statement
-:END:
 The most common significant risk in decentralised systems like
 decentralised finance or DeFi ecosystem is in the security. This is
 evident primarily in the cross-chain bridges. Security researchers
@@ -151,27 +147,20 @@ questions:
    data interoperability in cross-chain systems, and how do they differ
    from asset interoperability?
 
+   # blockchain interoperability focused on crypto, but there is an increasing need for data interop, so we find out the semantic of these crypto based interop, and the semantic of data- based interop, and then find their differences.
+
 ** Objectives
-:PROPERTIES:
-:CUSTOM_ID: objectives
-:END:
 In order to address the lack of formal semantic distinction between
 asset and data interoperability, this research proposes the following
 objectives:
 
 *** Main Objective
-:PROPERTIES:
-:CUSTOM_ID: main-objective
-:END:
 To develop a formal semantic framework that distinguishes asset from
 data interoperability in cross-chain systems using state-machine
 modeling and invariant analysis to provide rigorous safety guarantees
 for multi-chain interactions.
 
 *** Specific Objectives
-:PROPERTIES:
-:CUSTOM_ID: specific-objectives
-:END:
 - To formalize asset interoperability semantics by defining state
   variables, transition functions, and conservation invariants, which
   are necessary to ensure the mathematical equilibrium of tokens across
@@ -193,9 +182,6 @@ for multi-chain interactions.
   to verify their adherence to fundamental protocol invariants.
 
 ** Scope and Limitations
-:PROPERTIES:
-:CUSTOM_ID: scope-and-limitations
-:END:
 
 # we use Wanchain and AppXChain interoperability protocols
 
@@ -204,9 +190,7 @@ the implementation details or empirical performance of certain
 blockchain protocols.
 
 *** Scope
-:PROPERTIES:
-:CUSTOM_ID: scope
-:END:
+
 This research will use state-machine modelling invariant analysis to
 formalise how information and value move between independent ledgers
 plus identify and verify critical protocol invariants like conservation
@@ -229,9 +213,7 @@ requirements or jurisdictional laws, are outside the scope of this
 technical analysis,.
 
 *** Limitations
-:PROPERTIES:
-:CUSTOM_ID: limitations
-:END:
+
 The proposal models in this research are abstract and minimal by design.
 They prioritize the "core logic" of state transitions and may not
 capture every low-level implementation detail of real-world protocols.
@@ -245,9 +227,7 @@ patterns. The practical deployment may require further adaptation to
 account for off-chain behaviors and network synchrony.
 
 ** Significance
-:PROPERTIES:
-:CUSTOM_ID: significance
-:END:
+
 This research fills a critical gap in existing literature by providing
 the formal semantic distinction between asset and data interoperability.
 It contributes a foundational abstraction for interoperability research.
