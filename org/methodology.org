@@ -1,0 +1,10 @@
+* Methodology
+This section outlines the actions taken in this research
+
+The research begins with the selection of interoperability mechanisms.
+
+Next is the extraction of operational behaviours from each protocol.
+
+Then formal modelling using process algebra and LTS
+
+Lastly, equivalence analysis.
