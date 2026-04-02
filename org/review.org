@@ -1,5 +1,5 @@
 * Review of Related Literature
-This section begins with presenting the highest number of works done in the literature that mostly aims to systematise the knowledge in blockchain interoperability. Then, the discussion on formalisations done in the literature in specifying blockchains and their existing interoperability solutions follows. The formalisation of the semantic behind these interoperability solutions  immediately comes after. These literatures then expose to view the gap that this research aims to address.
+This section begins with presenting the highest number of works done in the literature that mostly aims to systematise the knowledge in blockchain interoperability. Then, follows the discussion on formalisations done in the literature in specifying blockchains and their existing interoperability solutions. The formalisation of the semantic behind these interoperability solutions  immediately comes after. These literatures then expose to view the gap that this research aims to address.
 
 ** Blockchain Interoperability Protocols
 

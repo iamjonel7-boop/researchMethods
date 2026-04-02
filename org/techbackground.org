@@ -1,7 +1,23 @@
 * Theoretical Framework
-This section establishes the concepts and theories that supports the investigation of this research. Starting with the foundations of blockchain, proceeding with interoperability...
+This section establishes the concepts and theories that supports the investigation of this research. Starting with the foundations of blockchain, proceeding with interoperability and the chosen formalism method to investigate the semantics of asset and data transfer.
+
+A blockchain is a system from which one can observe certain behaviours. Take for example the Bitcoin, 
+
+A process refers to a behaviour of a system and a system is anything that shows behaviour, in particular the execution of a software system, the actions of a machine, or the actions of a human being.
+
+System behaviour can be modelled as input output function.
+
+Modelling systems 
+
+Automata theory models process as an automaton. This has a number of states and transitions that connects state to another state. An automaton also has one or more initial states and a number of final states. 
 
 
+
+When to consider two automata equal, expressed by a notion of equivalence, the semantic equivalence.
+
+The problem with automata is the notion of interaction that happens in a distributed system.
+
+concurrency theory
 
 
 
