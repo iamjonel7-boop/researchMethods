@@ -1,4 +1,5 @@
 * Methodology
+# insert the conceptual framework here
 This section outlines the actions taken in this research which comes in the form of computational approach. That is, given intuitions concerning processes and equivalences, design some appropriate language respecting the latter [cite:@vanBenthemBergstra1995].
 
 The research begins with the selection of interoperability mechanisms.

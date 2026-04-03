@@ -14,6 +14,11 @@ FundChain is a blockchain implementation built by World Bank for monitoring thei
 
 # then show how they can be more practical if they can communicate to other blockchain.
 
+asset transfer had more focus [cite:@Belchior_2024] [cite:@wilson2026exploringblockchaininteroperabilityframeworks].
+interoperability is the ability of two or more software componenets to cooperate despite differences in language, interface, and execution platform [cite:@Belchior_2024].
+asset vs data transfer [cite:@Belchior_2024].
+
+Hypothetesise that there will be more effort in building data based solutions even for exchanging assets [cite:@Belchior_2024]. This raises the concern more into ensuring that the semantics of the two will not be conflated.
 
 In order to create meaningful exchange between blockchains, agreement
 on the semantic level is necessary[cite:@sottomayor2024enterprise].
