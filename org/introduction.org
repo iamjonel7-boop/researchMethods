@@ -5,7 +5,7 @@
 
 Now, far from their original design for cryptocurrencies, blockchain
 has found its way to incorporate itself into other domains
-[cite:@sottomayor2024enterprise] [cite:@Kotey_2023] [cite:@Saleh2024] [cite:@Shrimali_2022]. The main feature that led to this widespread adoption today is its decentralised data storage [cite:@Kotey_2024]. Blockchain is a type of ledger that instead of recording its transactions on one medium or it being controlled by a singular entity, its transactions are recorded in several blocks of data storages that are chained from each other and controlled using consensus.  Aside from decentralisation, it also posseses several benefits..
+[cite:@sottomayor2024enterprise] [cite:@Kotey_2023] [cite:@Saleh2024] [cite:@Shrimali_2022]. The main feature that led to this widespread adoption today is its decentralised data storage [cite:@Kotey_2024]. Blockchain is a type of ledger that instead of recording its transactions on one medium or it being controlled by a singular entity, its transactions are recorded in several blocks of data storages that are chained from each other and controlled using consensus.  Furthermore, once a transaction has been recorded, it becomes unchangeable [cite:@Dong_2023]. Aside from decentralisation, it also posseses several benefits..
 # advantages here
 
 # use cases today

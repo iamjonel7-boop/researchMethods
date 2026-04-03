@@ -1,55 +1,37 @@
 * Theoretical Framework
-This section establishes the concepts and theories that supports the investigation of this research. Starting with the foundations of blockchain, proceeding with interoperability and the chosen formalism method to investigate the semantics of asset and data transfer.
+This section establishes the concepts and theories that supports the investigation of this research. Starting with the foundations of blockchain, proceeding with interoperability and then the chosen formalism method to investigate the semantics of asset and data transfer.
 
-A blockchain is a system from which one can observe certain behaviours. Take for example the Bitcoin, 
+A blockchain is a system from which one can observe certain behaviour. This behaviour or process refers to the totally of the discrete actions that such system executes [cite:@baeten2009process]. Take for example the Bitcoin,
+A system behaviour is composed of processes and data [cite:@plotkin2004structural] [cite:@fokkink2007introduction].
+Processes are the control mechanisms of data. Processes are active and data are passive [cite:@fokkink2007introduction].
 
-A process refers to a behaviour of a system and a system is anything that shows behaviour, in particular the execution of a software system, the actions of a machine, or the actions of a human being.
+two process terms can be equated if and only if their graphs behaviourally equivalent [cite:@fokkink2007introduction].
 
 System behaviour can be modelled as input output function.
 
 Modelling systems 
 
-Automata theory models process as an automaton. This has a number of states and transitions that connects state to another state. An automaton also has one or more initial states and a number of final states. 
+Automata theory models process as an automaton. This has a number of states and transitions that connects state to another state. An automaton also has one or more initial states and a number of final states.
+
+When two automaton have the same set of runs called its language, they are semantically equivalent [cite:@baeten2009process].
+
+Transition System is an operation method of specifying semantics  based on syntactic transfromations of programs and simple operations on discrete data [cite:@plotkin2004structural].
+By adding an information regarding transitions, transition system becomes a labelled transition system.
+
+Two LTS may be instances of the same process [cite:@vanBenthemBergstra1995].
+
+distributed system.
+Main feature is that the global state of a system is composed of a collection of local states [cite:@Gorrieri_2017].
 
 
 
-When to consider two automata equal, expressed by a notion of equivalence, the semantic equivalence.
 
 The problem with automata is the notion of interaction that happens in a distributed system.
+
+Operations can be defined to work with processes [cite:@baeten2009process]. 
 
 concurrency theory
 
 
-
-
-
-
-
-*State machines* serve as a fundamental concept in computing for
-modeling system behavior through discrete configurations and
-deterministic transitions. Within this framework, a system is
-conceptualized as a series of *states*, where the execution of the
-system termed a "behavior" is represented by a sequence of these states.
-Formally, a state machine represents a configuration of algebraic
-structures where transitions are triggered by firing predefined rule
-constructors, such as guarded or parallel updates. More specialized
-models define these transition systems as an octuple comprising sets of
-custom datatypes, identifiers for initial and final states, and
-transition relations. And then they are implemented through functions
-that map a current state to its successor based on specific action
-triggers.
-
-The *replicated state machine (RSM)* paradigm extends this concept to
-distributed systems to ensure high availability and fault tolerance.
-State Machine Replication (SMR) specifies a *strongly consistent
-replicated service* where a set of deterministic machines handle
-information processing through mutual communication and local storage.
-Replicas in an SMR system commit client commands into a *linearizable
-log*. This produces a consistent result equivalent to a single correct
-replica executing commands in the order they appear in the log. This
-model ensures that the distributed system behaves like a highly reliable
-centralized server from the perspective of the client.
-
-# two different LTS may be instances of the same process (benthem and jan bergstra)
 
 
