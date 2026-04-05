@@ -21,7 +21,33 @@ It is critical to make the distinction between asset-based and data-based intero
 
 This differeng individual trust boundary and security assumptions of each approaches contributes to the fragmented landscape of blockchain interoperability[cite:@Belchior_2023]. Although there is an attemot to have a Generic Interoperability Paradigm comprising of Setup, Commit, Verify, and Abort phases, the literature has not fully explained how these phases differ in their *observable behaviour* when assets are passed isnstead of arbitrary data [cite:@deng2025] [cite:@Li2025]. This forms the need of a *comparative semantic analysis* to see if these models are enough to encompass the behaviour of both asset and  data exchanges [cite:@Li2025].    
 
+** Asset-Based Interoperability
+The literature treats asset-based interoperability not solely as a tool to transfer currency but also as a *closed system of value synchronisation* [cite:@Pillai_2022] [cite:@Cheng_2024].  The fundamental logic of these protocols is the preservation of the INTEGRITY of assets while they are moving between different ledgers [cite:@Llambas2024patterns] [cite:@Pillai_2022] [cite:@Belchior_2023].
 
+*** System Perspective
+As a system, asset-based interoperability comprises the following interdependent components:
+*Chains (Source and Target):* These serve as state machines that record ownership [cite:@wang2021sok] [cite:@deng2025] [cite:@Cheng_2024].
+*Smart Contracts (Custodian vs. Debt Issuer):* In the source chain, there is usually a custodian contract (vault) that locks asset; while in the target chain, there is a debt issuer (money printer) that makes synthetic representation or wrapped tokens [cite:@Notland_2026] [cite:@soureshjani2026].
+*Users and Intermediaries:* Included here is the initiator (user), relayers that transfer proofs, and attesters that verify if the lock event is valid before doing the minting [cite:@Notland_2026] [cite:@Llambas2025] [cite:@Belchior_2023].
+
+This shows that asset-based interoperability is a content-aware system. Meaning, it is necessary that the protocol knows the specific semantics of asset (e.g. ERC-20 standard) in order to ensure that the minted token is semantically equal to the original asset [cite:@Llambas2025] [cite:@Pillai_2022] [cite:@deng2025].
+
+*** Behavioural Patterns
+The observable behaviour of asset-based protocols follow a strict sequential execution flow. Based on existing formal models (such as Event-B analysis), the usual sequence follows:
+1. *Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
+2. *Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
+3. *Mint/Claim:* Producing of an equal value at the target chain [cite:@Llambas2025] [cite:@Sober_2022] [cite:@Li2025].
+
+This shows that there is happens-before relationship. The mint transaction at the target chain has causal dependency on the lock transaction at the source chain [cite:@Llambas2025] . If this sequence is not followed, there is a risk of atomicity failure where there is a possibility of minting assets that are not locked; resulting to double-spending [cite:@Llambas2024patterns] [cite:@Belchior_2023] [cite:@deng2025] [cite:@Li_2023].
+
+*** Invariants and Safety Guarantees
+The major invariant that safeguards this system is the Global Supply Invariant. This refers to maintaning a constant value to the overall count of asset units in all networks.
+
+It is critical that the safety (no bad behaviour or duplication) of asset-based protocols gets prioritised over the liveness (fast  termination). Because of this, the observable behaviour has long confirmation periods (to wait the finality from the source chain) and competition periods (for fraud proofs). These delays are not just performance issue but a behavioural necessity in order to protect the atomicity of the system.
+
+Nevertheless, this behaviour results to capital inefficiency. That is because of the locking of assets, the liquidity gets trapped in the contracts, that serves as a big limitation that is not usually seen in data-based approaches. This creates the gap in the literature where even though the safety of asset transfers can be formally modelled, there is insufficient comparison if this strict ordering is also needed for arbitrary data exchange.
+
+** Data-Based Interoperability
 
 
 #+CAPTION: Matrix
