@@ -1,11 +1,5 @@
 * Methodology
-# insert the conceptual framework here
-This section outlines the actions taken in this research which comes in the form of computational approach. That is, given intuitions concerning processes and equivalences, design some appropriate language respecting the latter [cite:@vanBenthemBergstra1995].
-
-The research begins with the selection of interoperability mechanisms.
-
-Next is the extraction of operational behaviours from each protocol.
-
-Then formal modelling using process algebra and LTS
-
-Lastly, equivalence analysis.
+The research methodology comprises three-stage pipeline. It will systematically process interoperability protocols from the technical specifications towards the formal mathematical verification. Every stage in this methodology is treated as sequential and dependent; the success of every following stage directly follows from the output of the previous stage. This ensures the logical connection of the whole process.
+** Formal Specification of Interoperability Protocols
+** Semantic Extraction Using Labelled Transition System
+** Description of Observable Behaviour
