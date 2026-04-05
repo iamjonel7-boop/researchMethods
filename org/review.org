@@ -1,418 +1,71 @@
-#+LATEX_HEADER: \usepackage{booktabs}
-
 * Review of Related Literature
-This section begins with presenting the highest number of works done in the literature that mostly aims to systematise the knowledge in blockchain interoperability. Then, follows the discussion on formalisations done in the literature in specifying blockchains and their existing interoperability solutions. The formalisation of the semantic behind these interoperability solutions  immediately comes after. These literatures then expose to view the gap that this research aims to address.
 
-** Blockchain Interoperability Protocols
+In the current landscape of blockchain technology, the emergence of heterogeneous networks has revealed the term "information isolated isalands" or "value silos" [cite:@wang2021sok] [cite:@Bigiotti2025] [cite:@Wu_2023]. Although individual blockchains are STRONG/GREAT as independent ledgers, the lack of communication between them limits their potential widespread adoption [cite:@Hassan_2025] [cite:@Cheng_2024] [cite:@Lohachab_2021]. Blockchain interoperability then is not just a feature; but a critical interaction between distributed systems [cite:@wang2021sok] [cite:@Li2025] [cite:@Lohachab_2021].
 
-There are already several categories to which blockchain protocols are
-categorised in most surverys like by their underlying technical
-architecture and their associated trust model.
+It is vital to understand that every blockchain acts as an independent state machine with its own concensus rules and encryption standards [cite:@Bigiotti2025] [cite:@Belchior_2021]. Since there are no shared state or global clock between these different blockchains, their interactions must happen asynchronously; they must instead use message passing and state synchronisation [cite:@wang2021sok] [cite:@wei2023formal]. In other words, blockchain interoperability is a process wherein one source chain  is trying to change the state of a target chain by means of delivering information or assets under certain securoty assumptions [cite:@wang2021sok] [cite:@Wang_2023] [cite:@belchior2021survey].
 
-Architectural categories often include Relays (where one chain acts as a
-client of another), Hubs (hub-and-spoke topologies like Cosmos),
-Notaries (committee-based attestation), and Sidechains. Trust-based
-classifications distinguish between Trusted mechanisms, which rely on
-external validators or "notary committees" to authenticate events, and
-Trustless mechanisms, which utilize "native verification" via light
-clients or zero-knowledge proofs to cryptographically verify state
-transitions.
+Most of study in the literature focus on the blockchain interoperability architecture. That is, whether it uses relays, sidechains, or notaries [cite:@Kotey_2023] [cite:@Caetano_da_Silva_2025] [cite:@Li_2023] [cite:@Chen_2023]. Nevertheless, recent studies have put emphasis that architecture only gives stucture and real security and effectiveness of interoperability depends on the behaviour of the system [cite:@Llambas2025] [cite:@Llambas2024eventb] [cite:@Lohachab_2021]. This behaviour dictates how systems guarantee ACID (atomicity, consistency, isolation, durability) properties in an asynchronous network [cite:@wang2021sok] [cite:@Bigiotti2025] [cite:@Wang_2023] [cite:@Li2025].
 
-A significant subset of recent surveys classifies protocols by their
-functional capability, specifically distinguishing between asset
-transfer, data/message passing, or both. A binary distinction between
-token transfer and programmable logic has been provided. The former
-involves the creation and destruction of value across ledgers meanwhile
-the latter enables smart contracts to exchange information in a
-trustless manner [cite:@lohachab2024logic].
+This means that the sequencing of state transitions, timing of cyrptographic proofs, and reactions to failure or timeout reveals the system's behaviour [cite:@Ou_2022] [cite:@Chervinski_2023] [cite:@deng2025] [cite:@wei2023formal].The analysis of behaviours, instead of the static design, gives deeper understanding on how different components (such as smart contracts and relayers) interact during different processe. That is so to achieve semantic interoperability where the meaning and context of data or asset from the source chain gets accurately interpreted and valid to the target chain [cite:@Belchior_2023] [cite:@sottomayor2024enterprise] [cite:@Li2025].
 
-These surveys collectively reveal that the field is rapidly converging
-toward generalized messaging protocols. While early cross-chain
-solutions were primarily "exchange protocols for token exchange", modern
-frameworks like the Inter-Blockchain Communication (IBC) protocol are
-"payload agnostic," meaning the "data transported across blockchain
-modules is opaque to the protocol itself". This flexibility reveals that
-the majority of major protocols now support both asset and data transfer
-as a standard feature. For instance, statistical overviews note that
-while application-specific protocols (like HTLC) concentrate solely on a
-"distinct communication domain," the top routes handle billions in
-volume by supporting "any type of data or asset".
+** Approaches to Blockchain Interoperability
+Surveying the literature, it is noticeable that the classifications of interoperability reflects the underlying logic on how to trust and treat information between blockchains [cite:@wang2021sok] [cite:@Pillai_2022] [cite:@wang2023]. Although categorical labels like notary schemes, sidechains/relays, and hash-locking are usually used, there is a deeper abstraction that surfaces in recent literature. That is, the perspective of looking at blockchain interoperability as a multi-layered problem derived from the OSI model of the internet [cite:@Hassan_2025] [cite:@deng2025].
 
-These surveys collectively reveal that the field is rapidly converging
-toward generalized messaging protocols. While early cross-chain
-solutions were primarily "exchange protocols for token exchange", modern
-frameworks like the Inter-Blockchain Communication (IBC) protocol are
-"payload agnostic," meaning the "data transported across blockchain
-modules is opaque to the protocol itself". This flexibility reveals that
-the majority of major protocols now support both asset and data transfer
-as a standard feature. For instance, statistical overviews note that
-while application-specific protocols (like HTLC) concentrate solely on a
-"distinct communication domain," the top routes handle billions in
-volume by supporting "any type of data or asset". Limitations of
-Existing Classifications. Despite the breadth of current taxonomies,
-existing classifications are primarily feature-based rather than
-semantics-based. A critical limitation identified by Belchior et al.
-(2021) is that while technical and functional layers are addressed, "few
-solutions focus on the semantic layer". Semantic
-interoperability---ensuring the "meaning embedded in the information" is
-correctly understood by consuming systems---remains an "ongoing
-challenge". Furthermore, there is a noted "lack of research explicitly
-targeting the security and reliability of cross-chain communication
-protocols" through formal mathematical grounding. Surveys classify what
-protocols do (e.g., "lock-and-mint"), but they do not analyze the formal
-invariants or properties (like conservation or causality) that must be
-preserved at a semantic level across these transitions.
+The common abstraction from most of the sources is the *source-target model*. In this model, an operation from the source chain needs to trigger a corresponding state change to the target chain [cite:@deng2025] [cite:@Cheng_2024]. Nonetheless, here comes the critical difference on how this interaction gets seen:
 
-While these surveys establish that interoperability protocols are
-functionally categorized, they do not analyze whether asset and data
-interoperability impose fundamentally different semantic requirements.
-This distinction is explored in the following sections by examining
-asset-specific mechanisms first, followed by data-specific mechanisms.
+*Interoperability as Transfer:* In this perspective, the logic focuses on migration or transfer of ownership. Every transaction must follow all-or-nothing atomicity in order to avoid double-spending [cite:@wang2021sok] [cite:@Llambas2024patterns] [cite:@deng2025]. Here belongs asset-based protocols that ensure that the value will not vanish or duplicated between silos [cite:@Belchior_2023] [cite:@wang2023].
 
-** Blockchain Formalisations
+*Interoperability as Communication:* Here, the system gets treated as a *message-oriented service* [cite:@wang2021sok] [cite:@Kotey_2023] [cite:@kang2022]. The goal is not to transfer the content of the source chain but to invoke a functionality in the target chain using arbitrary data [cite:@Pillai_2022] [cite:@Belchior_2021]. This is the logic of the data-based protocols like Arbitrary Message Passing (AMP) [cite:@augusto2025].
 
-One of the oldest blockchain implementation today is the Ethereum .  The entirety of Ethereum mirrors a *transaction-based state machine* [cite:@wood2014ethereum].  That is, its states changes from one to another based on  transactions. Furthermore, a state is only valid if it comes from a transaction [cite:@wood2014ethereum].  
+It is critical to make the distinction between asset-based and data-based interoperability because they usually remain implicit in a number of older literature. For instance, in the classical SoK (Systematisation of Knowledge) of Buterin, the focus was always in value exchange or value islands [cite:@wang2021sok] [cite:@A_Alzahrani_2025] [cite:@Pillai_2022]. However, in the newer frameworks, there is an explicit division in the domain  between *Asset Interoperability* (migration/exchange) and *Data Interoperability* (cross-chain calls/integration) [cite:@deng2025] [cite:@Cheng_2024] [cite:@Li2025]. This gap is important as a number of current models are designed for assets but gets applied to data or vice-versa without taking each different semantic requirements into consideration [cite:@Belchior_2023] [cite:@Li2025].
 
-
-Bitcoin led the usage of blockchain. Since then, it becomes one of the sources for formalising blockchain as a state machine [cite:@Shorish_2018].
-
-Temporal transfer instantiated by the gate-way based approach has been formalised using Event-B method [cite:@Llamb_as_2025].
-
-** Asset Interoperability Mechanisms
-
-Asset interoperability refers to the capacity for autonomous and diverse
-blockchain networks to interact, exchange, and transfer digital assets,
-including fungible tokens, cryptocurrencies, and non-fungible tokens
-(NFTs). As the blockchain ecosystem has grown increasingly heterogeneous
-and fragmented into "digital islands," asset interoperability has
-emerged as a critical requirement for market penetration and user
-flexibility. By enabling the movement of value across disparate ledgers,
-interoperability protocols reduce liquidity fragmentation and mitigate
-the risk of vendor lock-in for investors.
-
-The most prevalent communication model for cross-chain asset transfer is
-the lock-and-mint mechanism [cite:@belenkov2025review]. This is often
-used to create wrapped representations of native assets on secondary
-chains. In this model, the process begins when a user initiates a
-transaction to deposit and lock a specific amount of native assets. This
-is done into a custodian contract on the source chain. Then, the source
-contract places the assets in an unusable state and emits a Deposit
-event. This event contains the transaction details. An off-chain relayer
-or communicator network observes this event, verifies its authenticity,
-and submits a signed proof to a debt issuer contract on the destination
-chain. Once the verification of the proof is successful, the destination
-contract now mints a corresponding amount of wrapped tokens to the
-recipient's address [cite:@eurocom].
-
-The system utilises a burn and release or burn and mint mechanism to
-return the assets to their original native chain. The user now initiates
-this process by calling a "burn" function on the destination chain. This
-will permanently destroy the wrapped tokens to remove them from the
-circulating supply. This action then triggers a "Burn" event. This event
-is fetched and verified by the off-chain communicator. Once the burn is
-confirmed, the communicator submits a release transaction to the source
-chain's custodian contract. The custodian will unlock and release the
-original native assets back to the user's account once the verifying of
-the burn proof is complete.
-
-Atomic swaps are unlike the bridge-based models. The do not rely on
-intermediaries. Instead, they faciliate the simultaneous exchange of
-assets between two parties on different blockchains. That is also
-without requiring a trusted thid party. This mechanism ensures
-"all-or-nothing" execution through the use of Hashed Time-Locked
-Contracts (HTLC). HTLCs utilize cryptographic hashlocks and timelocks to
-conditionally lock assets. Here, the transaction only completes if a
-secret preimage is revealed within a specific timeframe. If the
-initiator reveals the secret to claim their new asset, the counterparty
-automatically gains the secret to claim the reciprocal asset. This
-ensures mathematical atomicity across the two ledgers.
-
-However, recurring bridge exploits still have resulted in losses
-exceeding $2.8 billion due to improper implementation of value
-accounting. Eventhought it has sophisticated design. The security
-analyses of major hacks, such as those targeting Ronin, Wormhole, and
-Nomad, identify the shared root cause as a violation of end-to-end
-financial logic. The outflow here was allowed to exceed inflow.
-Specifically, attackers have exploited vulnerabilities to mint assets
-out of thin air without corresponding deposits. For example, the Qubit
-exploit involved a logical error that allowed an attacker to trigger a
-"Deposit" event without transferring any real assets. This leads to the
-unauthorized withdrawal of millions on the destination chain. Other
-failures, such as the Ronin and Harmony hacks, also occurred when
-attackers compromised validator keys to forge signatures that satisfied
-access control invariants.
-
-The literature emphasizes that several fundamental properties must hold
-in order to ensure the safety of cross-chain asset transfers. The core
-requirement is value conservation. This states that the total supply of
-an asset must remain constant across the combined state of both
-participating ledgers. This is often formalized as a balance invariant.
-In this case, the value of minted or released tokens must equal the
-value of deposited tokens minus costs. Furthermore, bridges must
-maintain a strict 1-to-1 relationship between locked assets and their
-wrapped counterparts to prevent double-spending and unauthorized
-inflation. These properties ensure that even if a bridge "dies" or
-becomes unresponsive, the underlying financial state remains reachable
-and verifiable for recovery.
-
-While these mechanisms are well-studied, their semantic invariants are
-rarely formalized separately from general message passing, often
-obscuring the distinct economic risks inherent in asset-driven state
-transitions.
-
-** Data Interoperability Mechanisms
-
-# the paper of kotey says that data comms is newer than the asset transfer, mention this
-
-Data interoperability is often characterized as cross-chain messaging or
-state communication. It refers to the "creation of protocols, data
-models, and data mapping mechanisms that facilitate the seamless
-exchange of data across disparate blockchain networks" [cite:@eurocom].
-Unlike asset interoperability data interoperability enables one ledger
-"to trigger actions or respond to events occurring on another ledger".
-What this mean is that it treats the target chain as a remote
-computational environment. This is fundamentally different from the
-asset transfer because this involves the copying of information from one
-DLT to another. That so rather than ensuring the exclusive movement of a
-finite resource. Consequently, this supports more different use cases
-such as the cross-ledger governance or voting, the account delegation,
-and the arbitrary contract calls.
-
-A common example of data interoperability is the Inter-Blockchain
-Communication (IBC) protocol [cite:@goes2020interblockchain]. It has a
-stateful and authenticated data passing in the literature. IBC is
-modeled after the TCP/IP stack. It utilizes the bottom-up approach that
-separates the core transport, authentication, and ordering (TAO) layer
-from the application (APP) layer [cite:@wei2023formal]. This protocol
-operates through a series of structured handshakes to establish
-connections and channels. The connection handshakes involves four
-distinct steps which are: OpenInit, OpenTry, OpenAck, and OpenConfirm.
-That is to ensure that both ledgers have reached agreement on each
-other's identifiers and consensus states [cite:@wei2023formal]. IBC
-packets are formally "opaque" to the transport layer. This allows its
-modules on each ledger to determine their own semantics while the
-protocol guarantees reliable, ordered, and authenticated communication
-[cite:@goes2020interblockchain].
-
-Data transport in decentralized systems relies on "relayer processes".
-They are untrusted and off-chain agents responsible for scanning each
-chain, constructing appropriate datagrams, and submitting transactions
-to the destination [cite:@wei2023formal]. The security of these systems
-is rooted in light-client verification. In light-client verification,
-the destination chain maintains a "lightweight representation" or block
-headers of the source chain. Its purpose is to verify cryptographic
-proofs such as Merkle proofs for specific messages without storing the
-entire ledger history [cite:@wei2023formal]. What changes here is in the
-trust assumption. It is now shifted from the relayer to the validator
-set of the connected blockchain itself. This is because the
-light-clients are the one that verify the source chain's consensus or
-finality rules. This model can be efficient for resource-constrained
-environments like mobile devices since the gas limits prohibits the full
-node verification.
-
-Trusted interoperability operates in contrast to the trustless nature of
-light clients. In trusted interoperability, we utilise the notary
-schemes or oracle-based messaging [cite:@lu2024atomicity]. This rely on
-a threshold of signers or committees or multisignature sets. They attest
-that an event occurred on a source chain [cite:@sherlock2026cross].
-Similarly, oracle networks like Chainlink's "Cross-Chain
-Interoperability Protocol (CCIP)" also uses Decentralized Oracle
-Networks (DONs). DONs verifies and routes messages off-chain. Then it
-reaches an off-chain consensus before delivering data to the destination
-router [cite:@yellow.com]. These protocols avoid heavy on-chain header
-verification. This makes them simpler to implement and faster to
-execute. However, this introduces a centralisation of trust because the
-security now depends entirely on the honesty of the majority of notaries
-rather than on the honestly of the native chain consensus
-[cite:@bondarchuk2025security].
-
-For data interoperability to be correct, there are several properties
-that must hold: the safety the ordering and causality, and the secure
-transfer property. The safety property requires that messages cannot be
-forged; and its destination must treat a claim as authorized. That is
-only if it originates from a verified source domain
-[cite:@lu2024atomicity]. The ordering and causality dictates that
-protocols must provide ordering guarantees, that is ordered or unordered
-channels, in order to allow applications to reason about the combined
-state of connected modules. Also, it ensure that state changes are
-correctly bound to the events that caused them
-[cite:@goes2020interblockchain]. The secure transfer property mandates
-that a receiver should only process a message once the source-chain
-event has been committed and cannot be rolled back
-[cite:@lu2024atomicity]. Critically, for data interoperability,
-conservation is NOT a requirement. That is because in data transfer, the
-transfer is defined as a process of copying information. Duplication is
-also often allowed at the transport level [cite:@eurocom]. Formal
-analyses of the IBC TAO layer explicitly note that while assets require
-conservation of supply, pure data transport on the other hand is
-payload-agnostic and does not inherently enforce a supply invariant.
-That is unless implemented by the application logic
-[cite:@goes2020interblockchain].
-
-Security research in cross-chain messaging highlights vulnerabilities
-that target data integrity and verification logic. A prominent failure
-class is the verification bypass. It was seen in the Nomad hack. That
-time, there was an initialization error caused the system to treat
-"untrusted roots" (0x00) as proven. This allowed the attackers to forge
-arbitrary messages [cite:@Google]. Other risks include replay attacks.
-In that case, a lack of domain separation allows a valid message to be
-reused across different pathways [cite:@sherlock2026cross]. Formal
-modeling using TLA+ has further identified "incomplete handshakes" and
-"trapped packets" as protocol-level liveness risks. These can lead to
-permanent state inconsistencies between connected chains
-[cite:@wei2023formal].
-
-** Semantic Compatibility Issues
-
-Blockchain semantic compatibility refers to the shared and accurate
-meaning of exchanged information. It also refers to the consistent
-interpretation across heterogeneous distributed systems. It involves
-understanding the meaning embedded in the information. This is done by
-interpreting the data context, relationships, and semantics. So to
-ensure that the consuming system correctly understands the intent of the
-source ledger. Semantic compatibility is an ongoing challenge
-[cite:@belchior2021survey]. While technical and functional layers of
-interoperability have been extensively explored, few solutions focus on
-the semantic layer. The importance of semantics is paramount. Without
-it, there would be no shared meanings. Systems may interpret the same
-message or state transition differently. This can lead to friction to
-translate concepts, inaccurate mapping, and catastrophic logical errors
-in gestalt multi-ledger applications [cite:@sottomayor2024enterprise].
-
-The existing literature contains multiple explicit statements regarding
-the unresolved nature of semantic formalization. Authors consistently
-characterize these gaps as "open problems" or "limitations" of current
-research:
-
-Researchers note that the field "lacks a unified definition of what
-blockchain is" and that "no such widely accepted reference architecture
-exists" for DLT interoperability. Neglected Semantic Exploration: There
-is a significant gap in "capturing semantic information" from code;
-research in this specific area has received "less to no emphasis". A
-noted limitation is the "lack of unified frameworks that integrate
-multiple reasoning strategies" to verify complex inter-dependent
-requirements across chains. To date, there is a noted "lack of research
-explicitly targeting the security and reliability of cross-chain
-communication protocols" through rigorous formal mathematical grounding.
-
-Beyond these explicit statements, there is a core implicit gap regarding
-the formal distinction between asset and data interoperability. An
-analysis of current formal models reveals that papers typically either
-generalize both categories into a single abstraction or focus on one in
-isolation. For instance, an abstract state machine model
-\((V, \Sigma,T)\) is modelled for multi-chain atomicity but this treat
-asset exchange merely as a specific instance of an arbitrary smart
-contract action [cite:@lu2024atomicity]. This fails to mathematically
-distinguish the unique economic logic of value from the integrity logic
-of data. A formalization of the IBC TAO layer also exists
-[cite:@wei2023formal]. However, they explicitly state the protocol is
-payload-agnostic. This means that the state machine itself does not
-reason about the difference between a token transfer and a governance
-vote [cite:@goes2020interblockchain]. Furthermore, no paper provides a
-unified semantic framework capable of simultaneously classifying and
-verifying both types. This research gap is highly problematic for the
-security of cross-chain systems. Lee et al. (2022) and Liu et al. (2024)
-demonstrate that massive bridge exploits frequently stem from invariant
-violations. What happens is assets were minted out of thin air because
-the system allowed unbalanced transitions. Mixing asset and data
-semantics leads to under-specified guarantees. This may cause designers
-to inadvertently apply copy-based data rules, for example, to assets
-(leading to unauthorized inflation) or "conservation-based" rules to
-pure data. The former will lead to unathorised inflation meanwhile the
-latter will lead to over-constrained, inefficient systems. Verification
-becomes ambiguous because it is unclear whether a safety property like
-finality refers to the economic finality of a token or to the delivery
-finality of a message.
-
-The following table summarizes what is currently covered in the
-literature versus the specific elements that remain missing:
-
-#+BEGIN_COMMENT
-| What literature covers                                              | What literature Misses                                                 |
-|---------------------------------------------------------------------+------------------------------------------------------------------------|
-| Architectural classification of protocols (hubs, relays, notaries)  | Formal semantic distinction between asset and data transitions         |
-| Functional classification (listing asset/data as feature)           | Invariant-based classification (unifying value vs integrity logic)     |
-| Security analyses of specific bridges (Ronin, Wormhole hacks)       | Unified semantic framework for heterogeneous multi-ledger interactions |
-| Technical mechanisms (lock-mint, HTLC, IBC TAO layer)               | State-machine models of semantic categories                            |
-| Verification of specific protocols (IBC in TLA+, Sonic in Isabelle) | Compositional semantics across distinct category types                 |
-#+caption: Overview of Literature Coverage and Gaps
-#+END_COMMENT
-
-While the literature successfully provides descriptive taxonomies and
-individual protocol audits, it lacks a unified formal state machine
-model that mathematically distinguishes the semantic properties of asset
-interoperability (governed by value conservation) from those of data
-interoperability (governed by message integrity). This fragmentation
-leaves cross-chain developers without a rigorous framework to verify
-"gestalt" applications that simultaneously manage financial value and
-informational state.
-
-This research addresses the aforementioned gap by moving beyond
-feature-based classification toward a mathematically verifiable
-architecture. The following chapter presents a theoretical framework
-that formalizes this semantic distinction using abstract
-state-transition models and invariant analysis to ensure that both
-economic and computational safety can be proven across heterogeneous
-domains.
+This differeng individual trust boundary and security assumptions of each approaches contributes to the fragmented landscape of blockchain interoperability[cite:@Belchior_2023]. Although there is an attemot to have a Generic Interoperability Paradigm comprising of Setup, Commit, Verify, and Abort phases, the literature has not fully explained how these phases differ in their *observable behaviour* when assets are passed isnstead of arbitrary data [cite:@deng2025] [cite:@Li2025]. This forms the need of a *comparative semantic analysis* to see if these models are enough to encompass the behaviour of both asset and  data exchanges [cite:@Li2025].    
 
 
 
-
-
-The table shows that from 2021 to 2023, the studies are more focus on
-the technical taxonomies and the empirical verification of specific
-protocols like the IBC and the Lightning. But starting in the late 2024
-moving into 2026, we see a change towards the formalisation of the
-semantics. The rest are more on surveys.
-
-Majority of the literature discusses invariants but only in terms of
-themselves. They are operating in silos. We see that asset papers
-discuss value conservation while the data papers discuss message
-integrity. Only a small percentage, approximately 20 papers, tried to
-provide a semantic distinction between the two.
 
 #+CAPTION: Matrix
 #+ATTR_LATEX: :environment longtable :align |l|l|l|l|l|
 | Citation | Type | Interoperability Type | Formalisation | Limitations |
 | [cite:@soureshjani2026] | Survey/Protocol Design | Asset  | |  |
-[cite:@Notland_2026]
-[cite:@Caetano_da_Silva_2025]
-[cite:@augusto2025]
-[cite:@Li2025]
-[cite:@Delgado_von_Eitzen_2025]
-[cite:@kishore2025interoperability]
-[cite:@deng2025]
-[cite:@A_Alzahrani_2025]
-[cite:@Hassan_2025]
-[cite:@Kumar_2025]
-[cite:@Llamb_as_2025]
-[cite:@Bigiotti2025]
-[cite:@lu2024atomicity]
-[cite:@Llambas2024patterns]
-[cite:@Llamb_as_2024]
-[cite:@Cheng_2024]
-[cite:@sottomayor2024enterprise]
-[cite:@Mohammed_Abdul_2024]
-[cite:@Li_2024]
-[cite:@Wang_2024]
-[cite:@Wei_2023]
-[cite:@Augusto_2023]
-[cite:@Chen_2023]
-[cite:@Li_2023]
-[cite:@wang2023]
-[cite:@Belchior_2023]
-[cite:@Wu_2023]
-[cite:@Harris_2023]
-[cite:@Kotey_2023]
-[cite:@chervinski2023analyzing]
-[cite:@Mao_2023]
-[cite:@Wang_2022]
-[cite:@Sober_2022]
-[cite:@kang2022]
-[cite:@Ou_2022]
-[cite:@Pillai_2022]
-[cite:@Lohachab_2021]
-[cite:@Belchior_2021]
-[cite:@wang2021sok]
+| [cite:@Notland_2026] | Survey/SoK | Hybrid (bridges) | - | Lacks formal system model |
+| [cite:@Caetano_da_Silva_2025] | 
+| [cite:@augusto2025] |
+| [cite:@Li2025] |
+| [cite:@Delgado_von_Eitzen_2025] |
+| [cite:@kishore2025interoperability] |
+| [cite:@deng2025] |
+| [cite:@A_Alzahrani_2025] |
+| [cite:@Hassan_2025] |
+| [cite:@Kumar_2025] |
+| [cite:@Llambas2025]  |
+| [cite:@Bigiotti2025] |
+| [cite:@lu2024atomicity] |
+| [cite:@Llambas2024patterns] |
+| [cite:@Llambas2024eventb] |
+| [cite:@Cheng_2024] |
+| [cite:@sottomayor2024enterprise] |
+| [cite:@Mohammed_Abdul_2024] |
+| [cite:@Li_2024] |
+| [cite:@Wang_2024] |
+| [cite:@Wei_2023] |
+| [cite:@Augusto_2023] |
+| [cite:@Chen_2023] |
+| [cite:@Li_2023] |
+| [cite:@wang2023] |
+| [cite:@Belchior_2023] |
+| [cite:@Wu_2023] |
+| [cite:@Harris_2023] |
+| [cite:@Kotey_2023] |
+| [cite:@Chervinski_2023] |
+| [cite:@Mao_2023] |
+| [cite:@Wang_2022] |
+| [cite:@Sober_2022] |
+| [cite:@kang2022] |
+| [cite:@Ou_2022] |
+| [cite:@Pillai_2022] |
+| [cite:@Lohachab_2021] |
+| [cite:@Belchior_2021] |
+| [cite:@wang2021sok] |
 
 
