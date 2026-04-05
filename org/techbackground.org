@@ -2,6 +2,41 @@
 ** Systems and System Behaviour
 A *system* is formally composed of two major aspects: process and data. In this framework, processes serve as control mechanisms that runs and manipulates data. Meanwhile, data remains static and passively comprises the system [cite:@fokkink2007introduction]. The composition of these elements formsa structure that can perform operations according to specified rules [cite:@plotkin2004structural].
 The *behaviour* of a system refers to the sum of its ability to interact or communicate. A behaviour is *observable* because it can be seen from its outside operations; particularly, the interaction of the inputs it accepts and the outputs it produces [cite:@milner1989communication]. Every elementary step or operation that happens in the system is called *transition* that changes the system from its current configuration to another state [cite:@plotkin2004structural].
+
 A *Blockchain* is an example of a system that can be treated as a transaction-based *state machine* [cite:@wood2021ethereum]. In this view, the blockchain is not just a storage of information but a dynamic mechanism where transactions serve as inputs that result to transitions of the distributed ledger's state. Every succesful transaction creates new state that is formally accepted by the whole network. 
-The usage of *formal modelling* is critical in this topic in order to give sufficient mathematical evidence for the security and stability of interoperability systems. Formal modelling removes ambiguity and ensures the correctness in comparing asset-bsed and data-based mechanisms under one theoretical framework [cite:@Duan2018] [cite:@fokkink2007introduction].  
+The usage of *formal modelling* is critical in this topic in order to give sufficient mathematical evidence for the security and stability of interoperability systems. Formal modelling removes ambiguity and ensures the correctness in comparing asset-bsed and data-based mechanisms under one theoretical framework [cite:@Duan2018] [cite:@fokkink2007introduction].
+
+** Semantic Modelling Using Labelled Transition Systems (LTS)
+Labelled Transition System (LTS) is a fundamental mathematical structure used to model computations and dynamic behaviour of systems [cite:@vanBenthemBergstra1995]. In its formal definition, LTS is composed of a triple \[  ( S, A, \rightarrow ) \]:
+- \[ S \]: The set of states
+- \[ A \]: The set of atomic actions or labels including the silent action \[  \tau ]\ for internal operations
+- \[ \rightarrow\]: The transition relation \[ (s \xrightarrow{a} s{'}) \] that tells how the system changes from new state by means of action \[ a \].
+The *observable behaviour* of the system is composed of the *traces*. They are the series of actions from the starting state [cite:@Gorrieri_2017]. This formalism allows the abstraction from the inside implementation to the outside communication [cite:@plotkin2004structural]. These traces serve as the guidelines to analyse whether a protocol follows its intended semantic interoperability.
+
+It is important to notice when two systems with differing structure representation or graph can share the same behaviour [cite:@baeten1995concrete]. This concept is called *behavioural equivalence* wherein the states of different LTSs are treated as equal if they exhibit the same pattern of transitions such as what the theory of bisimulation describes [cite:@baeten1995concrete] [cite:@Gorrieri_2017]. This abstraction allows the inquiry of comparison of protocols for asset-based and data-based interoperability in blockchains without limiting particular details of their internal implementation [cite:@plotkin2004structural].
+
+Nevertheless, the simple usage of state transition graphs can lead to the problem of state explosion that makes formal verification difficult [cite:@vaandrager1986verification]. For this reason, there is a need to a more expressive framework that allows algebraic manipulation and composition of processes.
+
+** Process Algebra as a Modelling Framework
+*Process Algebra* serve as the main theoretical instrument of this research. The research will use it to formally analyse and manipulate operations of blockchains. This is illustrated as the study of concurrent systems or communicating systems inside an axiomatic and algebraic framework [cite:@bergstra1982fixed]  [cite:@fokkink2007introduction]. Instead of just using visual diagrams, processes are embodies as formal /process terms/ using a mathematical language that allows linear notation and mechanised manipulation [cite:@fokkink2007introduction].
+
+In this framework, every system's process  is composed of atomic actions (actions that has no duration) combined using the following operators:
+- *Sequential Composition \[ ( x \cdot y ) \]:* \[ x\] is perfomed first before \[ y \].
+- *Alternative Composition \[( x + y )\]:* symbolises the nondeterministic choice between \[ x \] and \[ y \] operations.
+- *Parallel Composition \[( x || y )\]:* symbolises the simultaneous execution of actions \[ x \] and \[ y \].
+
+A fundamental feature of process algebra is its *compositionality* wherein a large system can be treated as combined smaller and simpler parts [cite:@fokkink2007introduction]. Using the *parallel operator* (\[ || \]), individual blockchain network or protocol components can be modelled separately and then regouped to see the whole behaviour of the inter-operational system [cite:@fokkink2007introduction]. This modular technique allows the analysis of the connection between asset-based and data-based protocols as a series of concurrent processes [cite:@fokkink2007introduction].
+
+In order to identify whether an implementation of a protocol matches to its expected behaviour, the concept of *behavioural equivalence* is used; particularly, the *bisimulation* [cite:@fokkink2007introduction]. Under bisimulation, two process terms are treated as equal if they have the same /branching structure/ and ability to respond to outside stimuli even if they have different internal order [cite:@fokkink2007introduction]. This will serve as the guideline to verify if the /oberservable behaviours/ of different interoperability protocols are semantically equal.
+
+** Interoperability as System Composition
+In process theory, interoperability can be formally described as a composition of two or more systems that work together to achieve a particular goal [cite:@lalli2024]. Under the framework of Process Algebra, this communication  is symbolised by the parallel composition \[ (P || Q) \], wherein every blockchain network is treated as separate process that runs concurrently and independently from the other networks but with the ability to communicate to each other.
+
+The communication inside this composition is run by the mechanism of *synchronisation* [cite:@milner1989communication]. By means of a formal *communication function (\[ \gamma \])*, the individual actions of every blokchain gets to communicate. For example, the action that delivers the message \[ (send) \] from a system needs to match the action of receiving \[ (read) \] at the other system in order to complete a succefull communication. *Capsulation operator (\[ \partial_H \])* is used in order to ensure these internal actions do not happen alone but as a part if a synchronized communciation that causes transition to the state of the whole composition.
+
+The behaviour of the formed composition is treated as observable from the perspective of an outsider viewer [cite:@milner1989communication]. Using the *abstraction operator (\[ \tau_I \]),* the complex details of the internal communication between blockchains are hidden or made as /silent steps (\[ \tau \]),/ so that what only remains are the external input-output relation of the whole inter-operational system [cite:@fokkink2007introduction]. The resulting traces or series observable actions serve as the evidence if the operation of the composed systems remain consistent to the original semantic specification.
+
+This framework of formal composition gives way to formally analyse and compare the two ways of blockchain communications: the asset-based and data-based interoperability.
+
+
 
