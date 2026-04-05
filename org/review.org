@@ -32,7 +32,7 @@ As a system, asset-based interoperability comprises the following interdependent
 
 This shows that asset-based interoperability is a content-aware system. Meaning, it is necessary that the protocol knows the specific semantics of asset (e.g. ERC-20 standard) in order to ensure that the minted token is semantically equal to the original asset [cite:@Llambas2025] [cite:@Pillai_2022] [cite:@deng2025].
 
-*** Behavioural Patterns
+*** Behavioural Patterns: Logic of Ordering
 The observable behaviour of asset-based protocols follow a strict sequential execution flow. Based on existing formal models (such as Event-B analysis), the usual sequence follows:
 1. *Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
 2. *Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
@@ -41,13 +41,36 @@ The observable behaviour of asset-based protocols follow a strict sequential exe
 This shows that there is happens-before relationship. The mint transaction at the target chain has causal dependency on the lock transaction at the source chain [cite:@Llambas2025] . If this sequence is not followed, there is a risk of atomicity failure where there is a possibility of minting assets that are not locked; resulting to double-spending [cite:@Llambas2024patterns] [cite:@Belchior_2023] [cite:@deng2025] [cite:@Li_2023].
 
 *** Invariants and Safety Guarantees
-The major invariant that safeguards this system is the Global Supply Invariant. This refers to maintaning a constant value to the overall count of asset units in all networks.
+The major invariant that safeguards this system is the Global Supply Invariant. This refers to maintaning a constant value to the overall count of asset units in all networks [cite:@Pillai_2022] [cite:@Li_2023] [cite:@Bigiotti2025].
 
-It is critical that the safety (no bad behaviour or duplication) of asset-based protocols gets prioritised over the liveness (fast  termination). Because of this, the observable behaviour has long confirmation periods (to wait the finality from the source chain) and competition periods (for fraud proofs). These delays are not just performance issue but a behavioural necessity in order to protect the atomicity of the system.
+It is critical that the safety (no bad behaviour or duplication) of asset-based protocols gets prioritised over the liveness (fast  termination) [cite:@Llambas2025] [cite:@Bigiotti2025]. Because of this, the observable behaviour has long confirmation periods (to wait the finality from the source chain) and competition periods (for fraud proofs) [cite:@deng2025] [cite:@wang2021sok] [cite:@Wang_2023] [cite:@Mao_2023]. These delays are not just performance issue but a behavioural necessity in order to protect the atomicity of the system [cite:@Chervinski_2023] [cite:@lu2024atomicity] [cite:@Cheng_2024].
 
-Nevertheless, this behaviour results to capital inefficiency. That is because of the locking of assets, the liquidity gets trapped in the contracts, that serves as a big limitation that is not usually seen in data-based approaches. This creates the gap in the literature where even though the safety of asset transfers can be formally modelled, there is insufficient comparison if this strict ordering is also needed for arbitrary data exchange.
+Nevertheless, this behaviour results to capital inefficiency [cite:@soureshjani2026] [cite:@Mohammed_Abdul_2024] [cite:@Li2025]. That is because of the locking of assets, the liquidity gets trapped in the contracts, that serves as a big limitation that is not usually seen in data-based approaches [cite:@soureshjani2026] [cite:@deng2025] [cite:@augusto2025]. This creates the gap in the literature where even though the safety of asset transfers can be formally modelled, there is insufficient comparison if this strict ordering is also needed for arbitrary data exchange [cite:@Llambas2025] [cite:@Llambas2024eventb].
 
 ** Data-Based Interoperability
+Unlike asset-based interoperability where it is illustrated as a mechanism of changing ownership, the literature describes data-based interoperability as a decentralised communication system [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@Kotey_2023]. If asset-based focuses on liquidity, data-based on the other hand focuses on the arbitrary message passimg (AMP). This is a mechanism where the system acts as a transport layer for whatever type of information [cite:@Delgado_von_Eitzen_2025] [cite:@augusto2025].
+
+*** System Perspective: The TCP/IP of Blockchains
+Being a communication system, its architecture comprises of the following interdependent components:
+*Chains and Modules:* Every blockchain hosts modules or handlers (smart contracts). They serve as entry and exit points of data [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023].
+*Relayers and Connectors:* Since blockchains are isolated islands and incapable of sending data natively, they need off-chain relayers (such as Hermes) that scans blocks for pending messages and transfer them to the target chain [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023].
+*Channels and Connections:* These are the stateful abstractions that maintains logical link between two chains that gives ordering and authentication to packets [cite:@Bigiotti2025] [cite:@wei2023formal].
+
+The literature sees the system as a payload-agnostic service. This shows that the protocols do not care whether what is inside the packets is a token transfer or a complex smart contract call. Its purpose is to ensure that the opaque bytes are delivered with integrity [cite:@Kotey_2023] [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023] [cite:@Bigiotti2025].
+
+*** Behavioural Patterns: Handshake and Asynchrony
+The observable behaviour of data-based interoperability is guided  by handshake protocols and asynchronous execution [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@Wei_2023].
+*Handshake Process:* This is unlike the simple lock-and-mint; data-based systems follows a strict 4-step handshake (OpenInit -> OpenTry -> OpenAck -> OpenConfirm) in order to establish a connection [cite:@Bigiotti2025] [cite:@Wei_2023]. This behaviour is needed to ensure that both chains are ready to accept data under the same security assumptions [cite:@Wei_2023].
+*Asynchronous Message Passing:* The interaction here is non-blocking. The source chain delivers a message and can proceed to other operations while the packet is in-flight [cite:@lu2024atomicity] [cite:@Bigiotti2025]. The success of the interaction depends on Acknowledgements (ACK) or Timeouts. They are observable events that dictates if an operation is deemed Delivered or Expired [cite:@Chervinski_2023] [cite:@Wei_2023].
+
+*** Comparison to Asset-Based Interoperability
+The fundamental difference between the two is rooted on their interaction logic:
+1. *State-Dependent vs. Instruction-Dependent:* Unlike the asset-based that depends on state provenance (it needs the verification of the lock state before minting), data-based behaviour is instruction-dependent [cite:@Wang_2022] [cite:@deng2025]. Its aim is to trigger a functionality in the target system that will work under its own rules [cite:@wang2021sok] [cite:@Belchior_2021].
+2. *Atomicity vs. Eventual Delivery:* In asset transfers, atomicity is commonly all-or-nothing under a capital constraint [cite:@Pillai_2022] [cite:@Belchior_2023]. Meanwhile, in data exchange, it prioritises liveness and delivery guarantees. It means that every message should have a definite result (accepted or timeout) inside the asynchronous network [cite:@Bigiotti2025] [cite:@Pillai_2022] [cite:@Wei_2023].
+
+ The behaviour here depends on the reliabilit of the transport layer. Nonetheless, the critique in the current literature is the dependency of these systems to untrusted layers [cite:@Wei_2023] [cite:@Delgado_von_Eitzen_2025]. Formal analyses (such as the TLA+) shows that even the standardized protocols can have trapped packets or incomplete handshakes if the relayers' behaviour cannot be properly modelled [cite:@wei2023formal]. This pushed the need for deeper comparative semantic analysis to see how it is possible to converge the safety of assets and the liveness of data in one behavioural model.
+
+** 
 
 
 #+CAPTION: Matrix
