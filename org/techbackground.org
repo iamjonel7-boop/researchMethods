@@ -1,49 +1,7 @@
 * Theoretical Framework
-This section establishes concepts and theories that support the investigation of this research.
-
-
-Interoperability allows a set of systems to cooperate, to achieve a common goal.  In other words, it is “the ability of two
-or more systems to cooperate despite differences in language, interface, and execution platforms”  [cite:@Belchior_2023].
-
-Interoperability is the capacity of diverse systems, units, or components to seamlessly exchange information, services, data, utilising this exchanged content in a meaningful, effective, and efficient manner. Semantic interoperability enables systems to exchange information with a shared understanding of meaning, context, and purpose. It ensures that data, concepts, knowledge,  are interpreted consistently across different systems, cultures, and domains. this includes the alignment of conceptual modes, the shared understanding of data within ecosystems, and the ability to transfer knowdlege across heterogeneous environments [cite:@lalli2024].
-
-Semantic interoperability is the coordinated execution between two or more blockchain systems that results in a consistent and intended state change across those systems, preserving the semantics of the transferred entity (asset or data).
-
-# should dive into interoperability already
-A blockchain is a system from which one can observe certain behaviour. This behaviour or process refers to the totally of the discrete actions that such system executes [cite:@baeten2009process]. Take for example the Bitcoin, 
-
-A system's behaviour, then, consists of processes and data [cite:@plotkin2004structural] [cite:@fokkink2007introduction].
-Processes are the control mechanisms of data. Processes are active and data are passive [cite:@fokkink2007introduction].
-
-A process term 
-
-two process terms can be equated if and only if their graphs behaviourally equivalent [cite:@fokkink2007introduction].
-
-System behaviour can be modelled as input output function.
-
-Modelling systems 
-
-Automata theory models process as an automaton. This has a number of states and transitions that connects state to another state. An automaton also has one or more initial states and a number of final states.
-
-When two automaton have the same set of runs called its language, they are semantically equivalent [cite:@baeten2009process].
-
-Transition System is an operation method of specifying semantics  based on syntactic transfromations of programs and simple operations on discrete data [cite:@plotkin2004structural].
-By adding an information regarding transitions, transition system becomes a labelled transition system.
-
-Two LTS may be instances of the same process [cite:@vanBenthemBergstra1995].
-
-distributed system.
-Main feature is that the global state of a system is composed of a collection of local states, communication takes place through message passing, no global memory shared by components; other features include like heterogenuity of components, possible independet failure of components, absence of a global clock, scalability etc. [cite:@Gorrieri_2017].
-
-
-The problem with automata is the notion of interaction that happens in a distributed system.
-
-Operations can be defined to work with processes [cite:@baeten2009process]. 
-
-concurrency theory
-
-# We also need to be able to differentiate asset and data transfer 
-
-
-
+** Systems and System Behaviour
+A *system* is formally composed of two major aspects: process and data. In this framework, processes serve as control mechanisms that runs and manipulates data. Meanwhile, data remains static and passively comprises the system [cite:@fokkink2007introduction]. The composition of these elements formsa structure that can perform operations according to specified rules [cite:@plotkin2004structural].
+The *behaviour* of a system refers to the sum of its ability to interact or communicate. A behaviour is *observable* because it can be seen from its outside operations; particularly, the interaction of the inputs it accepts and the outputs it produces [cite:@milner1989communication]. Every elementary step or operation that happens in the system is called *transition* that changes the system from its current configuration to another state [cite:@plotkin2004structural].
+A *Blockchain* is an example of a system that can be treated as a transaction-based *state machine* [cite:@wood2021ethereum]. In this view, the blockchain is not just a storage of information but a dynamic mechanism where transactions serve as inputs that result to transitions of the distributed ledger's state. Every succesful transaction creates new state that is formally accepted by the whole network. 
+The usage of *formal modelling* is critical in this topic in order to give sufficient mathematical evidence for the security and stability of interoperability systems. Formal modelling removes ambiguity and ensures the correctness in comparing asset-bsed and data-based mechanisms under one theoretical framework [cite:@Duan2018] [cite:@fokkink2007introduction].  
 
