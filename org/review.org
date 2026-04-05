@@ -1,3 +1,5 @@
+#+LATEX_HEADER: \usepackage{booktabs}
+
 * Review of Related Literature
 This section begins with presenting the highest number of works done in the literature that mostly aims to systematise the knowledge in blockchain interoperability. Then, follows the discussion on formalisations done in the literature in specifying blockchains and their existing interoperability solutions. The formalisation of the semantic behind these interoperability solutions  immediately comes after. These literatures then expose to view the gap that this research aims to address.
 
@@ -353,44 +355,9 @@ state-transition models and invariant analysis to ensure that both
 economic and computational safety can be proven across heterogeneous
 domains.
 
-#+BEGIN_COMMENT
-| Citation                         | Primary Focus      | Arch                                 | Formal?          | Invariants               | Asset Props                                                          | Data Props                                       | Semantic?     | Gap                                                          |
-|----------------------------------+--------------------+--------------------------------------+------------------+--------------------------+----------------------------------------------------------------------+--------------------------------------------------+---------------+--------------------------------------------------------------|
-| Citation                         | Primary Focus      | Arch                                 | Formal?          | Invariants               | Asset Props                                                          | Data Props                                       | Semantic?     | Gap                                                          |
-|                                  |                    |                                      |                  |                          |                                                                      |                                                  |               |                                                              |
-| [cite:@oraclizer2026starting]    | Data interop       | D-quencer                            | Functor          | Regulatory homomorphism  | ---                                                                  | Structural preservation                          | Yes           | Regulatory consistency                                       |
-| [cite:@chaidos2026crossing]      | Asset interop      | Threshold sig                        | UC/Quint         | Knowledge soundness      | ---                                                                  | Integrity                                        | No            | Primitive idealization                                       |
-| [cite:@Li2025]                   | Both               | Network, Transaction, Contract layer | No (Survey)      | ACID                     | locking and minting, atomic cross-chain exchange, liquidity exchange | cross-chain smart contracts, cross-chain oracles | feature based | Lack of well defined artifact.                               |
-| [cite:@Bigiotti2025]             | Agnostic Protocols | Hub/Oracle                           | No (Survey)      | ACID                     | Supply Preservation                                                  | Integrity                                        | Yes           | Formalisation and Private Chains                             |
-| [cite:@maric2025bridge]          | Asset interop      | Relay                                | Isabelle/HOL     | Value Conservation       | locked = deposit + released                                          | ---                                              | No            | Liquidity verification tools                                 |
-| [cite:@hojer2025automated]       | General interop    | General                              | SMT/MC           | Safety, liveness         | Incentives                                                           | Ordering                                         | No            | Scalability, compositionality                                |
-| [cite:@belenkov2025review]       | Asset interop      | Bridges                              | ---              | ---                      | ---                                                                  | ---                                              | No            | Bridge hack analysis (2023)                                  |
-| [cite:@sottomayor2024enterprise] | Both               | Gateways                             | Archimate/RDF    | State legality           | Portability                                                          | Contextual meaning                               | Yes           | Semantic layer solutions lacking                             |
-| [cite:@liu2024accounting]        | Asset interop      | Bridges                              | ---              | Balance Invariant        | outflow = inflow-costs                                               | ---                                              | No            | Inline invariant monitors                                    |
-| [cite:@zheng2024xsema]           | Both               | Bridges                              | Graph motif      | Motif distribution       | Transfer patterns                                                    | Textual features                                 | Yes           | Cross-chain diversity                                        |
-| [cite:@lohachab2024logic]        | Both               | HF/MHN                               | Alloy/LTS        | Safety, fairness         | Ownership surjectivity                                               | Multi-ledger consistency                         | Yes           | Holistic analysis lacking                                    |
-| [cite:@chen2024demystifying]     | Both               | Smart contracts                      | ---              | Token flow bounds        | Money flow limits                                                    | Data constraints                                 | Implicit      | Cross-contract invariants                                    |
-| [cite:@braghin2024modeling]      | Asset interop      | EVM                                  | ASMETA           | Non-negative balance     | Money amount                                                         | ---                                              | No            | Scalability, interpretability                                |
-| [cite:@cao2024security]          | Asset interop      | PoW                                  | Stochastic       | Disagreement probability | Double-spend prevention                                              | ---                                              | No            | ---                                                          |
-| [cite:@lu2024atomicity]          | Both               | Bridges                              | ASM              | Atomicity                | Swap value                                                           | ACK/RPC                                          | No            | Inter-chain abstractions                                     |
-| [cite:@eu2023interoperability]   | Both               | Bridges/ Hubs                        | IBC/ Atomic Swap | No                       | Fungibility, Market Penetration                                      | Credentials, Operational Data                    | Yes           | Regulatory, legal frameworks around cross-chain interactions |
-| [cite:@wang2023]                 | Design Principles  | Chain, Bridge, DApp-based            | No (Surver/SoK)  | ACID, SALT               | Token Transfers, Migration                                           | State Transfer, Integrity                        | Feature-Based | Survivability, Lack of Global Standards                      |
-| [cite:@wei2023formal]            | Data interop       | IBC                                  | TLA+             | Exactly-once safety      | ---                                                                  | Ordering, commitment                             | No            | Design-level errors                                          |
-| [cite:@zhang2023sok]             | Both               | Trusted/ Native                      | ---              | ---                      | :1 peg                                                               | State headers                                    | No            | Attack taxonomy (12 pits)                                    |
-| [cite:@eu2023interoperability]   | Both               | Bridges/ Hubs                        | ---              | ---                      | Fungibility                                                          | Operational data                                 | Yes           | Regulatory frameworks                                        |
-| [cite:@grundmann2023towards]     | Asset interop      | Sidechain                            | TLA+             | Refinement safety        | Value transfer                                                       | ---                                              | No            | State space explosion                                        |
-| [cite:@chervinski2023analyzing]  | Data interop       | Cosmos Hub                           | ---              | ---                      | Token minting                                                        | Event logging                                    | No            | Cross-system state tracking                                  |
-| [cite:@bonomi2022sok]            | Asset interop      | Consensus                            | SMR abstraction  | User fairness            | Consistent semantics                                                 | ---                                              | No            | User fairness missing                                        |
-| [cite:@maven112022beyond]        | Data interop       | Modular                              | ---              | ---                      | ---                                                                  | State verification                               | No            | Interchain MEV                                               |
-| [cite:@xie2022zkbridge]          | Both               | Relay                                | ZK-SNARK         | Soundness                | Token transfers                                                      | Message passing                                  | No            | Performance/ trust tradeoffs                                 |
-| [cite:@belchior2021survey]       | Both               | Public/ BoB                          | ---              | ---                      | Asset portability                                                    | Arbitrary data                                   | Yes           | Semantic interoperability                                    |
-| [cite:@Robinson2021]             | General interop    | Relay/ Sidechain                     | ---              | ---                      | Asset exchange                                                       | Contract impl.                                   | No            | ---                                                          |
-| [cite:@Pillai2021]               | Asset interop      | Not specified                        | TLA+             | Safety, finality         | Ownership transfer                                                   | ---                                              | No            | ---                                                          |
-| [cite:@sun2020formal]            | Asset interop      | EVM                                  | Coq/Gallina      | Total Supply Invariance  | SumMap = totalSupply                                                 | ---                                              | No            | Proof automation                                             |
-| [cite:@Duan2018]                 | Formal Modelling   | Hierarchical Modelling               | Telelogic Tau    | Safety and Security      | integer type abstraction                                             | structural integrity                             | No            | lack of specification detail                                 |
-#+caption: Summary of reviewed literature on blockchain interoperability
-(2020-2026)
-#+END_COMMENT
+
+
+
 
 The table shows that from 2021 to 2023, the studies are more focus on
 the technical taxonomies and the empirical verification of specific
@@ -403,3 +370,49 @@ themselves. They are operating in silos. We see that asset papers
 discuss value conservation while the data papers discuss message
 integrity. Only a small percentage, approximately 20 papers, tried to
 provide a semantic distinction between the two.
+
+#+CAPTION: Matrix
+#+ATTR_LATEX: :environment longtable :align |l|l|l|l|l|
+| Citation | Type | Interoperability Type | Formalisation | Limitations |
+| [cite:@soureshjani2026] | Survey/Protocol Design | Asset  | |  |
+[cite:@Notland_2026]
+[cite:@Caetano_da_Silva_2025]
+[cite:@augusto2025]
+[cite:@Li2025]
+[cite:@Delgado_von_Eitzen_2025]
+[cite:@kishore2025interoperability]
+[cite:@deng2025]
+[cite:@A_Alzahrani_2025]
+[cite:@Hassan_2025]
+[cite:@Kumar_2025]
+[cite:@Llamb_as_2025]
+[cite:@Bigiotti2025]
+[cite:@lu2024atomicity]
+[cite:@Llambas2024patterns]
+[cite:@Llamb_as_2024]
+[cite:@Cheng_2024]
+[cite:@sottomayor2024enterprise]
+[cite:@Mohammed_Abdul_2024]
+[cite:@Li_2024]
+[cite:@Wang_2024]
+[cite:@Wei_2023]
+[cite:@Augusto_2023]
+[cite:@Chen_2023]
+[cite:@Li_2023]
+[cite:@wang2023]
+[cite:@Belchior_2023]
+[cite:@Wu_2023]
+[cite:@Harris_2023]
+[cite:@Kotey_2023]
+[cite:@chervinski2023analyzing]
+[cite:@Mao_2023]
+[cite:@Wang_2022]
+[cite:@Sober_2022]
+[cite:@kang2022]
+[cite:@Ou_2022]
+[cite:@Pillai_2022]
+[cite:@Lohachab_2021]
+[cite:@Belchior_2021]
+[cite:@wang2021sok]
+
+
