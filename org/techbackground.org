@@ -7,10 +7,14 @@ A *Blockchain* is an example of a system that can be treated as a transaction-ba
 The usage of *formal modelling* is critical in this topic in order to give sufficient mathematical evidence for the security and stability of interoperability systems. Formal modelling removes ambiguity and ensures the correctness in comparing asset-bsed and data-based mechanisms under one theoretical framework [cite:@Duan2018] [cite:@fokkink2007introduction].
 
 ** Semantic Modelling Using Labelled Transition Systems (LTS)
-Labelled Transition System (LTS) is a fundamental mathematical structure used to model computations and dynamic behaviour of systems [cite:@vanBenthemBergstra1995]. In its formal definition, LTS is composed of a triple \[  ( S, A, \rightarrow ) \]:
-- \[ S \]: The set of states
-- \[ A \]: The set of atomic actions or labels including the silent action \[  \tau ]\ for internal operations
-- \[ \rightarrow\]: The transition relation \[ (s \xrightarrow{a} s{'}) \] that tells how the system changes from new state by means of action \[ a \].
+Labelled Transition System (LTS) is a fundamental mathematical structure used to model computations and dynamic behaviour of systems [cite:@vanBenthemBergstra1995]. In its formal definition, LTS is composed of a triple $( S, A, \rightarrow )$:
+
+\[ \begin{aligned}
+S : \text{set of states} \\
+A : \text{set of atomic actions or labels including the silent action}  \tau \text{for internal operations} \\
+\rightarrow: \text{transition relation}  (s \xrightarrow{a} s{'}) \text{ that tells how the system changes from new state by means of action} a
+\end{aligned} \]
+
 The *observable behaviour* of the system is composed of the *traces*. They are the series of actions from the starting state [cite:@Gorrieri_2017]. This formalism allows the abstraction from the inside implementation to the outside communication [cite:@plotkin2004structural]. These traces serve as the guidelines to analyse whether a protocol follows its intended semantic interoperability.
 
 It is important to notice when two systems with differing structure representation or graph can share the same behaviour [cite:@baeten1995concrete]. This concept is called *behavioural equivalence* wherein the states of different LTSs are treated as equal if they exhibit the same pattern of transitions such as what the theory of bisimulation describes [cite:@baeten1995concrete] [cite:@Gorrieri_2017]. This abstraction allows the inquiry of comparison of protocols for asset-based and data-based interoperability in blockchains without limiting particular details of their internal implementation [cite:@plotkin2004structural].
@@ -21,22 +25,33 @@ Nevertheless, the simple usage of state transition graphs can lead to the proble
 *Process Algebra* serve as the main theoretical instrument of this research. The research will use it to formally analyse and manipulate operations of blockchains. This is illustrated as the study of concurrent systems or communicating systems inside an axiomatic and algebraic framework [cite:@bergstra1982fixed]  [cite:@fokkink2007introduction]. Instead of just using visual diagrams, processes are embodies as formal /process terms/ using a mathematical language that allows linear notation and mechanised manipulation [cite:@fokkink2007introduction].
 
 In this framework, every system's process  is composed of atomic actions (actions that has no duration) combined using the following operators:
-- *Sequential Composition \[ ( x \cdot y ) \]:* \[ x\] is perfomed first before \[ y \].
-- *Alternative Composition \[( x + y )\]:* symbolises the nondeterministic choice between \[ x \] and \[ y \] operations.
-- *Parallel Composition \[( x || y )\]:* symbolises the simultaneous execution of actions \[ x \] and \[ y \].
+*Sequential Composition $( x \cdot y )$:* $x$ is perfomed first before $y$.
+*Alternative Composition $( x + y )$:* symbolises the nondeterministic choice between $x$ and $y$ operations.
+*Parallel Composition $( x || y )$:* symbolises the simultaneous execution of actions $x$ and $y$.
 
-A fundamental feature of process algebra is its *compositionality* wherein a large system can be treated as combined smaller and simpler parts [cite:@fokkink2007introduction]. Using the *parallel operator* (\[ || \]), individual blockchain network or protocol components can be modelled separately and then regouped to see the whole behaviour of the inter-operational system [cite:@fokkink2007introduction]. This modular technique allows the analysis of the connection between asset-based and data-based protocols as a series of concurrent processes [cite:@fokkink2007introduction].
+A fundamental feature of process algebra is its *compositionality* wherein a large system can be treated as combined smaller and simpler parts [cite:@fokkink2007introduction]. Using the *parallel operator* ($||$), individual blockchain network or protocol components can be modelled separately and then regouped to see the whole behaviour of the inter-operational system [cite:@fokkink2007introduction]. This modular technique allows the analysis of the connection between asset-based and data-based protocols as a series of concurrent processes [cite:@fokkink2007introduction].
 
 In order to identify whether an implementation of a protocol matches to its expected behaviour, the concept of *behavioural equivalence* is used; particularly, the *bisimulation* [cite:@fokkink2007introduction]. Under bisimulation, two process terms are treated as equal if they have the same /branching structure/ and ability to respond to outside stimuli even if they have different internal order [cite:@fokkink2007introduction]. This will serve as the guideline to verify if the /oberservable behaviours/ of different interoperability protocols are semantically equal.
 
 ** Interoperability as System Composition
-In process theory, interoperability can be formally described as a composition of two or more systems that work together to achieve a particular goal [cite:@lalli2024]. Under the framework of Process Algebra, this communication  is symbolised by the parallel composition \[ (P || Q) \], wherein every blockchain network is treated as separate process that runs concurrently and independently from the other networks but with the ability to communicate to each other.
+In process theory, interoperability can be formally described as a composition of two or more systems that work together to achieve a particular goal [cite:@lalli2024]. Under the framework of Process Algebra, this communication  is symbolised by the parallel composition $(P || Q)$, wherein every blockchain network is treated as separate process that runs concurrently and independently from the other networks but with the ability to communicate to each other.
 
-The communication inside this composition is run by the mechanism of *synchronisation* [cite:@milner1989communication]. By means of a formal *communication function (\[ \gamma \])*, the individual actions of every blokchain gets to communicate. For example, the action that delivers the message \[ (send) \] from a system needs to match the action of receiving \[ (read) \] at the other system in order to complete a succefull communication. *Capsulation operator (\[ \partial_H \])* is used in order to ensure these internal actions do not happen alone but as a part if a synchronized communciation that causes transition to the state of the whole composition.
+The communication inside this composition is run by the mechanism of *synchronisation* [cite:@milner1989communication]. By means of a formal *communication function ($\gamma$)*, the individual actions of every blokchain gets to communicate. For example, the action that delivers the message $(send)$ from a system needs to match the action of receiving $(read)$ at the other system in order to complete a succefull communication. *Capsulation operator ($\partial_H$)* is used in order to ensure these internal actions do not happen alone but as a part if a synchronized communciation that causes transition to the state of the whole composition.
 
-The behaviour of the formed composition is treated as observable from the perspective of an outsider viewer [cite:@milner1989communication]. Using the *abstraction operator (\[ \tau_I \]),* the complex details of the internal communication between blockchains are hidden or made as /silent steps (\[ \tau \]),/ so that what only remains are the external input-output relation of the whole inter-operational system [cite:@fokkink2007introduction]. The resulting traces or series observable actions serve as the evidence if the operation of the composed systems remain consistent to the original semantic specification.
+The behaviour of the formed composition is treated as observable from the perspective of an outsider viewer [cite:@milner1989communication]. Using the *abstraction operator ($\tau_I$),* the complex details of the internal communication between blockchains are hidden or made as /silent steps ($\tau$),/ so that what only remains are the external input-output relation of the whole inter-operational system [cite:@fokkink2007introduction]. The resulting traces or series observable actions serve as the evidence if the operation of the composed systems remain consistent to the original semantic specification.
 
 This framework of formal composition gives way to formally analyse and compare the two ways of blockchain communications: the asset-based and data-based interoperability.
 
+** Distinction Between Asset-Based and Data-Based Interoperability
+In order to analyse the semantic behaviour of interoperability protocols, it is important to identify the difference between the two major category of interation in blockchain: asset-based and data-based interoperability.
+
+Asset-based interoperability is formally illustrated as a mechanism to transfer ownership or value between different blockchain network. Under this model, a digital asset, like cryptocurrency, is formally burned or locked from its source chain in order to create an equal value at its destination chain. The primary goal here is the maintaining of the linear logic of the value wherein one asset cannot exit simultaneously in two different systems.
+
+On the other hand, data-based interoperability is focused on the exhange of information or arbitrary data without needing to have a definite value. This type of interoperability allows a blockchain to read or verify the state of other blockchain, which is usually used to trigger *smart contract invocation*. Instead of transferring ownership, its focus is the delivery of messages from an external source towards an on-chain environment which is usually run by mechanisms like Oracle.
+
+This difference leads to different behavioural implication for each protocol. In asset-based interoperability, the behaviour of the system is critcally tied to atomicity or the guarantee that the whole transaction between chains will be all successful or failure in order to avoid losing of value. In data-based interoperability, the behaviour is focused on semantic consistency and data integrity, wherein the goal is to make sure that the
+message received by the destination chain is authentic and true to its representation in the original state from where it came from.
+
+The understanding of this difference will lead way to the creation of a formal model that will analyse their transitions. 
 
 
