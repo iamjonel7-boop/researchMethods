@@ -34,9 +34,9 @@ This shows that asset-based interoperability is a content-aware system. Meaning,
 
 *** Behavioural Patterns: Logic of Ordering
 The observable behaviour of asset-based protocols follow a strict sequential execution flow. Based on existing formal models (such as Event-B analysis), the usual sequence follows:
-1. *Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
-2. *Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
-3. *Mint/Claim:* Producing of an equal value at the target chain [cite:@Llambas2025] [cite:@Sober_2022] [cite:@Li2025].
+ *Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
+ *Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
+ *Mint/Claim:* Producing of an equal value at the target chain [cite:@Llambas2025] [cite:@Sober_2022] [cite:@Li2025].
 
 This shows that there is happens-before relationship. The mint transaction at the target chain has causal dependency on the lock transaction at the source chain [cite:@Llambas2025] . If this sequence is not followed, there is a risk of atomicity failure where there is a possibility of minting assets that are not locked; resulting to double-spending [cite:@Llambas2024patterns] [cite:@Belchior_2023] [cite:@deng2025] [cite:@Li_2023].
 
@@ -65,8 +65,8 @@ The observable behaviour of data-based interoperability is guided  by handshake 
 
 *** Comparison to Asset-Based Interoperability
 The fundamental difference between the two is rooted on their interaction logic:
-1. *State-Dependent vs. Instruction-Dependent:* Unlike the asset-based that depends on state provenance (it needs the verification of the lock state before minting), data-based behaviour is instruction-dependent [cite:@Wang_2022] [cite:@deng2025]. Its aim is to trigger a functionality in the target system that will work under its own rules [cite:@wang2021sok] [cite:@Belchior_2021].
-2. *Atomicity vs. Eventual Delivery:* In asset transfers, atomicity is commonly all-or-nothing under a capital constraint [cite:@Pillai_2022] [cite:@Belchior_2023]. Meanwhile, in data exchange, it prioritises liveness and delivery guarantees. It means that every message should have a definite result (accepted or timeout) inside the asynchronous network [cite:@Bigiotti2025] [cite:@Pillai_2022] [cite:@Wei_2023].
+ *State-Dependent vs. Instruction-Dependent:* Unlike the asset-based that depends on state provenance (it needs the verification of the lock state before minting), data-based behaviour is instruction-dependent [cite:@Wang_2022] [cite:@deng2025]. Its aim is to trigger a functionality in the target system that will work under its own rules [cite:@wang2021sok] [cite:@Belchior_2021].
+ *Atomicity vs. Eventual Delivery:* In asset transfers, atomicity is commonly all-or-nothing under a capital constraint [cite:@Pillai_2022] [cite:@Belchior_2023]. Meanwhile, in data exchange, it prioritises liveness and delivery guarantees. It means that every message should have a definite result (accepted or timeout) inside the asynchronous network [cite:@Bigiotti2025] [cite:@Pillai_2022] [cite:@Wei_2023].
 
  The behaviour here depends on the reliabilit of the transport layer. Nonetheless, the critique in the current literature is the dependency of these systems to untrusted layers [cite:@Wei_2023] [cite:@Delgado_von_Eitzen_2025]. Formal analyses (such as the TLA+) shows that even the standardized protocols can have trapped packets or incomplete handshakes if the relayers' behaviour cannot be properly modelled [cite:@wei2023formal]. This pushed the need for deeper comparative semantic analysis to see how it is possible to converge the safety of assets and the liveness of data in one behavioural model.
 
