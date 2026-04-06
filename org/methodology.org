@@ -1,11 +1,93 @@
 * Methodology
-# insert the conceptual framework here
-This section outlines the actions taken in this research which comes in the form of computational approach. That is, given intuitions concerning processes and equivalences, design some appropriate language respecting the latter [cite:@vanBenthemBergstra1995].
+The research methodology comprises multi-stage pipeline. It will systematically process interoperability protocols from the technical specifications towards the formal mathematical verification. Every stage in this methodology is treated as sequential and dependent; the success of every following stage directly follows from the output of the previous stage. This ensures the logical connection of the whole process.
+** Formal Specification of Interoperability Protocols
+The goal of this stage is to create a strict representation of representative protocols using algebraic language. This formalisation is important to remove details of their implementation that have no connection to the semantic behaviour. This allows comparison between asset-based and data-based mechanism.
 
-The research begins with the selection of interoperability mechanisms.
+*** Select Representative Protocols
+Protocols that have wide adoptation and formal documentation will be used. For asset-based, Hashed Time-Lock Contracts (HTLC) is considered because it serves as the de-facto guideline for atomic swap. For data-based, Oracle-based Message Relay is considered because of its fundamental paper in delivering external data towards blockchains.
 
-Next is the extraction of operational behaviours from each protocol.
+*** Identify Actions
+Identify the elementary operations that makes up each protocol: *Asset-Based $(A_{asset})$:* /lock/ (locking of asset), /unlock/ (moving asset out using secret), /refund/ (returning of token after a timeout). *Data-based $(A_{data})$:* /request/ (asking of data), /verify/ (confirmation of data integrity), /relay/ (delivery of proven message to destination chain). Let:
+\[ D: \text{set of data (assets or messages)} \]
+\[ P: \text{set of ports (e.g., source chain, relayer, destination chain)} \]
+Then:
+\[ A = {s_p(d), r_p(d) | d \in D, p \in P} \]
+Protocol specific actions are mapped into this structure:
+Asset-based:
+\[ lock \rightarrow s_p(d) \]
+\[ unlock \rightarrow c_p(d) \text{ (succesful transfer)} \]
+\[ refund \rightarrow s_p(d) \text{ (reverse flow)} \]
+Data-based:
+\[ request \rightarrow s_p(d) \]
+\[ verify \rightarrow \text{ internal communication} \]
+\[ relay \rightarrow c_p(d) \]
 
-Then formal modelling using process algebra and LTS
+*** Encode Process
+Form the logical protocol using the following operators:
+*Sequential ($\cdot$):* To signify strict sequential process.
+*Alternative ($+$):* To model branching of decision.
+*Parallel ($||$):* To model interaction between two different blockchain ledger.
+System components (e.g., sender, channel, receiver) are modelled as separate processes and composed as:
+\[ S || K || R || L \]
 
-Lastly, equivalence analysis.
+*** Encapsulation and Abstraction
+To control system visibility:
+*Encapsulation set:*
+\[ H = {s_p(d), r_p(d) | p \text{ is internal}} \]
+Ensures that unmatched actions are blocked.
+*Abstraction set:*
+\[ I = {c_p(d) | p \text{ is internal}} \]
+Internal communications are hidden as silent steps ($\tau$).
+
+*** Final System Representation
+The complete system can be expressed as:
+\[ \tau_I(\partial_H(S || K || R || L)) \]
+This serves as the implementation model (IMP) that will be used for analysis.
+
+** Semantic Extraction Using Labelled Transition System
+The goal of this stage is to give the process terms made from the preceding stage formal interpretation using Labelled Transition System (LTS). Through this, every algebraic term will have its corresponding dynamic model that shows all possible observable behaviour of the system.
+
+*** Lay out Structural Operational Semantics (SOS)
+SOS will be used in order to see the meaning of every operator in the process algebra using inference rules. Every rule is composed of premise and one conclusion:
+\[ \frac{premises}{conclusion} \]
+
+*** Construct the LTS Model
+For every specific protocol, LTS will be formed as a triple \[ (S, A, \rightarrow) \]:
+
+*States $(S)$:* set of states comprising the original process term and all terms that can be achieved from it (reachable states).
+*Labels $(A)$:* labels of transition that refers to atomic actions that the system executes.
+*Transition $(\rightarrow)$:* relation of transition $(s \xrightarrow{a} s')$ that shows change from one state to the another after the action $(a)$.
+*pLTS* will be used when probabilisq behavious is included: captures message loss, corruption, and nondeterminism.
+
+*** Extract Traces at Reachable States
+*Reflexive States:* reflexive transitive closure $(\rightarrow*)$ to identify all possible states that can be reached by the protocol from the starting state.
+*Traces:* get the finite sequences of actions \[ a_1, a_2, ..., a_n \] that the system executed in order to illustrate the totally of its oberservable behaviour.
+
+** Description of Observable Behaviour
+The goal of this stage is to formally identify the oberservable behaviour of the interoperability protocols using the extraction of traces and execution paths from the LTS mdoels. This survey will serve as the basis of comparison of asset-based and data-based mechanims at the noticeable level of their connecition.
+*** Give meaning to Observable
+The behaviour of a system is tread as oberservable if this comprises actions that can be seen or experience by an outside observer or adjacent system by means of communication. An observable behaviour is formally defined as an external specification (SPEC) that remains after applying the *abstraction operator ($\tau_I$)* in an implementation (IMP) [cite:@Vaandrager_1990]. In this methodology, the internal connections between chains are treated as *hidden actions* and are made as silent steps ($\tau$) in order to only see the connection of input and output between the system and its environenment . The rigour of the observation does not come from the absence of $\tau$ but on how abstraction lessens the complexity of the internal structure towards a simple SPEC that affirms the correctness of interoperability.
+
+Internal calculations or local changes in the storage that cannot be seen at cross-chain communication will not be included in this survery.
+
+*** Extract Traces and Execution Paths
+*Traces:* Traces ($Tr(q)$) will be extracted by listing all possible series of oberservable actions that can be execute by the protocol from its origin state ($q_0$). A trace is a string $\sigma \in A^{}*$ where there persist a sequential transitions towardsa new state.
+*Execution Path:* In order to survey the structure of the protocol deeper, execution paths or the total flow of the transition $(s \xrightarrow{a} s')$ that shows not only the series of actions but also points where there is nondeterministic choice or branch of decision.
+
+*Justify as Basis of Interoperability:* The oberservable behaviour is the fundamental basis of interoperability because the communication between two blockchain is being treated as a black box interaction. In a chain's perspective, the internal implementation of the other chain has no corelation; what only matters is the actions being sent and being accepted by it in order to make sure the semantic consistency. In other words, the correctness of interoperability depends on whether the observable traces of the two system matches under the one specified protocol.
+
+** Evaluation Criteria
+The goal of this stage is to set the formal guideline that will be used in comparing asset-bsed and data-based protocols. By means of identigying the level of similarity and difference of their behaviour, results of the analysation under one concept of semantic interoperability can be given interpretations.
+*** Similarity, Difference, and Equivalence
+*Equivalence:* Two protocol is equivalent if their process graph shows equal pattern of interaction to their environment. Formally, this is identified as an equivalence class ($|x| = {y : x \sim y}$) wherein the system belonging to this has one oberservable behaviour. *Similarity:* This refers to having some parts of the trace matching even if the structure of the process is not fully similar.
+*Difference:* This surfaces when a protocol has branching structure or deadlock behaviour that cannot be found in another even if they have matching strings of action.
+
+*** Evaluation Criterias
+*Trace Equivalence ( $=_{tr}$ ):* This criteria will be used to survey if the protocols can execute exactly the same series or strings of atomic action. Nonetheless, trace equivalence is considered as coarse because this does not capture the difference from deadlock or the timing of choices. *Bisimulation Equivalence ( $\sim$ ):* This the stricter criteria (finest). Under this criteria, two protocol need to have the same branching structure; meaning, in every step of a protocol, the other should respond to the same action and reach a state that is again equal.
+
+*** Interpretation of the Results
+The presence of bisimulation between asset-based and data-based protocol means that the two has semantic interoperability. That is, the meaning and context of their operation still remains consistent in every transition.
+
+If the protocols are trace equivalent only but not bisimilar, the interpretation will have different level of liveness and safety; for example, one fo them can lead to deadlock at situations where the other one have not experienced yet.
+
+The adherence to this formal criterias ensures that interoperability does not only depend on technical connection but also to mathematical correctness and semantic integrity of the system.

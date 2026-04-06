@@ -53,7 +53,11 @@
 \definecolor{cppgreen}{rgb}{0.25,0.5,0.35} % comments
 \definecolor{cpppurple}{rgb}{0.5,0,0.35} % keywords
 \definecolor{cppdocblue}{rgb}{0.25,0.35,0.75} % doc
- 
+
+% Fix for \tightlist undefined error
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 \lstset{language=C++,
 basicstyle=\linespread{0.8}\ttfamily\small,
 keywordstyle=\color{cpppurple}\bfseries,
@@ -137,7 +141,7 @@ showstringspaces=false}
 \include{chapters/introduction}
 \include{chapters/review}
 \include{chapters/techbackground}
-%\include{chapters/methodology}
+\include{chapters/methodology}
 %\include{chapters/results}
 %\include{chapters/recommendations}
 % \include{chapters/conclusion} may also be used
