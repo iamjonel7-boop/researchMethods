@@ -1,6 +1,6 @@
 \chapter{Methodology}\label{methodology}
 
-The research methodology comprises three-stage pipeline. It will
+The research methodology comprises multi-stage pipeline. It will
 systematically process interoperability protocols from the technical
 specifications towards the formal mathematical verification. Every stage
 in this methodology is treated as sequential and dependent; the success
@@ -17,39 +17,59 @@ important to remove details of their implementation that have no
 connection to the semantic behaviour. This allows comparison between
 asset-based and data-based mechanism.
 
-\subsection{Procedure}\label{procedure}
+\subsection{Select Representative
+Protocols}\label{select-representative-protocols}
 
-\textbf{Select Representative Protocols:} Protocols that have wide
-adoptation and formal documentation will be used. For asset-based,
-Hashed Time-Lock Contracts (HTLC) will be used because it serves as the
-de-facto guideline for atomic swap. For data-based, Oracle-based Message
-Relay wil be used because of its fundamental paper in delivering
-external data towards blockchains.
+Protocols that have wide adoptation and formal documentation will be
+used. For asset-based, Hashed Time-Lock Contracts (HTLC) is considered
+because it serves as the de-facto guideline for atomic swap. For
+data-based, Oracle-based Message Relay is considered because of its
+fundamental paper in delivering external data towards blockchains.
 
-\textbf{Identify Actions:} Identify the elementary operations that makes
-up each protocol: \textbf{Asset-Based \((A_{asset})\):} \emph{lock}
-(locking of asset), \emph{unlock} (moving asset out using secret),
-\emph{refund} (returning of token after a timeout). \textbf{Data-based
-\((A_{data})\):} \emph{request} (asking of data), \emph{verify}
-(confirmation of data integrity), \emph{relay} (delivery of proven
-message to destination chain)
+\subsection{Identify Actions}\label{identify-actions}
 
-\textbf{Define Syntax:} Translate the actions into formal constants
-using the language of process algebra (Algebra of Communicating
-Process). Every action is treated as an event without duration
-(instantaneous event).
+Identify the elementary operations that makes up each protocol:
+\textbf{Asset-Based \((A_{asset})\):} \emph{lock} (locking of asset),
+\emph{unlock} (moving asset out using secret), \emph{refund} (returning
+of token after a timeout). \textbf{Data-based \((A_{data})\):}
+\emph{request} (asking of data), \emph{verify} (confirmation of data
+integrity), \emph{relay} (delivery of proven message to destination
+chain). Let: \[ D: \text{set of data (assets or messages)} \]
+\[ P: \text{set of ports (e.g., source chain, relayer, destination chain)} \]
+Then: \[ A = {s_p(d), r_p(d) | d \in D, p \in P} \] Protocol specific
+actions are mapped into this structure: Asset-based:
+\[ lock \rightarrow s_p(d) \]
+\[ unlock \rightarrow c_p(d) \text{ (succesful transfer)} \]
+\[ refund \rightarrow s_p(d) \text{ (reverse flow)} \] Data-based:
+\[ request \rightarrow s_p(d) \]
+\[ verify \rightarrow \text{ internal communication} \]
+\[ relay \rightarrow c_p(d) \]
 
-\textbf{Encode Process:} Form the logical protocol using the following
-operators: \textbf{Sequential (\(\cdot\)):} To signify strict sequential
-process. \textbf{Alternative (\(+\)):} To model branching of decision.
+\subsection{Encode Process}\label{encode-process}
+
+Form the logical protocol using the following operators:
+\textbf{Sequential (\(\cdot\)):} To signify strict sequential process.
+\textbf{Alternative (\(+\)):} To model branching of decision.
 \textbf{Parallel (\(||\)):} To model interaction between two different
-blockchain ledger.
+blockchain ledger. System components (e.g., sender, channel, receiver)
+are modelled as separate processes and composed as:
+\[ S || K || R || L \]
 
-\textbf{Abstraction:} Use the \textbf{abstraction operator (\(\tau_I\))}
-to hide internal operations (like cryptographic hashing or local state
-updates) that are not seen by the other chain. The oberservable actions
-that is critical to interoperability should be the only thing to be
-left.
+\subsection{Encapsulation and
+Abstraction}\label{encapsulation-and-abstraction}
+
+To control system visibility: \textbf{Encapsulation set:}
+\[ H = {s_p(d), r_p(d) | p \text{ is internal}} \] Ensures that
+unmatched actions are blocked. \textbf{Abstraction set:}
+\[ I = {c_p(d) | p \text{ is internal}} \] Internal communications are
+hidden as silent steps (\(\tau\)).
+
+\subsection{Final System
+Representation}\label{final-system-representation}
+
+The complete system can be expressed as:
+\[ \tau_I(\partial_H(S || K || R || L)) \] This serves as the
+implementation model (IMP) that will be used for analysis.
 
 \section{Semantic Extraction Using Labelled Transition
 System}\label{semantic-extraction-using-labelled-transition-system}
@@ -60,28 +80,35 @@ preceding stage formal interpretation using Labelled Transition System
 dynamic model that shows all possible observable behaviour of the
 system.
 
-\subsection{Procedure}\label{procedure-1}
+\subsection{Lay out Structural Operational Semantics
+(SOS)}\label{lay-out-structural-operational-semantics-sos}
 
-\textbf{Lay out Structural Operational Semantics (SOS):} SOS will be
-used in order to see the meaning of every operator in the process
-algebra using inference rules. Every rule is composed of premise and one
-conclusion.
+SOS will be used in order to see the meaning of every operator in the
+process algebra using inference rules. Every rule is composed of premise
+and one conclusion: \[ \frac{premises}{conclusion} \]
 
-\textbf{Construct the LTS Model:} For every specific protocol, LTS will
-be formed as a triple \((S, A, \rightarrow)\): \textbf{States \((S)\):}
-set of states comprising the original process term and all terms that
-can be achieved from it (reachable states). \textbf{Labels \((A)\):}
-labels of transition that refers to atomic actions that the system
-executes. \textbf{Transition \((\rightarrow)\):} relation of transition
-\((s \xrightarrow{a} s')\) that shows change from one state to the
-another after the action \((a)\).
+\subsection{Construct the LTS Model}\label{construct-the-lts-model}
 
-\textbf{Extract Traces at Reachable States:} \textbf{Reflexive States:}
-reflexive transitive closure \((\rightarrow*)\) to identify all possible
-states that can be reached by the protocol from the starting state.
-\textbf{Traces:} get the finite sequences of actions
-\(a_1, a_2, ..., a_n\) that the system executed in order to illustrate
-the totally of its oberservable behaviour.
+For every specific protocol, LTS will be formed as a triple
+\[ (S, A, \rightarrow) \]:
+
+\textbf{States \((S)\):} set of states comprising the original process
+term and all terms that can be achieved from it (reachable states).
+\textbf{Labels \((A)\):} labels of transition that refers to atomic
+actions that the system executes. \textbf{Transition \((\rightarrow)\):}
+relation of transition \((s \xrightarrow{a} s')\) that shows change from
+one state to the another after the action \((a)\). \textbf{pLTS} will be
+used when probabilisq behavious is included: captures message loss,
+corruption, and nondeterminism.
+
+\subsection{Extract Traces at Reachable
+States}\label{extract-traces-at-reachable-states}
+
+\textbf{Reflexive States:} reflexive transitive closure
+\((\rightarrow*)\) to identify all possible states that can be reached
+by the protocol from the starting state. \textbf{Traces:} get the finite
+sequences of actions \[ a_1, a_2, ..., a_n \] that the system executed
+in order to illustrate the totally of its oberservable behaviour.
 
 \section{Description of Observable
 Behaviour}\label{description-of-observable-behaviour}
@@ -92,26 +119,38 @@ traces and execution paths from the LTS mdoels. This survey will serve
 as the basis of comparison of asset-based and data-based mechanims at
 the noticeable level of their connecition.
 
-\subsection{Procedure:}\label{procedure-2}
+\subsection{Give meaning to
+Observable}\label{give-meaning-to-observable}
 
-\textbf{Give meaning to Observable:} The behaviour of a system is tread
-as oberservable if this comprises actions that can be seen or experience
-by an outside observer or adjacent system by means of communication.
-Under this theory of processes, all atomic actions that are not treated
-as silent action (\(\tau\)) are all observable behaviour. Internal
-calculatiosn or local changes in the storage that cannot be seen at
-cross-chain communication will not be included in this survery.
+The behaviour of a system is tread as oberservable if this comprises
+actions that can be seen or experience by an outside observer or
+adjacent system by means of communication. An observable behaviour is
+formally defined as an external specification (SPEC) that remains after
+applying the \textbf{abstraction operator (\(\tau_I\))} in an
+implementation (IMP) TWOSIMPLEPROTCOLS. In this methodology, the
+internal connections between chains are treated as \textbf{hidden
+actions} and are made as silent steps (\(\tau\)) in order to only see
+the connection of input and output between the system and its
+environenment . The rigour of the observation does not come from the
+absence of \(\tau\) but on how abstraction lessens the complexity of the
+internal structure towards a simple SPEC that affirms the correctness of
+interoperability.
 
-\textbf{Extract Traces and Execution Paths:} \textbf{Traces:} Traces
-\((Tr(q))\) will be extracted by listing all possible series of
-oberservable actions that can be execute by the protocol from its origin
-state (\(q_0\)). A trace is a string \(\sigma \in A^{}*\) where there
-persist a sequential transitions towardsa new state. \textbf{Execution
-Path:} In order to survey the structure of the protocol deeper,
-execution paths or the total flow of the transition
-\((s \xrightarrow{a} s')\) that shows not only the series of actions but
-also points where there is nondeterministic choice or branch of
-decision.
+Internal calculations or local changes in the storage that cannot be
+seen at cross-chain communication will not be included in this survery.
+
+\subsection{Extract Traces and Execution
+Paths}\label{extract-traces-and-execution-paths}
+
+\textbf{Traces:} Traces (\(Tr(q)\)) will be extracted by listing all
+possible series of oberservable actions that can be execute by the
+protocol from its origin state (\(q_0\)). A trace is a string
+\(\sigma \in A^{}*\) where there persist a sequential transitions
+towardsa new state. \textbf{Execution Path:} In order to survey the
+structure of the protocol deeper, execution paths or the total flow of
+the transition \((s \xrightarrow{a} s')\) that shows not only the series
+of actions but also points where there is nondeterministic choice or
+branch of decision.
 
 \textbf{Justify as Basis of Interoperability:} The oberservable
 behaviour is the fundamental basis of interoperability because the
@@ -131,33 +170,38 @@ identigying the level of similarity and difference of their behaviour,
 results of the analysation under one concept of semantic
 interoperability can be given interpretations.
 
-\subsection{Criteria}\label{criteria}
+\subsection{Similarity, Difference, and
+Equivalence}\label{similarity-difference-and-equivalence}
 
-\textbf{Similarity, Difference, and Equivalence:} \textbf{Equivalence:}
-Two protocol is equivalent if their process graph shows equal pattern of
-interaction to their environment. Formally, this is identified as an
-equivalence class \((|x| = {y : x \sim y})\) wherein the system
-belonging to this has one oberservable behaviour. \textbf{Similarity:}
-This refers to having some parts of the trace matching even if the
-structure of the process is not fully similar. \textbf{Difference:} This
-surfaces when a protocol has branching structure or deadlock behaviour
-that cannot be found in another even if they have matching strings of
-action.
+\textbf{Equivalence:} Two protocol is equivalent if their process graph
+shows equal pattern of interaction to their environment. Formally, this
+is identified as an equivalence class (\(|x| = {y : x \sim y}\)) wherein
+the system belonging to this has one oberservable behaviour.
+\textbf{Similarity:} This refers to having some parts of the trace
+matching even if the structure of the process is not fully similar.
+\textbf{Difference:} This surfaces when a protocol has branching
+structure or deadlock behaviour that cannot be found in another even if
+they have matching strings of action.
 
-\textbf{Evaluation Criterias:} \textbf{Trace Equivalence \((=_{tr})\):}
-This criteria will be used to survey if the protocols can execute
-exactly the same series or strings of atomic action. Nonetheless, trace
-equivalence is considered as coarse because this does not capture the
-difference from deadlock or the timing of choices. \textbf{Bisimulation
-Equivalence \((\sim)\):} This the stricter criteria (finest). Under this
-criteria, two protocol need to have the same branching structure;
-meaning, in every step of a protocol, the other should respond to the
-same action and reach a state that is again equal.
+\subsection{Evaluation Criterias}\label{evaluation-criterias}
 
-\textbf{Interpretation of the Results:} The presence of bisimulation
-between asset-based and data-based protocol means that the two has
-semantic interoperability. That is, the meaning and context of their
-operation still remains consistent in every transition.
+\textbf{Trace Equivalence ( \(=_{tr}\) ):} This criteria will be used to
+survey if the protocols can execute exactly the same series or strings
+of atomic action. Nonetheless, trace equivalence is considered as coarse
+because this does not capture the difference from deadlock or the timing
+of choices. \textbf{Bisimulation Equivalence ( \(\sim\) ):} This the
+stricter criteria (finest). Under this criteria, two protocol need to
+have the same branching structure; meaning, in every step of a protocol,
+the other should respond to the same action and reach a state that is
+again equal.
+
+\subsection{Interpretation of the
+Results}\label{interpretation-of-the-results}
+
+The presence of bisimulation between asset-based and data-based protocol
+means that the two has semantic interoperability. That is, the meaning
+and context of their operation still remains consistent in every
+transition.
 
 If the protocols are trace equivalent only but not bisimilar, the
 interpretation will have different level of liveness and safety; for

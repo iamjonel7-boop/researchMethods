@@ -20,6 +20,13 @@ asset vs data transfer [cite:@Belchior_2024].
 
 Hypothetesise that there will be more effort in building data based solutions even for exchanging assets [cite:@Belchior_2024]. This raises the concern more into ensuring that the semantics of the two will not be conflated.
 
+Semantic Interoperability: The capacity to understand and make meaningful use of the data
+transmitted across many blockchains [cite:@Saleh2024].
+
+blockchain interoperability means connecting
+multiple blockchains to access information and to act on the
+information[cite:@Kotey_2023].
+
 In order to create meaningful exchange between blockchains, agreement
 on the semantic level is necessary[cite:@sottomayor2024enterprise].
 This layer of blockchain interoperability receives little research
@@ -118,16 +125,14 @@ frameworks often facilitate the verification and transportation of
 data between chains without transporting the semantics of its proper
 use. This leaves a critical gap at the protocol/semantic interface.
 
-To what extent do the formally modelled semantics of an asset based interoperability and a data based interoperability differ in terms of their observable behaviour.
-This research contributes to address this
-problem by formally modelling two specific implementations of interoperability on data and on asset. Specifically, this research aims to answer the following
+ How do asset-based and a data-based blockchain  interoperability compare in terms of their semantically defined observable behaviour? Specifically, this research aims to answer the following
 research questions:
 
-1. How can asset-based and data-based blockchain interoperability protocols be formally modelled using process algebra?
+1. How can asset-based and data-based blockchain interoperability protocols be formally defined?
 
-2. What behavioural similarities and differences can be identified between the modelled protocols using bisimulation equivalence?
+2. What observable behaviours emerge form the semantic models?
 
-3. What common semantic structure can be derived from these protocols to form a unified semantic framework for blockchain interoperability?
+3. In what ways do these obsservabe behaviours differ or align under a semantic framework?
 
    # blockchain interoperability focused on crypto, but there is an
 increasing need for data interop, so we find out the semantic of these
