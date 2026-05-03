@@ -1,98 +1,15 @@
 * Introduction
-# We start the intro with # what is blockchain # then what isinteroperability # concisely enumarate the solutions #
+The blockchain technology first gained its popularity as a decentralised ledger focusing on the exchange of asset or cryptocurrency like Bitcoin. Initially, this design provides solution to the problem of double-spending in digital money without the need of third-party entity like banks. Every transaction in blockchain is publicly recorded in a way that they cannot be changed (tamper-proof) using cryptography. This ensures trust between the participants in the network eventhough they do not know each other personally.
 
-# for our intro, we show scenerios where interoperability emerges, we show its importance
+Today, blockchains have evolved from simply exchanging currency to becoming a general-purpose platform with the introduction of Ethereum and smart contracts. For this reason, it became programmable that eventually led its use in different sectors like in supply chain, healthcare, voting, and Internet of Things (IoT). At this point, blockchain is no longer about financial transaction; it has become a means of safe storage and sharing of information that depends on the needs of individual industries.
 
-Now, far from their original design for cryptocurrencies, blockchain
-has found its way to incorporate itself into other domains
-[cite:@sottomayor2024enterprise] [cite:@Kotey_2023] [cite:@Saleh2024] [cite:@Shrimali_2022]. The main feature that led to this widespread adoption today is its decentralised data storage [cite:@Kotey_2024]. Blockchain is a type of ledger that instead of recording its transactions on one medium or it being controlled by a singular entity, its transactions are recorded in several blocks of data storages that are chained from each other and controlled using consensus.  Furthermore, once a transaction has been recorded, it becomes unchangeable [cite:@Dong_2023]. Aside from decentralisation, it also posseses several benefits..
-# advantages here
+This growth in its capabilities led to an array of independent blockchain platforms that together contributed to the problem of interoperability. Despite their growth both in their capabilities and number, blockchains have not yet been widely adopted or succesfully integrated into today's mainstream technological systems. To address this, they need not only solutions to issues of decentralisation, scalability, and security (the blockchain trilemma), but also their capability to communicate with each other. Without interoperability, they will continue to remain only as information silos or disconnected islands of information that cannot exchange value and data directly. This limits the real potential of blockchain technology.
 
-# use cases today
-FundChain is a blockchain implementation built by World Bank for monitoring their use of funds. Through this, they are able to track their disbursed funds from the governemnt down to PIUs, contractors, or to their end-beneficiries  [cite:@WBFundschain_2025].
-# provide additional samples
+Solutions to interoperability exist like cross-chain bridges, relays, and sidechains. In recent literature, blockchain interoperability (BI) is divided into two aspects: digital asset interoperability (for cryptocurrency) and arbitrary data interoperability (for general information). This difference has been used by recent papers in order to understand the different logic and mechanisms needed by each category. Because of this, the issue of semantic interoperability surfaces. It is the challenge on how the meaning and correct interpretation of data remain consistent while they are being transferred to different blockchain networks.
 
-# then show how they can be more practical if they can communicate to other blockchain.
+The different protocols of BI also reflects the developmental evolution of blockchains. Earlier protocols were designed to facilitate transfer of assets from one blockchain network to another. Meanwhile, recent developments of protocols move towards the exchange of arbitrary data.  
 
-asset transfer had more focus [cite:@Belchior_2024] [cite:@wilson2026exploringblockchaininteroperabilityframeworks].
-interoperability is the ability of two or more software componenets to cooperate despite differences in language, interface, and execution platform [cite:@Belchior_2024].
-asset vs data transfer [cite:@Belchior_2024].
-
-Hypothetesise that there will be more effort in building data based solutions even for exchanging assets [cite:@Belchior_2024]. This raises the concern more into ensuring that the semantics of the two will not be conflated.
-
-Semantic Interoperability: The capacity to understand and make meaningful use of the data
-transmitted across many blockchains [cite:@Saleh2024].
-
-blockchain interoperability means connecting
-multiple blockchains to access information and to act on the
-information[cite:@Kotey_2023].
-
-In order to create meaningful exchange between blockchains, agreement
-on the semantic level is necessary[cite:@sottomayor2024enterprise].
-This layer of blockchain interoperability receives little research
-attention [cite:@sottomayor2024enterprise]. The semantic layer is
-responsible for interpreting information format and its meaning. 
-
-
-Addressing these silos is now viewed as an existential requirement for
-the crypto economy. The success of the multi-chain future depends on
-the reliable connectivity between these fragmented hubs. This
-fragmentation has motivated extensive research and development in
-blockchain interoperability.
-
-# Blockchain interoperability has four layers: technical, semantic, organisation, and legal
-Blockchain interoperability in is the ability of distinct and
-independent blockchains to seamlessly exchange digital assets, data,
-and arbitrary messages
-[cite:@wilson2026exploringblockchaininteroperabilityframeworks]
-[cite:@belenkov2025review] [cite:@singh2025comprehensive]. This is
-essential if we want the blockchain ecosystems to be a cohesive
-network. This will prevent the fragmentation of liquidity and utility
-across the decentralized landscape
-[cite:@wilson2026exploringblockchaininteroperabilityframeworks].
-Through this, complex applications can now function across multiple
-blockchains [cite:@belchior2021survey]. Early visions for this
-connected future were established by pivotal whitepapers, including
-Vitalik Buterin's (2016) conceptualizations for cross-chain
-connectivity [cite:@belenkov2025review] [cite:@Chaliasos2025-qs]. The
-Polkadot network, envisioned by Gavin Wood (2016), introduced a
-heterogeneous multi-chain framework where specialized "parachains"
-achieve interoperability via a central relay chain
-
-[cite:@kim2018first] [cite:@alt2025distributed]. Similarly, the Cosmos
-network, outlined by Kwon and Buchman (2016), proposed an "internet of
-blockchains" architecture using a hub-and-zone topology to facilitate
-trust-minimized communication through the Inter-Blockchain
-Communication (IBC) protocol [cite:@kim2018first] . These early
-frameworks established the fundamental strategies ranging from
-lock-and-mint mechanisms to light-client verification---that
-contemporary bridge protocols utilize today
-[cite:@singh2025comprehensive].
-
-
-
-From a functional standpoint, surveys categorize bridges by whether
-they support "asset transfer," "data transfer," or both
-[cite:@singh2025comprehensive]. However, it is critical to note that
-these prevailing classifications are primarily feature-based. That is,
-they focus on the operational mechanisms of message passing and
-tokenization rather than the underlying semantics or the formal
-correctness of the data being exchanged [cite:@kim2018first].
-
-The most common significant risk in decentralised systems like
-decentralised finance or DeFi ecosystem is in the security. This is
-evident primarily in the cross-chain bridges. Security researchers
-highlight that they are particularly vulnerable because they often
-store vast amounts of collateral that back wrapped assets on secondary
-chains [cite:@chainalysis2022bridgehacks] [cite:@belenkov2025review].
-According to Chainalysis, over $2 billion in cryptocurrency was stolen
-across 13 separate bridge hacks in 2022 alone. This accounted for
-approximately 69% of all funds stolen during that year
-[cite:@chainalysis2022bridgehacks]. Another reports from CertiK and
-Elliptic further emphasize that the intersection of on-chain smart
-contract logic and off-chain communication components creates a
-significantly larger attack surface than that of isolated
-decentralized applications [cite:@ImmuneBytes_2023].
+This research focuses semantic comparative analysis between asset-based and data-based interoperability protocols using Process Algebra. Despite the growing number of technical solutions, there is still an insufficient number of formal understanding of their observable behaviours.  
 
 ** Problem Statement
 
