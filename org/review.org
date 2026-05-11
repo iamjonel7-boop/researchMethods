@@ -1,54 +1,51 @@
 * Review of Related Literature
 In the current landscape of blockchain technology, the emergence of heterogeneous networks has revealed the term "information isolated isalands" or "value silos" [cite:@wang2021sok] [cite:@Bigiotti2025] [cite:@Wu_2023]. Although individual blockchains proved to be useful as independent ledgers, the lack of communication between them limits their potential widespread adoption [cite:@Hassan_2025] [cite:@Cheng_2024] [cite:@Lohachab_2021]. Blockchain interoperability then becomes a critical interaction between distributed systems [cite:@wang2021sok] [cite:@Li2025] [cite:@Lohachab_2021].
 
- Blockchain systems have been described as an independent state machine with its own concensus rules and encryption standards [cite:@Bigiotti2025] [cite:@Belchior_2021]. Because they do not have a shared state or global clock between them, their interactions must happen asynchronously; they must instead use message passing and state synchronisation [cite:@wang2021sok] [cite:@wei2023formal]. In other words, blockchain interoperability is a process wherein one source chain  is trying to change the state of a target chain by means of delivering information or assets under certain securoty assumptions [cite:@wang2021sok] [cite:@Wang_2023] [cite:@belchior2021survey].
+Blockchain systems have been described as an independent state machine with its own concensus rules and encryption standards [cite:@Bigiotti2025] [cite:@Belchior_2021]. Because they do not have a shared state or global clock between them, their interactions must happen asynchronously; they must instead use message passing and state synchronisation [cite:@wang2021sok] [cite:@Wei_2023]. In other words, blockchain interoperability is a process wherein one source chain  is trying to change the state of a target chain by means of delivering information or assets under certain securoty assumptions [cite:@wang2021sok] [cite:@Wang_2023] [cite:@belchior2021survey].
 
 Most of study in the literature focus on the blockchain interoperability architecture. That is, whether it uses relays, sidechains, or notaries [cite:@Kotey_2023] [cite:@Caetano_da_Silva_2025] [cite:@Li_2023] [cite:@Chen_2023]. Nevertheless, recent studies have put emphasis that architecture only gives stucture and real security and effectiveness of interoperability depends on the behaviour of the system [cite:@Llambas2025] [cite:@Llambas2024eventb] [cite:@Lohachab_2021]. This behaviour dictates how systems guarantee ACID (atomicity, consistency, isolation, durability) properties in an asynchronous network [cite:@wang2021sok] [cite:@Bigiotti2025] [cite:@Wang_2023] [cite:@Li2025].
 
-This means that the sequencing of state transitions, timing of cyrptographic proofs, and reactions to failure or timeout reveals the system's behaviour [cite:@Ou_2022] [cite:@Chervinski_2023] [cite:@deng2025] [cite:@wei2023formal].The analysis of behaviours, instead of the static design, gives deeper understanding on how different components (such as smart contracts and relayers) interact during different processe. That is so to achieve semantic interoperability where the meaning and context of data or asset from the source chain gets accurately interpreted and valid to the target chain [cite:@Belchior_2023] [cite:@sottomayor2024enterprise] [cite:@Li2025].
+This means that the sequencing of state transitions, timing of cyrptographic proofs, and reactions to failure or timeout reveals the system's behaviour [cite:@Ou_2022] [cite:@Chervinski_2023] [cite:@deng2025] [cite:@Wei_2023].The analysis of behaviours, instead of the static design, gives deeper understanding on how different components (such as smart contracts and relayers) interact during different processe. That is so to achieve semantic interoperability where the meaning and context of data or asset from the source chain gets accurately interpreted and valid to the target chain [cite:@Belchior_2023] [cite:@sottomayor2024enterprise] [cite:@Li2025].
 
 ** Evolution of Blockchain Interoperability
 Surveying the literature, it is noticeable that the classifications of interoperability reflects the underlying logic on how to trust and treat information between blockchains [cite:@wang2021sok] [cite:@Pillai_2022] [cite:@wang2023]. Although categorical labels like notary schemes, sidechains/relays, and hash-locking are usually used, there is a deeper abstraction that surfaces in recent literature. That is, the perspective of looking at blockchain interoperability as a multi-layered problem derived from the OSI model of the internet [cite:@Hassan_2025] [cite:@deng2025].
 
-The common abstraction from most of the sources is the *source-target model*. In this model, an operation from the source chain needs to trigger a corresponding state change to the target chain [cite:@deng2025] [cite:@Cheng_2024]. Nonetheless, here comes the critical difference on how this interaction gets seen:
+The common abstraction from most of the sources is the *source-target model*. In this model, an operation from the source chain needs to trigger a corresponding state change to the target chain [cite:@deng2025] [cite:@Cheng_2024]. The following differentiates a critical difference on how this interaction gets seen:
 
-*Interoperability as Transfer:* In this perspective, the logic focuses on migration or transfer of ownership. Every transaction must follow all-or-nothing atomicity in order to avoid double-spending [cite:@wang2021sok] [cite:@Llambas2024patterns] [cite:@deng2025]. Here belongs asset-based protocols that ensure that the value will not vanish or duplicated between silos [cite:@Belchior_2023] [cite:@wang2023].
+- *Interoperability as Transfer:* In this perspective, the logic focuses on migration or transfer of ownership. Every transaction must follow all-or-nothing atomicity in order to avoid double-spending [cite:@wang2021sok] [cite:@Llambas2024patterns] [cite:@deng2025]. Asset-based protocols belong here, ensuring that the value will not vanish or gets duplicated between different silos [cite:@Belchior_2023] [cite:@wang2023].
 
-*Interoperability as Communication:* Here, the system gets treated as a *message-oriented service* [cite:@wang2021sok] [cite:@Kotey_2023] [cite:@kang2022]. The goal is not to transfer the content of the source chain but to invoke a functionality in the target chain using arbitrary data [cite:@Pillai_2022] [cite:@Belchior_2021]. This is the logic of the data-based protocols like Arbitrary Message Passing (AMP) [cite:@augusto2025].
+- *Interoperability as Communication:* In this perspective, the system gets treated as a *message-oriented service* [cite:@wang2021sok] [cite:@Kotey_2023] [cite:@kang2022]. The goal is not to transfer the content of the source chain but to invoke a functionality in the target chain using arbitrary data [cite:@Pillai_2022] [cite:@Belchior_2021]. This is the logic of the data-based protocols like Arbitrary Message Passing (AMP) [cite:@augusto2025].
 
 It is critical to make the distinction between asset-based and data-based interoperability because they usually remain implicit in a number of older literature. For instance, in the classical SoK (Systematisation of Knowledge) of Buterin, the focus was always in value exchange or value islands [cite:@wang2021sok] [cite:@A_Alzahrani_2025] [cite:@Pillai_2022]. However, in the newer frameworks, there is an explicit division in the domain  between *Asset Interoperability* (migration/exchange) and *Data Interoperability* (cross-chain calls/integration) [cite:@deng2025] [cite:@Cheng_2024] [cite:@Li2025]. This gap is important as a number of current models are designed for assets but gets applied to data or vice-versa without taking each different semantic requirements into consideration [cite:@Belchior_2023] [cite:@Li2025].
 
 This differeng individual trust boundary and security assumptions of each approaches contributes to the fragmented landscape of blockchain interoperability[cite:@Belchior_2023]. Although there is an attemot to have a Generic Interoperability Paradigm comprising of Setup, Commit, Verify, and Abort phases, the literature has not fully explained how these phases differ in their *observable behaviour* when assets are passed isnstead of arbitrary data [cite:@deng2025] [cite:@Li2025]. This forms the need of a *comparative semantic analysis* to see if these models are enough to encompass the behaviour of both asset and  data exchanges [cite:@Li2025].    
 
-- Asset-Based Interoperability
+- *Asset-Based Interoperability*
 The literature treats asset-based interoperability not solely as a tool to transfer currency but also as a *closed system of value synchronisation* [cite:@Pillai_2022] [cite:@Cheng_2024].  The fundamental logic of these protocols is the preservation of the INTEGRITY of assets while they are moving between different ledgers [cite:@Llambas2024patterns] [cite:@Pillai_2022] [cite:@Belchior_2023].
-  System Perspective
-  As a system, asset-based interoperability comprises the following interdependent components:
-  *Chains (Source and Target):* These serve as state machines that record ownership [cite:@wang2021sok] [cite:@deng2025] [cite:@Cheng_2024].
-  *Smart Contracts (Custodian vs. Debt Issuer):* In the source chain, there is usually a custodian contract (vault) that locks asset; while in the target chain, there is a debt issuer (money printer) that makes synthetic representation or wrapped tokens [cite:@Notland_2026] [cite:@soureshjani2026].
-  *Users and Intermediaries:* Included here is the initiator (user), relayers that transfer proofs, and attesters that verify if the lock event is valid before doing the minting [cite:@Notland_2026] [cite:@Llambas2025] [cite:@Belchior_2023].
+
+As a system, asset-based interoperability comprises the following interdependent components:
+*Chains (Source and Target):* These serve as state machines that record ownership [cite:@wang2021sok] [cite:@deng2025] [cite:@Cheng_2024].
+*Smart Contracts (Custodian vs. Debt Issuer):* In the source chain, there is usually a custodian contract (vault) that locks asset; while in the target chain, there is a debt issuer (money printer) that makes synthetic representation or wrapped tokens [cite:@Notland_2026] [cite:@soureshjani2026].
+*Users and Intermediaries:* Included here is the initiator (user), relayers that transfer proofs, and attesters that verify if the lock event is valid before doing the minting [cite:@Notland_2026] [cite:@Llambas2025] [cite:@Belchior_2023].
 
 This shows that asset-based interoperability is a content-aware system. Meaning, it is necessary that the protocol knows the specific semantics of asset (e.g. ERC-20 standard) in order to ensure that the minted token is semantically equal to the original asset [cite:@Llambas2025] [cite:@Pillai_2022] [cite:@deng2025].
 
- Behavioural Patterns: Logic of Ordering
- The observable behaviour of asset-based protocols follow a strict sequential execution flow. Based on existing formal models (such as Event-B analysis), the usual sequence follows:
- *Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
- *Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
- *Mint/Claim:* Producing of an equal value at the target chain [cite:@Llambas2025] [cite:@Sober_2022] [cite:@Li2025].
+The observable behaviour of asset-based protocols follow a strict sequential execution flow. Based on existing formal models (such as Event-B analysis), the usual sequence follows:
+*Lock/Burn (Source):* Immobilisation of the original value [cite:@Notland_2026] [cite:@Llambas2025] [cite:@deng2025].
+*Verification:* Passing the Merkle proof or SPV (Simplified Payment Verification) proceeding to the target chain [cite:@wang2021sok] [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@deng2025].
+*Mint/Claim:* Producing of an equal value at the target chain [cite:@Llambas2025] [cite:@Sober_2022] [cite:@Li2025].
 
 This shows that there is happens-before relationship. The mint transaction at the target chain has causal dependency on the lock transaction at the source chain [cite:@Llambas2025] . If this sequence is not followed, there is a risk of atomicity failure where there is a possibility of minting assets that are not locked; resulting to double-spending [cite:@Llambas2024patterns] [cite:@Belchior_2023] [cite:@deng2025] [cite:@Li_2023].
 
-  Invariants and Safety Guarantees
-  The major invariant that safeguards this system is the Global Supply Invariant. This refers to maintaning a constant value to the overall count of asset units in all networks [cite:@Pillai_2022] [cite:@Li_2023] [cite:@Bigiotti2025].
+The major invariant that safeguards this system is the Global Supply Invariant. This refers to maintaning a constant value to the overall count of asset units in all networks [cite:@Pillai_2022] [cite:@Li_2023] [cite:@Bigiotti2025].
 
-  It is critical that the safety (no bad behaviour or duplication) of asset-based protocols gets prioritised over the liveness (fast  termination) [cite:@Llambas2025] [cite:@Bigiotti2025]. Because of this, the observable behaviour has long confirmation periods (to wait the finality from the source chain) and competition periods (for fraud proofs) [cite:@deng2025] [cite:@wang2021sok] [cite:@Wang_2023] [cite:@Mao_2023]. These delays are not just performance issue but a behavioural necessity in order to protect the atomicity of the system [cite:@Chervinski_2023] [cite:@lu2024atomicity] [cite:@Cheng_2024].
+It is critical that the safety (no bad behaviour or duplication) of asset-based protocols gets prioritised over the liveness (fast  termination) [cite:@Llambas2025] [cite:@Bigiotti2025]. Because of this, the observable behaviour has long confirmation periods (to wait the finality from the source chain) and competition periods (for fraud proofs) [cite:@deng2025] [cite:@wang2021sok] [cite:@Wang_2023] [cite:@Mao_2023]. These delays are not just performance issue but a behavioural necessity in order to protect the atomicity of the system [cite:@Chervinski_2023] [cite:@lu2024atomicity] [cite:@Cheng_2024].
 
 Nevertheless, this behaviour results to capital inefficiency [cite:@soureshjani2026] [cite:@Mohammed_Abdul_2024] [cite:@Li2025]. That is because of the locking of assets, the liquidity gets trapped in the contracts, that serves as a big limitation that is not usually seen in data-based approaches [cite:@soureshjani2026] [cite:@deng2025] [cite:@augusto2025]. This creates the gap in the literature where even though the safety of asset transfers can be formally modelled, there is insufficient comparison if this strict ordering is also needed for arbitrary data exchange [cite:@Llambas2025] [cite:@Llambas2024eventb].
 
-- Data-Based Interoperability
+- *Data-Based Interoperability*
 Unlike asset-based interoperability where it is illustrated as a mechanism of changing ownership, the literature describes data-based interoperability as a decentralised communication system [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@Kotey_2023]. If asset-based focuses on liquidity, data-based on the other hand focuses on the arbitrary message passimg (AMP). This is a mechanism where the system acts as a transport layer for whatever type of information [cite:@Delgado_von_Eitzen_2025] [cite:@augusto2025].
 
-System Perspective: The TCP/IP of Blockchains
 Being a communication system, its architecture comprises of the following interdependent components:
 *Chains and Modules:* Every blockchain hosts modules or handlers (smart contracts). They serve as entry and exit points of data [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023].
 *Relayers and Connectors:* Since blockchains are isolated islands and incapable of sending data natively, they need off-chain relayers (such as Hermes) that scans blocks for pending messages and transfer them to the target chain [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023].
@@ -56,20 +53,101 @@ Being a communication system, its architecture comprises of the following interd
 
 The literature sees the system as a payload-agnostic service. This shows that the protocols do not care whether what is inside the packets is a token transfer or a complex smart contract call. Its purpose is to ensure that the opaque bytes are delivered with integrity [cite:@Kotey_2023] [cite:@Delgado_von_Eitzen_2025] [cite:@Chervinski_2023] [cite:@Bigiotti2025].
 
-Behavioural Patterns: Handshake and Asynchrony
 The observable behaviour of data-based interoperability is guided  by handshake protocols and asynchronous execution [cite:@lu2024atomicity] [cite:@Bigiotti2025] [cite:@Wei_2023].
 *Handshake Process:* This is unlike the simple lock-and-mint; data-based systems follows a strict 4-step handshake (OpenInit -> OpenTry -> OpenAck -> OpenConfirm) in order to establish a connection [cite:@Bigiotti2025] [cite:@Wei_2023]. This behaviour is needed to ensure that both chains are ready to accept data under the same security assumptions [cite:@Wei_2023].
 *Asynchronous Message Passing:* The interaction here is non-blocking. The source chain delivers a message and can proceed to other operations while the packet is in-flight [cite:@lu2024atomicity] [cite:@Bigiotti2025]. The success of the interaction depends on Acknowledgements (ACK) or Timeouts. They are observable events that dictates if an operation is deemed Delivered or Expired [cite:@Chervinski_2023] [cite:@Wei_2023].
 
-Comparison to Asset-Based Interoperability
 The fundamental difference between the two is rooted on their interaction logic:
- *State-Dependent vs. Instruction-Dependent:* Unlike the asset-based that depends on state provenance (it needs the verification of the lock state before minting), data-based behaviour is instruction-dependent [cite:@Wang_2022] [cite:@deng2025]. Its aim is to trigger a functionality in the target system that will work under its own rules [cite:@wang2021sok] [cite:@Belchior_2021].
- *Atomicity vs. Eventual Delivery:* In asset transfers, atomicity is commonly all-or-nothing under a capital constraint [cite:@Pillai_2022] [cite:@Belchior_2023]. Meanwhile, in data exchange, it prioritises liveness and delivery guarantees. It means that every message should have a definite result (accepted or timeout) inside the asynchronous network [cite:@Bigiotti2025] [cite:@Pillai_2022] [cite:@Wei_2023].
+*State-Dependent vs. Instruction-Dependent:* Unlike the asset-based that depends on state provenance (it needs the verification of the lock state before minting), data-based behaviour is instruction-dependent [cite:@Wang_2022] [cite:@deng2025]. Its aim is to trigger a functionality in the target system that will work under its own rules [cite:@wang2021sok] [cite:@Belchior_2021].
+*Atomicity vs. Eventual Delivery:* In asset transfers, atomicity is commonly all-or-nothing under a capital constraint [cite:@Pillai_2022] [cite:@Belchior_2023]. Meanwhile, in data exchange, it prioritises liveness and delivery guarantees. It means that every message should have a definite result (accepted or timeout) inside the asynchronous network [cite:@Bigiotti2025] [cite:@Pillai_2022] [cite:@Wei_2023].
 
- The behaviour here depends on the reliabilit of the transport layer. Nonetheless, the critique in the current literature is the dependency of these systems to untrusted layers [cite:@Wei_2023] [cite:@Delgado_von_Eitzen_2025]. Formal analyses (such as the TLA+) shows that even the standardized protocols can have trapped packets or incomplete handshakes if the relayers' behaviour cannot be properly modelled [cite:@wei2023formal]. This pushed the need for deeper comparative semantic analysis to see how it is possible to converge the safety of assets and the liveness of data in one behavioural model.
+The behaviour here depends on the reliability of the transport layer. Nonetheless, the critique in the current literature is the dependency of these systems to untrusted layers [cite:@Wei_2023] [cite:@Delgado_von_Eitzen_2025]. Formal analyses (such as the TLA+) shows that even the standardized protocols can have trapped packets or incomplete handshakes if the relayers' behaviour cannot be properly modelled [cite:@Wei_2023]. This pushed the need for deeper comparative semantic analysis to see how it is possible to converge the safety of assets and the liveness of data in one behavioural model.
+
+#+caption: Survey and Protocol Design Literature
+#+attr_latex: environment longtable
+| Citation | Type of Work | Key Limitation |
+|----------+--------------+----------------|
+| [cite:@soureshjani2026] | Survey / Protocol Design (Asset)   | No formal model; no behavioural analysis |
+| [cite:@Notland_2026] | Survey / SoK (Hybrid bridges) | Lacks formal system model; no concurrency semantics |
+| [cite:@Caetano_da_Silva_2025] | Survey (Cross-chain general) | Architectural focus only; no behavioural equivalence |
+| [cite:@augusto2025] | Framework / Dataset (Data/AMP) | No process-algebraic specification |
+| [cite:@Li2025] | Survey (Cross-chain general) | No formal comparison of asset vs data behaviours |
+| [cite:@Delgado_von_Eitzen_2025] | Protocol Analysis (Data/IBC) | No formal semantics; no LTS extraction |
+| [cite:@kishore2025interoperability] | Survey (Cross-chain general) | Lacks behavioural criteria for unification/stacking |
+| [cite:@deng2025] | Survey (Asset + Data) | Identifies asset/data distinction, no formal comparison       |
+| [cite:@A_Alzahrani_2025] | Survey (General) | No concurrency or bisimulation |
+| [cite:@Hassan_2025] | SoK (Layered architecture) | No process algebra; static taxonomy only |
+| [cite:@Kumar_2025] | Protocol Design (Cross-chain transactions) | No formal verification of behaviour |
+| [cite:@Bigiotti2025] | Survey (Data) | No behavioural semantics for handshake protocols |
+| [cite:@Cheng_2024] | Protocol Design (Asset + Data) | Security assumptions only; no behavioural model |
+| [cite:@sottomayor2024enterprise] | Framework (Semantic interoperability) | No formal concurrency semantics |
+| [cite:@Mohammed_Abdul_2024] | Protocol Design (Cross-chain communication) | No formal verification |
+| [cite:@Li_2024] | Survey (Data/logistics) | Domain-specific; no general behavioural theory |
+| [cite:@Augusto_2023] | Protocol (Asset) | No formal semantics |
+| [cite:@Chen_2023] | Protocol Design (Asset/notary) | No behavioural equivalence |
+| [cite:@Li_2023] | Survey (Cross-chain technology) | No formal comparison |
+| [cite:@wang2023] | Systematic Survey (Asset + Data) | Identifies gap but no formal solution |
+| [cite:@Belchior_2023] | Survey / Gap Analysis (Asset + Data) | Calls for formal methods but does not apply PA |
+| [cite:@Wu_2023] | Protocol Design (Asset/notary + signatures) | No LTS or bisimulation |
+| [cite:@Harris_2023] | Survey (Cross-chain challenges) | High-level only |
+| [cite:@Kotey_2023] | Survey (Heterogeneous communication) | No formal behaviour model |
+| [cite:@Mao_2023] | Survey (Cross-chain technology) | No concurrency semantics |
+| [cite:@Wang_2022] | Protocol Design (Asset + Data) | No formal verification |
+| [cite:@Sober_2022] | Protocol (Asset) | No behavioural equivalence |
+| [cite:@kang2022] | Survey (Interoperability landscape) | No formal methods applied |
+| [cite:@Ou_2022] | Survey (Cross-chain mechanisms) | No process algebra |
+| [cite:@Pillai_2022] | Framework (Asset/burn-to-claim) | No LTS or branching behaviour |
+| [cite:@Lohachab_2021] | Survey (Interoperability role) | Behavioural analysis missing |
+| [cite:@Belchior_2021] | Survey (Past, present, future trends) | No formal semantics |
+| [cite:@wang2021sok] | SoK (Asset + Data) | Calls for behavioural semantics but does not provide |
+
+
+** The IBC Protocol: A Unified Appraoch to Interoperability
+While the previous sections have treated asset-based and data-based interoperability as conceptually distinct categories, the Inter-Blockchain Communication (IBC) protocol represents an attempt to unify both within a single framework. Developed by the Cosmos ecosystem, IBC has become the most widely adopted interoperability protocol, connecting over 100 blockchains as of 2025 [cite:@ibc2024transportapp] [cite:@Belchior_2021].
+*** *Protocol Architecture: Separation of Transport and Application Layer*
+  IBC is designed as a general-purpose message-passing protocol analogous to TCP/IP for the Internet. Its architecture explicitly separates two layers [cite:@cosmos2024ibcintro] [cite:@goes2020interblockchain]:
+
+- *Transport, Authentication, and Ordering (TAO) Layer (ICS-004):* This layer handles the low-level concerns of packet delivery: establishing connections via a 4-step handshake (OpenInit → OpenTry → OpenAck → OpenConfirm), ordering packets, timeouts, and acknowledgements. The TAO is payload-agnostic – it treats all data as opaque bytes [cite:@Wei_2023] [cite:@ibc2025howworks].
+
+- *Application Layer (ICS-020, ICS-027, ICS-031):* This layer gives meaning to the payload. ICS-020 defines fungible token transfers (asset interoperability). ICS-027 defines Interchain Accounts (allowing one chain to control an account on another). ICS-031 defines Interchain Queries (reading state from another chain). The separation allows the same TAO to support both asset and data semantics [cite:@quasar2023litepaper] [cite:@ibc2024transportapp].
+*** Asset Transfer in IBC (ICS-020)
+Under ICS-020, asset transfer follows a *lock-and-mint* pattern consistent with asset-based interoperability described earlier:
+
+1. *Lock/Burn on Source Chain:* The source chain locks the original tokens in a module account or burns them.
+2. *Packet Transmission:* The lock event is packaged into an IBC packet and sent via the TAO layer.
+3. *Mint on Target Chain:* Upon packet receipt and proof verification, the target chain mints an equivalent amount of vouchers (typically prefixed with the source chain's channel identifier).
+4. *Reverse Path (Transfer Back):* The same process in reverse burns vouchers and unlocks original tokens.
+
+This behaviour preserves the *Global Supply Invariant* or the total supply across both chains remains constant [cite:@Pillai_2022] [cite:@Li_2023].
+*** Arbitrary Data Transfer in IBC (ICS-004)
+At the TAO layer, the protocol exhibits data-based interoperability semantics:
+- *Asynchronous Packet Delivery:* Source chain commits a packet; target chain receives it independently. The source chain may continue other operations while the packet is in-flight [cite:@lu2024atomicity].
+- *Acknowledgement and Timeout:* Every packet must eventually result in either an acknowledgement (successful receipt and processing) or a timeout (failure to receive within a deadline). The alternative composition `ack + timeout` creates observable branching behaviour [cite:@Chervinski_2023] [cite:@Wei_2023].
+- *Relayer-Mediated Forwarding:* Off-chain relayers scan both chains, detect packet commitments, and submit proofs to the target chain. Relayer behaviour is internal to the protocol – from an external observer's perspective, only packet send and receive/ack events are visible [cite:@Delgado_von_Eitzen_2025].
+*** Existing Formal Analysis of IBC
+To date, formal verification of IBC has focused primarily on the TAO layer using trace-based methods:
+*Wei et al. (2023)* modelled IBC's TAO in TLA+ and discovered two critical design-level issues: (1) *incomplete handshakes due to identifier exhaustion* where channels could enter a state where no further handshake steps were possible; (2) *trapped packets* where packets could neither be received nor timed out under certain relayer conditions [cite:@Wei_2023].
+While this analysis confirmed safety and liveness properties of packet delivery, it left several questions unanswered from a *behavioural semantics* perspective:
+
+- Does the asset transfer behaviour (ICS-020) share the same core semantics as the data transport behaviour (ICS-004), or are assets simply stacked on top of data with additional constraints?
+- Do asset and data behaviours interfere with each other when both flow through the same channels?
+- What branching structures (e.g., timeout vs acknowledgement choices) characterise each behaviour, and are they equivalent?
+
+These questions require a *behavioural* rather than trace-based analysis. A behavioural analysis preserves the branching structure of the system and can compare processes using bisimulation equivalence.
+*** The Need for Process-Algebraic Analysis of IBC
+TLA+ verification, while valuable for detecting linear temporal logic violations, models behaviour as sequences of states (traces). As will be established in the theoretical framework, trace equivalence collapses branching structure: `ack+timeout` (choice) is indistinguishable from `ack.timeout` (sequence) under trace equivalence [cite:@Fokkink2004].
+
+To answer whether IBC's asset and data behaviours are *unified*, *stacked*, or *conflicting*, a process-algebraic approach is required. Process algebra can:
+
+1. Model the concurrent composition of asset and data flows using the parallel operator
+2. Preserve branching structure using alternative composition
+3. Abstract internal relayer behaviour using the silent action
+4. Compare behaviours using weak bisimulation rather than trace equivalence
+
+This research provides the first process algebra specification of IBC's ICS-004 and ICS-020 standards, filling the gap identified above.
 
 ** Formal Methods to Blockchain Interoperability
-In the study of interoperability protocols, simple architecture diagrams alone are insufficient to guarantee the security and correctness of systems. Formal Methods surfaces in the literature as critical tools to avoid design flaws that can lead to large financial losses [cite:@wei2023formal] [cite:@Llambas2024eventb]. In surveying the literature, formalisations of blockchain interoperability protocols have been developed using a variety of methodologies such as interactive theorem proving, model checking, and symbolic logic. They generally focus on ensuring atomicity, safety, liveness, and consistency across heterogeneous networks.
+In the study of interoperability protocols, simple architecture diagrams alone are insufficient to guarantee the security and correctness of systems. Formal Methods surfaces in the literature as critical tools to avoid design flaws that can lead to large financial losses [cite:@Wei_2023] [cite:@Llambas2024eventb]. In surveying the literature, formalisations of blockchain interoperability protocols have been developed using a variety of methodologies such as interactive theorem proving, model checking, and symbolic logic. They generally focus on ensuring atomicity, safety, liveness, and consistency across heterogeneous networks.
 
 - *Mechanised Proofs and Refinement (Isabelle/HOL, Coq, Event-B*)
   Isabelle/HOL has been used to provide rigorous, high-assurance proofs for several interoperability frameworks.
@@ -83,7 +161,7 @@ In the study of interoperability protocols, simple architecture diagrams alone a
 
 - *Temporal Logic of Actions (TLA+) and Model Checking*
   TLA+ and the TLC moderl checker have been utilised to identify functional and timing-related vulnerabilities in inter-chain protocols.
-  - *IBC TAO Layer*: The TAO layer of IBC was modelled in TLA+ [cite:@Wei_2023]. This analysis discovered critical design-level issues, such as incomplete handshakes due to identifies exhaustion and "trapped" packets that could neither be received nor time out under certain conditions.
+  - *IBC TAO Layer*: The TAO layer of IBC was modelled in TLA+ [cite:@Wei_2023] (see the preceeding section on IBC Protocol).
   - *Tendermint Synchronisation (Fastsync)*: The Fastsync protocol was formalised at multiple levels (high-level, low-level, and concurrency) in TLA+ [cite:@braithwaite2020]. Model checking helped refine properties related to termination and synchronisation, revealing that a global timeout might terminate the process before the node reaches the maximum height of its correct peers.
   - *Cross-Chain Swaps*: Other efforts have included TLA+ formal proofs for specific cross-chain swap protocols and the "burn-to-claim" asset transfer protocol [cite:@Wei_2023].
 
@@ -99,21 +177,34 @@ In the study of interoperability protocols, simple architecture diagrams alone a
   - *QLink Architecture*: A quantom-safe bridge architecture was modelled mathematically to link cryptographic (Post-Quantom Cryptography) and physical-layer (Quantom Key Distribution) security [cite:@silva2025].
 
 **** Comparative Analysis: Process Algebra vs. Exisiting Formalisms
-:PROPERTIES:
-:ALT_TITLE: What Existing Formal Methods Lack
-:END:
+In contract to the state-based and trace-based approaches above, *Process Algebras* (e.g., ACP, CSP, pi-calculus) offer a compositionally rich behavioural perspective on interoperability. Below is a summary of what each surveyed method lacks.
 
-In contract to the state-based and trace-based approaches above, *Process Algebras* (e.g., CSP, pi-calculus) offer a compositionally rich behavioural perspective on interoperability. Table [[tab:formal-comparison]] summarises what each surveyed method lacks relative to a process-algebraic treatment.
+#+caption: Formal Methods Literature (Asset-Focused)
+#+attr_latex: environment longtable
+| Citation | Formal Method Used | Key Limitation |
+|----------+-------------------+----------------|
+| [cite:@Llambas2025] | Event-B | State-based only; no concurrency or branching |
+| [cite:@Llambas2024patterns] | Event-B | Lacks liveness and asynchronous communication |
+| [cite:@Llambas2024eventb] | Event-B | No dynamic process creation; no mobility |
+| [cite:@lochbihler2020] | Isabelle/HOL | No concurrency or branching behaviour |
+| [cite:@maric2025] | Event-B refinement | State-based; no concurrency semantics |
+| [cite:@rupic2020] | Coq | Single ledger; not interoperability-focused |
+| [cite:@boyd2020] | Tamarin | No true concurrency or liveness for data |
+| [cite:@silva2025] | Mathematical model | No process algebra; no bisimulation |
+| [cite:@Wang_2024] | CSP (Process Algebra) | Single protocol; no comparison of asset vs data |
 
-#+caption: Comparison of Existing Formalisms Relative to Process Algebra
-#+attr_latex: :environment longtable :align |l|l|
-| Approach | Missing Relative to Process Algebra |
-|----------|-------------------------------------|
-| Mechanised Proofs (Isabelle/Coq/Event-B) | Native concurrency, algebraic composition, bisimulation |
-| TLA+/Model Checking | Bisimulation equivalence, dynamic process creation |
-| Tamarin (Symbolic) | True concurrency, liveness, fairness |
-| Time Automata/UPPAAL | Behavioural refinement, algebraic laws |
-| Abstract State Machines | Built-in interation semantics, mobility |
+#+caption: Formal Methods Literature (Data-Focused and General)
+#+attr_latex: environment longtable
+| Citation | Formal Method Used | Key Limitation |
+|----------+-------------------+----------------|
+| [cite:@Wei_2023] | TLA+ | Trace-based only; no bisimulation or branching |
+| [cite:@lu2024atomicity] | Abstract State Machines | No process algebra; no bisimulation |
+| [cite:@kammuller2020] | Isabelle/HOL | No process algebra; trace-based only |
+| [cite:@kim2026] | Isabelle/HOL | Safety/liveness but no branching equivalence |
+| [cite:@braithwaite2020] | TLA+ | Not IBC-specific; no asset-data comparison |
+| [cite:@Alam_2023] | Timed Automata (UPPAAL) | Probabilistic; no behavioural refinement laws |
+| [cite:@horta2020] | Why3/WhyML | Single chain; not interoperability |
+| [cite:@Chervinski_2023] | Empirical / Measurement | No formal specification |
 
 This gap motivates the need for a unified behavioural semantics --- one that treats both asset and data interoperability as observable interaction patterns rather than isolated state transitions.
 
@@ -127,69 +218,66 @@ Nevertheless, this philosophy has its own limitation in capturing the liveness (
 *CSP# and pi-calculus (Interaction + Concurrency):* These methods focus on process algebra [cite:@Wang_2024]. Its philosophy is in the treatment of interoperability as a series of inter-process communications. This is useful in modelling interactive protocols like atomic swaps where it is needed that two untrusted parties simultaneously do an action.
 #+end_comment
 
-** The IBC Protocol
-
 ** Synthesis and Research Gap
-In surveying the literature, a clear pattern surfaces: although the improvement in the technical solutions to blokchain interoperability is growing fast, its theoretical and formal foundation still remains slow and fragmented. The following discussions lay outs the critical gaps that reasons the need for this research.
-*** Fragmentaion in Knowledge and Technology
-Every study in the current literature focuses on particular silo or isolated implementations. It can be observed that the current research landscape is divided into walled gardens where one group of the literature is exclusively discussing asset-specific bridges while the others solely focus on messaging-agnostic hubs. For this reason, the understanding of interoperability is not being hollistic. This fragmentation is not only technical but also conceptual; there is no unity in the literature on what really is the standard interaction process to be followed by all protocols.
-*** Lack of Unified Abstraction
-There is no unified way to represent the semantics of cross-chain interactions using a framework that is not dependent on codes. Most of the gathered studies give ad hoc architectures or intentionally made for one particular use case. This shows that the literature currently has insufficient behavioural primitives. These are guiding action units like locking, proving, or emitting that can be used to describe any protocol whether it is an asset-based or data-based. Without this abstraction, developers and researchers will struggle in verifying the security of systems when different protocols gets interconnected.
-*** Lack in Direct Comparison of Behaviours
-There is direct comparison done on the behaviour of asset-based and data-based protocols inside one formal semantic framework. Although there are surveys that list features such as whether they are decentralised or have notary, they do not survey the fundamental difference in terms of interaction logic. Asset-based protocols are described as state-dependent (it needs lock before minting), while data-based are instruction-depended (triggering functions) but the implication of this difference in their observable behaviour is not fomally written. Meaning, although their goal is known, their difference in their execution traces cannot be formally shown.
-*** Methodological Gap in Formal Modelling
-Most of the current formal models are state-based, not interaction-based. The literature is currently limited to one dichotomy:
-The usage of Event-B for verifying static invariants and safety of assets and the usage of TLA+ to survey liveness and traces of data packets.
-This gap is having no model that can unify the low-level state transitions (ownership changes) and high-level messaging flow (function calls) in one language. This does not directly analyses the interaction of value and data as connected manifestation of system behaviour.
-*** Conclusion and Research Direction
-In conclusion, there is a need to have an approach that will abstract these protocols as formal systems of interaction instead solely as implementations. The current gap in the literature is not just only a topic of fastness or throughput, but the lack of deep semantic understanding on how blockchain interoperability operates on the behavioural level.
-One possible way is the usage of a comparative semantic analysis that focus on the creation of formal model for asset and data transfers. This research aims to fill the aforementioned gaps by means of identifying the observable behaviours that will give clarity to the similarities and differences of the two paradigm. This will serve as a guideline for making more robust and standardized interoperability frameworks in the future.
+In surveying the literature, a clear pattern surfaces: although the improvement in the technical solutions to blokchain interoperability is growing fast, its theoretical and formal foundation still remains slow and fragmented. The following lay outs the critical gaps that reasons the need for this research.
+1. *Gap of comparison*: No formal comparison of asset vs data behaviours within a single protocol.
+2. *Gap of method*: No use of Process Algebra/LTS for interoperability semantics.
+3. *Gap of behavioural criteria*: No operational definition of "unified/stacked/conflicting" in terms of observable behaviour.
+4. *Gap of IBC semantics*: No process-algebra model of IBC that separates transport vs application behaviour.
+This research fills these gaps by providing the first process algebra specificatio of IBC's core interoperability standards (ICS-004, ICS-020), extracting LTS models, and analysing whether asset and data behaviours are unified, stacked, or conflicting.
 
-
-
-
-#+CAPTION: Matrix
-#+ATTR_LATEX: :environment longtable :align |l|l|l|l|l|
-| Citation | Type | Interoperability Type | Formalisation | Limitations |
-| [cite:@soureshjani2026] | Survey/Protocol Design | Asset  | |  |
-| [cite:@Notland_2026] | Survey/SoK | Hybrid (bridges) | - | Lacks formal system model |
-| [cite:@Caetano_da_Silva_2025] | 
-| [cite:@augusto2025] |
-| [cite:@Li2025] |
-| [cite:@Delgado_von_Eitzen_2025] |
-| [cite:@kishore2025interoperability] |
-| [cite:@deng2025] |
-| [cite:@A_Alzahrani_2025] |
-| [cite:@Hassan_2025] |
-| [cite:@Kumar_2025] |
-| [cite:@Llambas2025]  |
-| [cite:@Bigiotti2025] |
-| [cite:@lu2024atomicity] |
-| [cite:@Llambas2024patterns] |
-| [cite:@Llambas2024eventb] |
-| [cite:@Cheng_2024] |
-| [cite:@sottomayor2024enterprise] |
-| [cite:@Mohammed_Abdul_2024] |
-| [cite:@Li_2024] |
-| [cite:@Wang_2024] |
-| [cite:@Wei_2023] |
-| [cite:@Augusto_2023] |
-| [cite:@Chen_2023] |
-| [cite:@Li_2023] |
-| [cite:@wang2023] |
-| [cite:@Belchior_2023] |
-| [cite:@Wu_2023] |
-| [cite:@Harris_2023] |
-| [cite:@Kotey_2023] |
-| [cite:@Chervinski_2023] |
-| [cite:@Mao_2023] |
-| [cite:@Wang_2022] |
-| [cite:@Sober_2022] |
-| [cite:@kang2022] |
-| [cite:@Ou_2022] |
-| [cite:@Pillai_2022] |
-| [cite:@Lohachab_2021] |
-| [cite:@Belchior_2021] |
-| [cite:@wang2021sok] |
-
-
+#+CAPTION: Summary of Existing Work Against This Research's Key Criteria
+#+ATTR_LATEX: :environment table :align |l|c|c|c|c|
+| Reference                               | Formal Method | Asset-Data Comparison? | Uses Bisimulation? | Models IBC? |
+|-----------------------------------------+---------------+------------------------+--------------------+-------------|
+| [cite:@wang2021sok]                     | None          | No (calls for it)| No           | No    |
+| [cite:@Wei_2023]                        | TLA+          | No               | No           | $\checkmark$ (TAO only) |
+| [cite:@Llambas2025]                     | Event-B       | No               | No           | No    |
+| [cite:@Llambas2024eventb]               | Event-B       | No               | No           | No    |
+| [cite:@Llambas2024patterns]             | Event-B       | No               | No           | No    |
+| [cite:@Wang_2024]                       | CSP           | No (asset only)  | Yes       | No    |
+| [cite:@lu2024atomicity]                 | ASM           | No               | No           | No    |
+| [cite:@kammuller2020]                   | Isabelle/HOL  | No               | No           | Yes (consistency) |
+| [cite:@lochbihler2020]                  | Isabelle/HOL  | No               | No           | No    |
+| [cite:@maric2025]                       | Event-B       | No               | No           | No    |
+| [cite:@kim2026]                         | Isabelle/HOL  | No               | No           | No    |
+| [cite:@rupic2020]                       | Coq           | No               | No           | No    |
+| [cite:@boyd2020]                        | Tamarin       | No               | No           | No    |
+| [cite:@braithwaite2020]                 | TLA+          | No               | No           | No    |
+| [cite:@Alam_2023]                       | Timed Automata| No               | No           | No    |
+| [cite:@silva2025]                       | Mathematical  | No               | No           | No    |
+| [cite:@deng2025]                        | None          | Yes (identifies gap) | No | No |
+| [cite:@Belchior_2023]                   | None          | Yes (calls for formal) | No | No |
+| [cite:@Li2025]                          | None          | Yes (calls for formal) | No | No |
+| [cite:@Hassan_2025]                     | None          | No               | No           | No    |
+| [cite:@Bigiotti2025]                    | None          | No               | No           | No    |
+| [cite:@Chervinski_2023]                 | Empirical     | No               | No           | Yes (performance) |
+| [cite:@Delgado_von_Eitzen_2025]         | Empirical     | No               | No           | Yes (empirical) |
+| [cite:@soureshjani2026]                 | None          | No               | No           | No    |
+| [cite:@Notland_2026]                    | None          | No               | No           | No    |
+| [cite:@Augusto_2023]                    | None          | No               | No           | No    |
+| [cite:@Pillai_2022]                     | None          | No               | No           | No    |
+| [cite:@Cheng_2024]                      | None          | No               | No           | No    |
+| [cite:@Kotey_2023]                      | None          | No               | No           | No    |
+| [cite:@Li_2023]                         | None          | No               | No           | No    |
+| [cite:@wang2023]                        | None          | No               | No           | No    |
+| [cite:@Wu_2023]                         | None          | No               | No           | No    |
+| [cite:@Chen_2023]                       | None          | No               | No           | No    |
+| [cite:@Sober_2022]                      | None          | No               | No           | No    |
+| [cite:@Wang_2022]                       | None          | No               | No           | No    |
+| [cite:@Mohammed_Abdul_2024]             | None          | No               | No           | No    |
+| [cite:@Kumar_2025]                      | None          | No               | No           | No    |
+| [cite:@Caetano_da_Silva_2025]           | None          | No               | No           | No    |
+| [cite:@augusto2025]                     | None          | No               | No           | No    |
+| [cite:@kishore2025interoperability]     | None          | No               | No           | No    |
+| [cite:@A_Alzahrani_2025]                | None          | No               | No           | No    |
+| [cite:@sottomayor2024enterprise]        | None          | No               | No           | No    |
+| [cite:@Li_2024]                         | None          | No               | No           | No    |
+| [cite:@Harris_2023]                     | None          | No               | No           | No    |
+| [cite:@Mao_2023]                        | None          | No               | No           | No    |
+| [cite:@Ou_2022]                         | None          | No               | No           | No    |
+| [cite:@kang2022]                        | None          | No               | No           | No    |
+| [cite:@Lohachab_2021]                   | None          | No               | No           | No    |
+| [cite:@Belchior_2021]                   | None          | No               | No           | No    |
+| [cite:@horta2020]                       | Why3/WhyML    | No               | No           | No    |
+| **This research**                       | **ACP**       | **Yes**       | **Yes**   | **Yes** |
