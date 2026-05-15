@@ -48,6 +48,10 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,calc}
 
+\usepackage{graphicx}
+
+\newcommand{\pandocbounded}[1]{#1}
+
 \usepackage{listings}
 \definecolor{cppred}{rgb}{0.6,0,0} % for strings
 \definecolor{cppgreen}{rgb}{0.25,0.5,0.35} % comments
@@ -80,11 +84,11 @@ showstringspaces=false}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{A Comparative Semantic Analysis Between Asset-Based and Data-Based Blockchain Interoperability Protocols Using Process Algebra}
+\title{Formal Specification and Behavioural Analysis of the Inter-Blockchain Communication Protocol: Are Asset Transfer and Data Transport Semantically Unified, Stacked, or Conflicting?}
 \department{Computer Science}
 \BSthesis % options: \BSthesis \BSproject \BShonors \Mdegree \MSdegree \PhDdegree
-\degreemonth{1 January}  % date of final defense
-\degreeyear{2022}
+\degreemonth{25 May}  % date of final defense
+\degreeyear{2026}
 
 \twostudents % options: \onestudent \twostudents \threestudents \fourstudents
 {Jazztine Kirvy Gonzales}
@@ -97,36 +101,37 @@ showstringspaces=false}
 {Computer Science}
 {Computer Science}
 
-%\advisor
-%{Adviser's Name}
+\advisor
+{Adviser's Name}
 \threemembers
 {First Panel Member}
 {Second Panel Member}
 {Third Panel Member}
 \deanandchair
-{Dean's Name}
-{Chair's Name}
+{Joshua Martinez}
+{Lowie Vincent Bisana, MIT}
 
-\keywords{SCS, greedy algorithm, genetic algorithm}
+\keywords{Blockchain, Interoperability, Semantics, IBC, Process Algebra}
 
 \begin{document}
 
 %edit etd.cls to accommodate lesser number of proponents
 \maketitle
-%\makerecomm
-%\makeacceptance
-%\makedeclaration
+\makerecomm
+\makeacceptance
+\makedeclaration
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                    ABSTRACT/EXECUTIVE SUMMARY                           %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % can use execsummary or abstract
-%\begin{abstract}
-%\end{abstract}
+\begin{abstract}
+The Inter-Blockchain Communication (IBC) protocol is the most widely adopted interoperability solution, enabling over 100 heterogeneous blockchains to exchange both digital assets and arbitrary data. However, a fundamental question remains unanswered: Are IBC's asset-transfer (ICS-020) and data-transport (ICS-004) behaviours semantically unified, stacked, or conflicting? This research provides the first formal specification and behavioural analysis of IBC using process algebra and labelled transition systems (LTS). Unlike prior trace-based formalisations using TLA\textsuperscript{+} , process algebra preserves branching structure, concurrent composition, and silent abstraction which are essential for detecting behavioural anomalies. The research produces complete process algebra specifications of ICS-004 and ICS-020, extracts LTS models via structural operational semantics, and compares observable behaviours using weak bisimulation and deadlock analysis. The three analytical scenarios are operationally defined: unified (weak bisimilarity), stacked (trace inclusion without bisimilarity), or conflicting (emergent deadlocks under parallel composition). The methodology follows five phases: domain analysis, process algebra specification, LTS extraction, behavioural comparison, and reusable documentation. Findings will provide developers, auditors, and chain operators with mathematically grounded assurance of IBC's semantic interoperability, while establishing a reusable formal framework for comparing other protocols such as Polkadot XCM and Axelar. This work addresses critical gaps in blockchain interoperability theory: no prior formal comparison of asset versus data behaviours, no process-algebraic treatment of IBC semantics, and no operational criteria for unified-stacked-conflicting classification.
+\end{abstract}
 
-%\include{misc/dedication}
-%\include{misc/acknowledgements}
+\include{misc/dedication}
+\include{misc/acknowledgements}
 
 \begingroup
 \renewcommand*{\addvspace}[1]{}
@@ -153,7 +158,7 @@ showstringspaces=false}
 %    \include{appendices/code}
 %    \include{appendices/usersguide}
 
-\nocite{*}
+%\nocite{*}
 \bibliographystyle{siam}
 {
 \singlespace

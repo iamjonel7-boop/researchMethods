@@ -102,9 +102,9 @@ The behaviour here depends on the reliability of the transport layer. Nonetheles
 | [cite:@wang2021sok] | SoK (Asset + Data) | Calls for behavioural semantics but does not provide |
 
 
-** The IBC Protocol: A Unified Appraoch to Interoperability
+** The IBC Protocol: A Unified Approach to Interoperability
 While the previous sections have treated asset-based and data-based interoperability as conceptually distinct categories, the Inter-Blockchain Communication (IBC) protocol represents an attempt to unify both within a single framework. Developed by the Cosmos ecosystem, IBC has become the most widely adopted interoperability protocol, connecting over 100 blockchains as of 2025 [cite:@ibc2024transportapp] [cite:@Belchior_2021].
-*** *Protocol Architecture: Separation of Transport and Application Layer*
+*** Protocol Architecture: Separation of Transport and Application Layer
   IBC is designed as a general-purpose message-passing protocol analogous to TCP/IP for the Internet. Its architecture explicitly separates two layers [cite:@cosmos2024ibcintro] [cite:@goes2020interblockchain]:
 
 - *Transport, Authentication, and Ordering (TAO) Layer (ICS-004):* This layer handles the low-level concerns of packet delivery: establishing connections via a 4-step handshake (OpenInit → OpenTry → OpenAck → OpenConfirm), ordering packets, timeouts, and acknowledgements. The TAO is payload-agnostic – it treats all data as opaque bytes [cite:@Wei_2023] [cite:@ibc2025howworks].

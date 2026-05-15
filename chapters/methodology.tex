@@ -1,213 +1,705 @@
-\chapter{Methodology}\label{methodology}
+\chapter{Conceptual Framework and
+Methodology}\label{conceptual-framework-and-methodology}
 
-The research methodology comprises multi-stage pipeline. It will
-systematically process interoperability protocols from the technical
-specifications towards the formal mathematical verification. Every stage
-in this methodology is treated as sequential and dependent; the success
-of every following stage directly follows from the output of the
-previous stage. This ensures the logical connection of the whole
-process.
+This chapter bridges the theoretical framework established in Chapter 3
+and the formal analysis to be presented in the next chapters. It
+presents the conceptual framework that operationalises the theoretical
+concepts for IBC specifically, followed by a step-by-step methodology
+for conducting the formal specification, LTS extraction, and behavioural
+comparison.
 
-\section{Formal Specification of Interoperability
-Protocols}\label{formal-specification-of-interoperability-protocols}
+The chapter addresses the following questions:
 
-The goal of this stage is to create a strict representation of
-representative protocols using algebraic language. This formalisation is
-important to remove details of their implementation that have no
-connection to the semantic behaviour. This allows comparison between
-asset-based and data-based mechanism.
+\begin{itemize}
+    \item How are the theoretical concepts (atomic actions, operators, bisimulation) instantiated for IBC?
+    \item What is the step-by-step procedure for producing the process algebra specification?
+    \item How are LTS models extracted from process algebra terms?
+    \item How is the unified/stacked/conflicting classification determined?
+\end{itemize}
 
-\subsection{Select Representative
-Protocols}\label{select-representative-protocols}
+\section{Conceptual Framework}\label{conceptual-framework}
 
-Protocols that have wide adoptation and formal documentation will be
-used. For asset-based, Hashed Time-Lock Contracts (HTLC) is considered
-because it serves as the de-facto guideline for atomic swap. For
-data-based, Oracle-based Message Relay is considered because of its
-fundamental paper in delivering external data towards blockchains.
+The theoretical framework in Chapter 3 introduced general concepts from
+process algebra and LTS theory. This subsection defines those concepts
+specifically for the IBC protocol.
 
-\subsection{Identify Actions}\label{identify-actions}
+\subsection{Observable Behaviour in
+IBC}\label{observable-behaviour-in-ibc}
 
-Identify the elementary operations that makes up each protocol:
-\textbf{Asset-Based \((A_{asset})\):} \emph{lock} (locking of asset),
-\emph{unlock} (moving asset out using secret), \emph{refund} (returning
-of token after a timeout). \textbf{Data-based \((A_{data})\):}
-\emph{request} (asking of data), \emph{verify} (confirmation of data
-integrity), \emph{relay} (delivery of proven message to destination
-chain). Let: \[ D: \text{set of data (assets or messages)} \]
-\[ P: \text{set of ports (e.g., source chain, relayer, destination chain)} \]
-Then: \[ A = {s_p(d), r_p(d) | d \in D, p \in P} \] Protocol specific
-actions are mapped into this structure: Asset-based:
-\[ lock \rightarrow s_p(d) \]
-\[ unlock \rightarrow c_p(d) \text{ (succesful transfer)} \]
-\[ refund \rightarrow s_p(d) \text{ (reverse flow)} \] Data-based:
-\[ request \rightarrow s_p(d) \]
-\[ verify \rightarrow \text{ internal communication} \]
-\[ relay \rightarrow c_p(d) \]
+For the purposes of this research, \textbf{observable behaviour} of IBC
+consists of actions that are visible to an external observer of the
+protocol. The following actions are considered observable:
 
-\subsection{Encode Process}\label{encode-process}
+\begin{itemize}
+    \item \textbf{Packet send events:} When a source chain commits a packet to a channel
+    \item \textbf{Packet receive events:} When a target chain accepts a packet
+    \item \textbf{Acknowledgement events:} When a packet is successfully processed
+    \item \textbf{Timeout events:} When a packet fails to be delivered within the deadline
+    \item \textbf{Handshake events:} OpenInit, OpenTry, OpenAck, OpenConfirm
+    \item \textbf{Channel closure events:} CloseInit, CloseConfirm
+\end{itemize}
 
-Form the logical protocol using the following operators:
-\textbf{Sequential (\(\cdot\)):} To signify strict sequential process.
-\textbf{Alternative (\(+\)):} To model branching of decision.
-\textbf{Parallel (\(||\)):} To model interaction between two different
-blockchain ledger. System components (e.g., sender, channel, receiver)
-are modelled as separate processes and composed as:
-\[ S || K || R || L \]
+The following are considered \textbf{internal (silent) actions} and are
+abstracted as \(\tau\):
 
-\subsection{Encapsulation and
-Abstraction}\label{encapsulation-and-abstraction}
+\begin{itemize}
+    \item Relayer packet forwarding between chains
+    \item Cryptographic proof generation and verification (Merkle proofs)
+    \item Light client state synchronisation
+    \item Internal state updates within a single blockchain
+\end{itemize}
 
-To control system visibility: \textbf{Encapsulation set:}
-\[ H = {s_p(d), r_p(d) | p \text{ is internal}} \] Ensures that
-unmatched actions are blocked. \textbf{Abstraction set:}
-\[ I = {c_p(d) | p \text{ is internal}} \] Internal communications are
-hidden as silent steps (\(\tau\)).
+\subsection{Trace Definition for IBC}\label{trace-definition-for-ibc}
 
-\subsection{Final System
-Representation}\label{final-system-representation}
+A \textbf{trace} in IBC is a finite sequence of observable actions from
+the initial channel establishment to either successful termination or
+deadlock. For example, a successful data transfer trace is:
 
-The complete system can be expressed as:
-\[ \tau_I(\partial_H(S || K || R || L)) \] This serves as the
-implementation model (IMP) that will be used for analysis.
+\[
+Trace_{data} = \langle OpenInit, OpenTry, OpenAck, OpenConfirm, Send, Receive, Ack \rangle
+\]
 
-\section{Semantic Extraction Using Labelled Transition
-System}\label{semantic-extraction-using-labelled-transition-system}
+A trace with timeout is:
 
-The goal of this stage is to give the process terms made from the
-preceding stage formal interpretation using Labelled Transition System
-(LTS). Through this, every algebraic term will have its corresponding
-dynamic model that shows all possible observable behaviour of the
-system.
+\[
+Trace_{timeout} = \langle OpenInit, OpenTry, OpenAck, OpenConfirm, Send, Timeout \rangle
+\]
 
-\subsection{Lay out Structural Operational Semantics
-(SOS)}\label{lay-out-structural-operational-semantics-sos}
+\subsection{Branching Structure in
+IBC}\label{branching-structure-in-ibc}
 
-SOS will be used in order to see the meaning of every operator in the
-process algebra using inference rules. Every rule is composed of premise
-and one conclusion: \[ \frac{premises}{conclusion} \]
+Branching structure occurs when the protocol has a choice between two or
+more continuations from a given state. In IBC, branching occurs at:
 
-\subsection{Construct the LTS Model}\label{construct-the-lts-model}
+\begin{itemize}
+    \item \textbf{Acknowledgement vs Timeout:} After sending a packet, the protocol may either receive an acknowledgement (\(ack\)) or expire (\(timeout\)). This is modelled as \(ack + timeout\).
+    \item \textbf{Handshake acceptance vs rejection:} During channel establishment, the target chain may accept (\(OpenTry\)) or reject (\(OpenTryReject\)).
+\end{itemize}
 
-For every specific protocol, LTS will be formed as a triple
-\[ (S, A, \rightarrow) \]:
+\subsection{Deadlock in IBC}\label{deadlock-in-ibc}
 
-\textbf{States \((S)\):} set of states comprising the original process
-term and all terms that can be achieved from it (reachable states).
-\textbf{Labels \((A)\):} labels of transition that refers to atomic
-actions that the system executes. \textbf{Transition \((\rightarrow)\):}
-relation of transition \((s \xrightarrow{a} s')\) that shows change from
-one state to the another after the action \((a)\). \textbf{pLTS} will be
-used when probabilisq behavious is included: captures message loss,
-corruption, and nondeterminism.
+A \textbf{deadlock} in IBC is a state from which no further progress is
+possible but which is not a successful termination. Examples include:
 
-\subsection{Extract Traces at Reachable
-States}\label{extract-traces-at-reachable-states}
+\begin{itemize}
+    \item \textbf{Incomplete handshake:} OpenInit sent but no OpenTry received, and timeout mechanism not triggered
+    \item \textbf{Trapped packet:} Packet sent but neither acknowledged nor timed out due to relayer failure
+    \item \textbf{Channel identifier exhaustion:} No available channel identifiers for new connections
+\end{itemize}
 
-\textbf{Reflexive States:} reflexive transitive closure
-\((\rightarrow*)\) to identify all possible states that can be reached
-by the protocol from the starting state. \textbf{Traces:} get the finite
-sequences of actions \[ a_1, a_2, ..., a_n \] that the system executed
-in order to illustrate the totally of its oberservable behaviour.
+These deadlock states are captured in the LTS as states with no outgoing
+transitions that are not marked as termination states (\(\checkmark\)).
 
-\section{Description of Observable
-Behaviour}\label{description-of-observable-behaviour}
+\section{Research Paradigm: Formal Modelling as
+Inquiry}\label{research-paradigm-formal-modelling-as-inquiry}
 
-The goal of this stage is to formally identify the oberservable
-behaviour of the interoperability protocols using the extraction of
-traces and execution paths from the LTS mdoels. This survey will serve
-as the basis of comparison of asset-based and data-based mechanims at
-the noticeable level of their connecition.
+This research adopts a \textbf{formal modelling paradigm} rather than an
+empirical one. The following distinctions are critical:
 
-\subsection{Give meaning to
-Observable}\label{give-meaning-to-observable}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Empirical Research} & \textbf{This Research (Formal Modelling)} \\
+\hline
+Observes real system execution & Constructs mathematical abstraction \\
+Measures performance or behaviour & Derives behaviour from specification \\
+Statistical validity & Correctness of mapping validity \\
+Requires live network or implementation & Works from protocol standards (ICS documents) \\
+Generalises from samples & Generalises from formal proof \\
+\hline
+\end{tabular}
+\caption{Comparison of Empirical and Formal Modelling Paradigms}
+\end{table}
 
-The behaviour of a system is tread as oberservable if this comprises
-actions that can be seen or experience by an outside observer or
-adjacent system by means of communication. An observable behaviour is
-formally defined as an external specification (SPEC) that remains after
-applying the \textbf{abstraction operator (\(\tau_I\))} in an
-implementation (IMP) TWOSIMPLEPROTCOLS. In this methodology, the
-internal connections between chains are treated as \textbf{hidden
-actions} and are made as silent steps (\(\tau\)) in order to only see
-the connection of input and output between the system and its
-environenment . The rigour of the observation does not come from the
-absence of \(\tau\) but on how abstraction lessens the complexity of the
-internal structure towards a simple SPEC that affirms the correctness of
-interoperability.
+Validity in this research is established through:
 
-Internal calculations or local changes in the storage that cannot be
-seen at cross-chain communication will not be included in this survery.
+\begin{enumerate}
+    \item \textbf{Face validity:} The process algebra specification accurately reflects the IBC standards (ICS-004, ICS-020) as written
+    \item \textbf{Systematic mapping:} Every IBC action has a corresponding atomic action in the alphabet
+    \item \textbf{Complete SOS application:} All LTS transitions are derived using the SOS rules from Chapter 3
+    \item \textbf{Reproducibility:} The complete specification is provided in the appendix for independent verification
+\end{enumerate}
 
-\subsection{Extract Traces and Execution
-Paths}\label{extract-traces-and-execution-paths}
+\subsection{The Three Analytical Scenarios (Unified, Stacked,
+Conflicting)}\label{the-three-analytical-scenarios-unified-stacked-conflicting}
 
-\textbf{Traces:} Traces (\(Tr(q)\)) will be extracted by listing all
-possible series of oberservable actions that can be execute by the
-protocol from its origin state (\(q_0\)). A trace is a string
-\(\sigma \in A^{}*\) where there persist a sequential transitions
-towardsa new state. \textbf{Execution Path:} In order to survey the
-structure of the protocol deeper, execution paths or the total flow of
-the transition \((s \xrightarrow{a} s')\) that shows not only the series
-of actions but also points where there is nondeterministic choice or
-branch of decision.
+The central question of this research is whether IBC\textquotesingle s
+asset-transfer and data-transfer behaviours are Unified, Stacked, or
+Conflicting. Table 4.1 provides the operational definitions for each
+scenario using the theoretical framework from Chapter 3.
 
-\textbf{Justify as Basis of Interoperability:} The oberservable
-behaviour is the fundamental basis of interoperability because the
-communication between two blockchain is being treated as a black box
-interaction. In a chain\textquotesingle s perspective, the internal
-implementation of the other chain has no corelation; what only matters
-is the actions being sent and being accepted by it in order to make sure
-the semantic consistency. In other words, the correctness of
-interoperability depends on whether the observable traces of the two
-system matches under the one specified protocol.
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{Scenario} & \textbf{Operational Definition} & \textbf{LTS Property to Verify} \\
+\hline
+\textbf{Unified} & Asset and data behaviours are weakly bisimilar: \(P_{asset} \approx P_{data}\) & LTS of asset and data have identical branching structure; every observable action in one has a matching action in the other after \(\tau\) abstraction \\
+\hline
+\textbf{Stacked} & Asset behaviour contains all data traces but adds constraints: \(Traces(P_{data}) \subseteq Traces(P_{asset})\) but \(P_{asset} \not\approx P_{data}\) & All data traces appear as subsequences of asset traces; asset traces include additional lock/mint actions; branching structures differ \\
+\hline
+\textbf{Conflicting} & Parallel composition introduces deadlocks not present in isolation: \(Deadlock(P_{asset} \parallel P_{data}) \not\subseteq Deadlock(P_{asset}) \cup Deadlock(P_{data})\) & Running asset and data transfers simultaneously over the same channels creates deadlock states that do not occur when only asset or only data transfers are executed \\
+\hline
+\end{tabular}
+\caption{Operational Definitions for Unified, Stacked, and Conflicting}
+\end{table}
 
-\section{Evaluation Criteria}\label{evaluation-criteria}
+\subsection{Conceptual Framework
+Diagram}\label{conceptual-framework-diagram}
 
-The goal of this stage is to set the formal guideline that will be used
-in comparing asset-bsed and data-based protocols. By means of
-identigying the level of similarity and difference of their behaviour,
-results of the analysation under one concept of semantic
-interoperability can be given interpretations.
+Figure 4.1 illustrates the overall conceptual framework, showing the
+flow from IBC standards to the final classification.
 
-\subsection{Similarity, Difference, and
-Equivalence}\label{similarity-difference-and-equivalence}
+\begin{figure}[htbp]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=0.6cm and 0.8cm,
+    box/.style={rectangle, draw, text width=3cm, align=center, 
+                font=\scriptsize, inner sep=3pt, rounded corners=2pt},
+    arrow/.style={->, thick, >=stealth},
+    stage/.style={font=\bfseries\small, anchor=south}
+]
 
-\textbf{Equivalence:} Two protocol is equivalent if their process graph
-shows equal pattern of interaction to their environment. Formally, this
-is identified as an equivalence class (\(|x| = {y : x \sim y}\)) wherein
-the system belonging to this has one oberservable behaviour.
-\textbf{Similarity:} This refers to having some parts of the trace
-matching even if the structure of the process is not fully similar.
-\textbf{Difference:} This surfaces when a protocol has branching
-structure or deadlock behaviour that cannot be found in another even if
-they have matching strings of action.
+% Stage labels
+\node[stage] at (0.5, 1.2) {Phase 1};
+\node[stage] at (4.2, 1.2) {Phase 2};
+\node[stage] at (7.9, 1.2) {Phase 3};
+\node[stage] at (11.6, 1.2) {Phase 4};
+\node[stage] at (15.3, 1.2) {Phase 5};
 
-\subsection{Evaluation Criterias}\label{evaluation-criterias}
+% Row 1 (main flow)
+\node[box] (A) {IBC Standards\\ICS-004, ICS-020};
+\node[box, right=of A] (B) {Domain Analysis\\Atomic Actions \& $\gamma$};
+\node[box, right=of B] (C) {Process Algebra\\$P_{ICS004}, P_{ICS020}$};
+\node[box, right=of C] (D) {LTS Extraction\\States \& Transitions};
+\node[box, right=of D] (E) {Behavioural\\Analysis};
+\node[box, right=of E] (F) {Weak Bisimulation\\$P_{004} \approx P_{020}$?};
+\node[box, right=of F] (G) {Classification\\Unified/Stacked/Conflicting};
 
-\textbf{Trace Equivalence ( \(=_{tr}\) ):} This criteria will be used to
-survey if the protocols can execute exactly the same series or strings
-of atomic action. Nonetheless, trace equivalence is considered as coarse
-because this does not capture the difference from deadlock or the timing
-of choices. \textbf{Bisimulation Equivalence ( \(\sim\) ):} This the
-stricter criteria (finest). Under this criteria, two protocol need to
-have the same branching structure; meaning, in every step of a protocol,
-the other should respond to the same action and reach a state that is
-again equal.
+% Arrows between main boxes
+\draw[arrow] (A) -- (B);
+\draw[arrow] (B) -- (C);
+\draw[arrow] (C) -- (D);
+\draw[arrow] (D) -- (E);
+\draw[arrow] (E) -- (F);
+\draw[arrow] (F) -- (G);
 
-\subsection{Interpretation of the
-Results}\label{interpretation-of-the-results}
+% Row 2 (detailed outputs below each phase)
+\node[box, below=0.4cm of B, text width=2.5cm, font=\tiny] (Bdet) {Alphabet $Act$\\Ports $P$, Data $D$};
+\node[box, below=0.4cm of C, text width=2.5cm, font=\tiny] (Cdet) {$P_{ICS004}$\\$P_{ICS020}$\\$P_{Combined}$};
+\node[box, below=0.4cm of D, text width=2.5cm, font=\tiny] (Ddet) {LTS$_D$, LTS$_A$\\LTS$_C$};
+\node[box, below=0.4cm of E, text width=2.5cm, font=\tiny] (Edet) {Traces\\Branching\\Deadlocks};
+\node[box, below=0.4cm of F, text width=2.5cm, font=\tiny] (Fdet) {Trace sets\\Cones \& Foci\\$D_{combined}$};
+\node[box, below=0.4cm of G, text width=2.5cm, font=\tiny] (Gdet) {Final\\Result};
 
-The presence of bisimulation between asset-based and data-based protocol
-means that the two has semantic interoperability. That is, the meaning
-and context of their operation still remains consistent in every
-transition.
+\draw[arrow, dashed] (B) -- (Bdet);
+\draw[arrow, dashed] (C) -- (Cdet);
+\draw[arrow, dashed] (D) -- (Ddet);
+\draw[arrow, dashed] (E) -- (Edet);
+\draw[arrow, dashed] (F) -- (Fdet);
+\draw[arrow, dashed] (G) -- (Gdet);
 
-If the protocols are trace equivalent only but not bisimilar, the
-interpretation will have different level of liveness and safety; for
-example, one fo them can lead to deadlock at situations where the other
-one have not experienced yet.
+\end{tikzpicture}%
+}
+\caption{Conceptual Framework for IBC Behavioural Analysis (Five Phases)}
+\label{fig:conceptual-framework}
+\end{figure}
 
-The adherence to this formal criterias ensures that interoperability
-does not only depend on technical connection but also to mathematical
-correctness and semantic integrity of the system.
+\section{Research Methodology}\label{research-methodology}
+
+This research will employ a
+\textbf{formal specification and analytical verification} design. The
+methodology follows a top-down decomposition approach:
+
+\begin{enumerate}
+    \item Start with the IBC protocol standards (ICS-004, ICS-020) as the authoritative source of truth
+    \item Decompose each standard into its constituent atomic actions and interaction patterns
+    \item Translate these patterns into process algebra terms using the operators defined in Chapter 3
+    \item Extract LTS models from the process algebra terms using SOS rules
+    \item Analyse the LTS models to identify traces, branching structures, deadlocks, and synchronisation patterns
+    \item Compare the asset and data behaviours using weak bisimulation and deadlock detection
+    \item Classify the relationship as Unified, Stacked, or Conflicting
+\end{enumerate}
+
+\textbf{Tools to be used:}
+
+\begin{itemize}
+    \item Manual process algebra specification (ACP/CCS style notation)
+    \item Manual LTS extraction and analysis (guided by SOS rules)
+    \item Optional: Validation using process algebra toolset (mCRL2 or CADP) if available
+\end{itemize}
+
+\subsection{Phase 1: Domain Analysis and Atomic Action
+Identification}\label{phase-1-domain-analysis-and-atomic-action-identification}
+
+This phase addresses \textbf{Objective 1} and provides the foundation
+for \textbf{RQ1}.
+
+\begin{enumerate}
+\item
+  Decompose IBC Standards
+
+  Obtain the authoritative IBC standards:
+
+  \begin{itemize}
+      \item ICS-004: Channel and Packet Semantics (data transport layer)
+      \item ICS-020: Fungible Token Transfer (asset transfer layer)
+  \end{itemize}
+
+  Sources: Cosmos IBC documentation and specification repositories
+  \citep{cosmos2024ibcintro} \citep{cosmos_ibc}.
+\item
+  Identify Communication Ports
+
+  Define the set of communication ports \(P\) for IBC:
+
+  \begin{itemize}
+      \item \(p_{chainA}\): Port on source blockchain
+      \item \(p_{chainB}\): Port on target blockchain
+      \item \(p_{relayer}\): Port for off-chain relayer (internal, will be abstracted)
+      \item \(p_{channel}\): Logical channel endpoint
+  \end{itemize}
+\item
+  Define Data Types
+
+  Define the set of data \(D\) for IBC packets:
+
+  \begin{itemize}
+      \item \(d_{packet}\): General packet payload (bytes, payload-agnostic)
+      \item \(d_{asset}\): Asset transfer payload (amount, denomination, sender, receiver)
+      \item \(d_{ack}\): Acknowledgement data (success/failure, optional return data)
+      \item \(d_{channel\_id}\): Channel identifier
+      \item \(d_{sequence}\): Packet sequence number
+      \item \(d_{timeout}\): Timeout height and timestamp
+  \end{itemize}
+\item
+  Define Atomic Actions
+
+  Define the atomic actions for IBC:
+
+  \textbf{Handshake actions (ICS-004):} \[
+  \begin{aligned}
+  & chan\_open\_init_{A}(id) \\
+  & chan\_open\_try_{B}(id) \\
+  & chan\_open\_ack_{A}(id) \\
+  & chan\_open\_confirm_{B}(id)
+  \end{aligned}
+  \]
+
+  \textbf{Packet actions (ICS-004):} \[
+  \begin{aligned}
+  & send\_packet_{A}(p,d) \\
+  & recv\_packet_{B}(p,d) \\
+  & ack_{B}(p,d_{ack}) \\
+  & recv\_ack_{A}(p,d_{ack}) \\
+  & timeout_{A}(p)
+  \end{aligned}
+  \]
+
+  \textbf{Asset-specific actions (ICS-020):} \[
+  \begin{aligned}
+  & lock_{A}(asset) \\
+  & burn_{A}(asset) \quad \text{(alternative to lock)} \\
+  & mint_{B}(voucher) \\
+  & verify\_proof_{B}(proof)
+  \end{aligned}
+  \]
+\item
+  Define Communication Function
+
+  Define the communication function \(\gamma\) that pairs send and read
+  actions:
+
+  \[
+  \begin{aligned}
+  & \gamma(send\_packet_{A}(p,d), recv\_packet_{B}(p,d)) = c\_packet(p,d) \\
+  & \gamma(ack_{B}(p,d_{ack}), recv\_ack_{A}(p,d_{ack})) = c\_ack(p,d_{ack}) \\
+  & \gamma(chan\_open\_init_{A}(id), chan\_open\_try_{B}(id)) = c\_open(id) \\
+  & \gamma(chan\_open\_ack_{A}(id), chan\_open\_confirm_{B}(id)) = c\_confirm(id)
+  \end{aligned}
+  \]
+
+  Mismatched or isolated actions (send without matching read, or vice
+  versa) are blocked by the encapsulation operator \(\partial_H\).
+\item
+  Deliverable
+
+  A complete alphabet specification containing:
+
+  \begin{itemize}
+      \item Set of ports \(P\)
+      \item Set of data types \(D\)
+      \item Set of atomic actions \(Act = Act_{handshake} \cup Act_{packet} \cup Act_{asset}\)
+      \item Communication function \(\gamma\)
+      \item Set of internal actions \(I\) to be abstracted (relayer forwarding, proof verification)
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Phase 2: Process Algebra
+Specification}\label{phase-2-process-algebra-specification}
+
+This phase addresses \textbf{Objective 2} and completes \textbf{RQ1}.
+
+\begin{enumerate}
+\item
+  Specify ICS-004 (Data Transport)
+
+  Define the channel handshake process: \[
+  Handshake = chan\_open\_init_{A} \cdot (chan\_open\_try_{B} \cdot chan\_open\_ack_{A} \cdot chan\_open\_confirm_{B} + TimeoutReject)
+  \]
+
+  Define the packet flow process: \[
+  PacketFlow = send\_packet_{A} \cdot (recv\_packet_{B} \cdot ack_{B} \cdot recv\_ack_{A} + timeout_{A})
+  \]
+
+  Define the full channel process (recursive for multiple packets): \[
+  Channel = Handshake \cdot (PacketFlow)^* \cdot Close
+  \] where \((PacketFlow)^*\) denotes zero or more repetitions of
+  PacketFlow, and \(Close\) terminates the channel.
+
+  Define the complete IBC data transport system: \[
+  IBC_{Data} = \partial_H( Chain_A \parallel Relayer \parallel Chain_B )
+  \] where:
+
+  \begin{itemize}
+      \item \(Chain_A\) and \(Chain_B\) are blockchain processes running Channel
+      \item \(Relayer\) forwards packets internally (modelled as \(\tau\) actions)
+      \item \(\partial_H\) blocks unmatched send/read actions (requires handshake completion)
+  \end{itemize}
+\item
+  Specify ICS-020 (Asset Transfer)
+
+  Define the lock/burn process on source chain: \[
+  LockProcess = lock_{A}(asset) \cdot verify\_lock_{A} \cdot packet\_prep
+  \]
+
+  Define the mint/claim process on target chain: \[
+  MintProcess = verify\_proof_{B} \cdot mint_{B}(voucher) \cdot ack\_send
+  \]
+
+  Define the full asset transfer (wrapped in ICS-004 packet): \[
+  AssetTransfer = LockProcess \cdot SendPacket \cdot MintProcess + Rollback
+  \] where \(Rollback\) handles timeout or verification failure by
+  unlocking the asset.
+
+  Define the complete IBC asset transfer system: \[
+  IBC_{Asset} = \partial_H( ChainA_{asset} \parallel Relayer \parallel ChainB_{asset} )
+  \]
+\item
+  Specify Combined System (for Conflict Detection)
+
+  To test for conflicts, define the parallel composition of asset and
+  data flows over the same channels: \[
+  IBC_{Combined} = \partial_H( (Chain_A \parallel ChainA_{asset}) \parallel Relayer \parallel (Chain_B \parallel ChainB_{asset}) )
+  \]
+\item
+  Deliverable
+
+  Complete process algebra specifications for:
+
+  \begin{itemize}
+      \item \(P_{ICS004}\) (data transport only)
+      \item \(P_{ICS020}\) (asset transfer only)
+      \item \(P_{Combined}\) (both running concurrently)
+  \end{itemize}
+
+  All specifications follow the syntax defined in Chapter 3 and will be
+  included in the appendices.
+\end{enumerate}
+
+\subsection{Phase 3: LTS Extraction}\label{phase-3-lts-extraction}
+
+This phase addresses \textbf{Objective 3} and \textbf{RQ2}.
+
+\begin{enumerate}
+\item
+  Generate LTS from Process Terms
+
+  Using the SOS rules defined in Chapter 3 (Section 3.6), generate the
+  LTS for each process term:
+
+  \textbf{Procedure:}
+
+  \begin{enumerate}
+      \item Start from the initial state of the process term
+      \item For each state, examine all possible SOS rule applications
+      \item For each applicable rule, derive the next state and transition label
+      \item Add the new state to the set \(S\) and the transition to \(\rightarrow\)
+      \item Repeat until no new states are reachable (fixpoint)
+      \item Mark termination states as \(\checkmark\)
+      \item Mark deadlock states (no outgoing transitions, not terminated) as \(\delta\)
+  \end{enumerate}
+\item
+  Record LTS Properties
+
+  For each LTS (\(LTS_{Data}\), \(LTS_{Asset}\), \(LTS_{Combined}\)),
+  record:
+
+  \begin{enumerate}
+      \item \textbf{States (S):} List of all reachable states with unique identifiers
+      \item \textbf{Transitions (→):} Labelled edges between states
+      \item \textbf{Partial traces:} All finite sequences of observable actions
+      \item \textbf{Completed traces:} Sequences ending in \(\checkmark\) or \(\delta\)
+      \item \textbf{Branching points:} States with multiple outgoing transitions (choice points)
+      \item \textbf{Deadlock states:} States with no outgoing transitions and not marked \(\checkmark\)
+      \item \textbf{Synchronisation patterns:} Transitions labelled with communication actions \(c_p(d)\)
+  \end{enumerate}
+\item
+  Visualise LTS
+
+  Produce transition graphs for each LTS. Example structure for
+  \(LTS_{Data}\):
+
+  \begin{verbatim}
+  State S0 (Initial) --chan_open_init_A--> S1
+  State S1 --chan_open_try_B--> S2
+  State S2 --chan_open_ack_A--> S3
+  State S3 --chan_open_confirm_B--> S4 (Channel Open)
+  State S4 --send_packet_A--> S5
+  State S5 --recv_packet_B--> S6
+  State S6 (Choice) --ack_B--> S7 or --timeout_A--> S8
+  ...
+  \end{verbatim}
+\item
+  Deliverable
+
+  For each specification (\(P_{ICS004}\), \(P_{ICS020}\),
+  \(P_{Combined}\)):
+
+  \begin{itemize}
+      \item Complete LTS with enumerated states and transitions
+      \item Set of partial traces
+      \item Set of completed traces
+      \item Set of deadlock states (if any)
+      \item Branching structure documentation
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Phase 4: Behavioural
+Comparison}\label{phase-4-behavioural-comparison}
+
+This phase addresses \textbf{Objectives 4 and 5} and answers
+\textbf{RQ3}.
+
+\begin{enumerate}
+\item
+  Compare Trace Sets
+
+  Compute and compare trace sets: \[
+  \begin{aligned}
+  T_{data} &= Traces(P_{ICS004}) \\
+  T_{asset} &= Traces(P_{ICS020}) \\
+  \end{aligned}
+  \]
+
+  Check:
+
+  \begin{enumerate}
+      \item \(T_{data} \subseteq T_{asset}\)? (Are all data traces also asset traces?)
+      \item \(T_{asset} \subseteq T_{data}\)? (Are all asset traces also data traces?)
+      \item \(T_{data} = T_{asset}\)? (Are the trace sets identical?)
+  \end{enumerate}
+
+  \textbf{Interpretation:}
+
+  \begin{itemize}
+      \item If \(T_{data} = T_{asset}\) → possible Unified (but must check branching)
+      \item If \(T_{data} \subset T_{asset}\) → possible Stacked
+      \item If neither inclusion holds → likely Conflicting or behaviours fundamentally different
+  \end{itemize}
+\item
+  Check Weak Bisimulation
+
+  Apply the Cones and Foci methodology \cite{Fokkink2004} to determine
+  if \(P_{ICS004} \approx P_{ICS020}\):
+
+  \textbf{Procedure:}
+
+  \begin{enumerate}
+      \item Construct a state mapping function \(\phi\) from states of \(P_{ICS020}\) to states of \(P_{ICS004}\)
+      \item For each state in \(P_{ICS020}\), identify the matching "focus" state in \(P_{ICS004}\)
+      \item Prove that for each visible action, the branching structure is preserved
+      \item Prove that \(\tau\) steps in one process can be matched by zero or more \(\tau\) steps in the other
+  \end{enumerate}
+
+  If \(\phi\) exists and all proof obligations are satisfied, then
+  \(P_{ICS004} \approx P_{ICS020}\) (weak bisimilar).
+\item
+  Detect Conflicts
+
+  Compute deadlock sets: \[
+  \begin{aligned}
+  D_{data} &= Deadlock(P_{ICS004}) \\
+  D_{asset} &= Deadlock(P_{ICS020}) \\
+  D_{combined} &= Deadlock(P_{ICS004} \parallel P_{ICS020})
+  \end{aligned}
+  \]
+
+  Check if: \[
+  D_{combined} \not\subseteq D_{data} \cup D_{asset}
+  \]
+
+  If YES, then new deadlocks appear only when asset and data behaviours
+  run concurrently. For each new deadlock, document the trace that leads
+  to it.
+\item
+  Assign Final Classification
+
+  Apply the decision rules from Table 4.1:
+\item
+  Deliverable
+
+  \begin{itemize}
+      \item Trace inclusion relationships (with evidence)
+      \item Weak bisimulation proof or disproof (with Cones and Foci mapping)
+      \item Deadlock sets for all three processes
+      \item Final classification: \textbf{Unified}, \textbf{Stacked}, or \textbf{Conflicting}
+      \item If Conflicting: Documented traces leading to new deadlocks
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Phase 5: Documentation and
+Reusability}\label{phase-5-documentation-and-reusability}
+
+This phase addresses \textbf{Objective 6}.
+
+\begin{enumerate}
+\item
+  Standardise Notation
+
+  Legends for all process algebra symbols used:
+
+  \begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|}
+  \hline
+  \textbf{Symbol} & \textbf{Meaning} \\
+  \hline
+  \(a\) & Atomic action \\
+  \(\cdot\) & Sequential composition \\
+  \(+\) & Alternative composition (choice) \\
+  \(\parallel\) & Parallel composition \\
+  \(\partial_H\) & Encapsulation (block actions in set \(H\)) \\
+  \(\tau_I\) & Abstraction (rename actions in \(I\) to \(\tau\)) \\
+  \(\tau\) & Silent (internal) action \\
+  \(\delta\) & Deadlock \\
+  \(\checkmark\) & Successful termination \\
+  \(\gamma\) & Communication function \\
+  \(s_p(d)\) & Send action on port \(p\) with data \(d\) \\
+  \(r_p(d)\) & Read action on port \(p\) with data \(d\) \\
+  \(c_p(d)\) & Communication action (synchronised send/receive) \\
+  \(\approx\) & Weak bisimulation \\
+  \(\leftrightarrow_{rb}\) & Branching bisimulation \\
+  \hline
+  \end{tabular}
+  \caption{Process Algebra Notation Legend}
+  \end{table}
+\item
+  Document Assumptions and Abstractions
+
+  List of all abstractions made (from Scope and Limitations in Chapter
+  1):
+
+  \begin{enumerate}
+      \item Cryptographic verification (Merkle proofs, light client sync) is abstracted as \(\tau\)
+      \item Economic incentives (gas costs, slashing, liquidity constraints) are not modelled
+      \item Relayer behaviour is abstracted as \(\tau\) (only observable effects are packet delivery)
+      \item Only ICS-004 and ICS-020 are modelled; ICS-27 (Interchain Accounts) and ICS-31 (Interchain Queries) are excluded
+      \item Security properties beyond observable behaviour (e.g., double-spending resistance) are not verified
+      \item No empirical validation or live protocol execution is performed
+  \end{enumerate}
+\item
+  Produce Reusable Specification
+
+  Format the complete specification as an appendix with:
+
+  \begin{itemize}
+      \item Complete alphabet definition
+      \item Complete process algebra terms for \(P_{ICS004}\), \(P_{ICS020}\), and \(P_{Combined}\)
+      \item Communication function \(\gamma\) definition
+      \item Encapsulation set \(H\) and abstraction set \(I\)
+      \item Commentary explaining each part of the specification
+  \end{itemize}
+
+  This specification is designed to be reusable for:
+
+  \begin{itemize}
+      \item Future comparison with Polkadot XCM
+      \item Future comparison with Axelar General Message Passing (GMP)
+      \item Input to automated process algebra tools (mCRL2, CADP, or similar)
+  \end{itemize}
+\item
+  Deliverable
+
+  \begin{itemize}
+      \item An appendix for complete and commented process algebra specification
+      \item An appendix for the extracted LTS models (states and transitions)
+      \item Documentation of assumptions for future researchers
+  \end{itemize}
+\end{enumerate}
+
+\section{Validation and Quality
+Criteria}\label{validation-and-quality-criteria}
+
+Unlike empirical research, formal modelling research requires different
+validation criteria.
+
+\subsection{Correctness of
+Formalisation}\label{correctness-of-formalisation}
+
+\begin{itemize}
+    \item \textbf{Face validity:} The process algebra specification is reviewed against ICS-004 and ICS-020 documents line by line. Every protocol action in the standards has a corresponding atomic action or process term in the specification.
+    \item \textbf{Systematic mapping:} A mapping table documents how each IBC standard element translates to process algebra.
+    \item \textbf{Expert review (if available):} A researcher with formal methods or blockchain interoperability expertise reviews the specification for accuracy.
+\end{itemize}
+
+\subsection{Completeness of LTS
+Extraction}\label{completeness-of-lts-extraction}
+
+\begin{itemize}
+    \item \textbf{State space coverage:} The LTS includes all states reachable from the initial state via SOS rule application. No reachable state is omitted.
+    \item \textbf{Termination handling:} All termination states (\(\checkmark\)) are correctly identified.
+    \item \textbf{Deadlock detection:} All deadlock states are identified and documented.
+\end{itemize}
+
+\subsection{Reproducibility}\label{reproducibility}
+
+\begin{itemize}
+    \item The complete process algebra specification is provided in the appendices.
+    \item Each step of LTS generation is documented (transition-by-transition)
+    \item If tools are used (mCRL2, CADP), the input scripts and commands are included
+    \item The methodology is described with sufficient detail for another researcher to replicate
+\end{itemize}
+
+\subsection{Limitations}\label{limitations}
+
+\begin{itemize}
+    \item \textbf{Abstraction may hide subtle bugs:} Cryptographic failures (e.g., Merkle proof forgery) are not modelled; economic attacks (e.g., relayer bribery) are not captured; timing-dependent issues may be lost in \(\tau\) abstraction
+    \item \textbf{Manual LTS extraction:} Manual derivation may introduce human error (mitigated by systematic SOS application and cross-checking)
+    \item \textbf{Scalability:} State explosion may occur for highly concurrent scenarios (mitigated by compositional analysis and abstraction)
+    \item \textbf{No empirical validation:} Results are theoretical predictions, not guarantees about live IBC implementations
+\end{itemize}
+
+\section{Ethical Considerations}\label{ethical-considerations}
+
+This research involves no human subjects, no personal data collection,
+and no live blockchain interaction. The formal modelling and analysis
+are conducted entirely on publicly available protocol specifications
+(ICS-004, ICS-020). No economic or security risks are introduced as no
+actual assets or live transactions are involved. Proper attribution is
+given to IBC standard authors, process algebra pioneers, and all cited
+researchers.
+
+\section{Summary}\label{summary}
+
+This chapter has presented the conceptual framework and methodology for
+analysing IBC\textquotesingle s asset and data behaviours. The key
+elements are:
+
+\begin{itemize}
+    \item \textbf{Conceptual framework:} Operational definitions of observable behaviour, traces, branching structure, and deadlock specifically for IBC; three analytical scenarios (Unified, Stacked, Conflicting) with formal criteria; conceptual diagram showing the analysis flow
+    \item \textbf{Methodology:} Five phases: (1) domain analysis and atomic action identification, (2) process algebra specification, (3) LTS extraction, (4) behavioural comparison using weak bisimulation and deadlock detection, (5) documentation for reusability
+    \item \textbf{Validation:} Correctness through face validity and systematic mapping; completeness through state space coverage; reproducibility through complete specification in appendix
+\end{itemize}

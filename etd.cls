@@ -254,10 +254,10 @@
 
 % Define Committee
 
-%\def\chairman#1{\gdef\@chairman{\vspace{0.45in}
-%\parbox{3.in}{\rule{3.in}{0.01in}\\
-% \mbox{}\hfill {\small #1, Chairman}\hfill\mbox{}}}
-% \gdef\@abstractchairman{Committee Chairman:\ #1\\ \@department}}
+\def\chairman#1{\gdef\@chairman{\vspace{0.45in}
+\parbox{3.in}{\rule{3.in}{0.01in}\\
+  \mbox{}\hfill {\small #1, Chairman}\hfill\mbox{}}}
+  \gdef\@abstractchairman{Committee Chairman:\ #1\\ \@department}}
 
 \def\chairman#1{\gdef\@chairman{\vspace{0.45in}
 \parbox{3.in}{
@@ -425,20 +425,20 @@ in whole or in part.}\par}
 %{\@degree~in \@thirdstudentdeg}\par\vfill
 %{\Large \@fourthstudent}\\
 %{\@degree~in \@fourthstudentdeg}\par\vfill
-%\@degreeword submitted to the faculty of the\\
-%Department of \@faculty\\
-%College of Computer Studies, \ADNU\\
-%in partial fulfillment of the requirements for their respective \\
-%Bachelor of Science degrees \vfill
+\@degreeword submitted to the faculty of the\\
+Department of \@faculty\\
+College of Computer Studies, \ADNU\\
+in partial fulfillment of the requirements for their respective \\
+Bachelor of Science degrees \vfill
 %{\@degree}\smallskip\\%\smallskip\\
 %\@field \vfill
-%\@chairman\\
-%\@member\par\vfill
-%\@degreemonth \space \@degreeyear\par
-%Naga City, Philippines\par\vfill
-%\@keywords\par\par
-%\bigskip
-%\@copyrightnotice\par
+\@chairman\\
+\@member\par\vfill
+\@degreemonth \space \@degreeyear\par
+Naga City, Philippines\par\vfill
+\@keywords\par\par
+\bigskip
+\@copyrightnotice\par
 \end{center}
 }
 
@@ -451,8 +451,8 @@ The Senior Project entitled
 developed by
   {\begin{center}{\large\bf\@firststudent}\\\@degree~in \@firststudentdeg\end{center}}
   {\begin{center}{\large\bf\@secondstudent}\\\@degree~in \@secondstudentdeg\end{center}}
-  {\begin{center}{\large\bf\@thirdstudent}\\\@degree~in \@thirdstudentdeg\end{center}}
-  {\begin{center}{\large\bf\@fourthstudent}\\\@degree~in \@fourthstudentdeg\end{center}}
+  %{\begin{center}{\large\bf\@thirdstudent}\\\@degree~in \@thirdstudentdeg\end{center}}
+  %{\begin{center}{\large\bf\@fourthstudent}\\\@degree~in \@fourthstudentdeg\end{center}}
 \noindent
 and submitted in partial fulfillment of the requirements
 of their respective \@degree\ degrees
@@ -488,8 +488,8 @@ The Senior Project entitled
 developed by
   {\begin{center}{\large\bf\@firststudent}\\\@degree~in \@firststudentdeg\end{center}}
   {\begin{center}{\large\bf\@secondstudent}\\\@degree~in \@secondstudentdeg\end{center}}
-  {\begin{center}{\large\bf\@thirdstudent}\\\@degree~in \@thirdstudentdeg\end{center}}
-  {\begin{center}{\large\bf\@fourthstudent}\\\@degree~in \@fourthstudentdeg\end{center}}
+  %{\begin{center}{\large\bf\@thirdstudent}\\\@degree~in \@thirdstudentdeg\end{center}}
+  %{\begin{center}{\large\bf\@fourthstudent}\\\@degree~in \@fourthstudentdeg\end{center}}
 \noindent
 and submitted in partial fulfillment of the requirements
 of their respective \@degree\ degrees
@@ -532,9 +532,9 @@ In our honor, we declare that we did not pass off as our own the work done by an
     \begin{tabular}{ccc}
         \textbf{\@firststudent} & & \textbf{\@secondstudent}\\
         4 - \@degree\ in \@firststudentdeg & & 4 - \@degree\ in \@secondstudentdeg\\
-        \\
-        \textbf{\@thirdstudent} & & \textbf{\@fourthstudent}\\
-        4- \@degree\ in \@thirdstudentdeg & & 4 - \@degree\ in \@fourthstudentdeg\\
+     %   \\
+   %     \textbf{\@thirdstudent} & & \textbf{\@fourthstudent}\\
+    %    4- \@degree\ in \@thirdstudentdeg & & 4 - \@degree\ in \@fourthstudentdeg\\
     \end{tabular}
 \end{center}
 
@@ -556,7 +556,7 @@ Project Advisor
   \newpage\thispagestyle{empty}
   {{\Large\bf\begin{center}\@title\end{center}}
    \begin{center}by\\
-   \@firststudent, \@secondstudent, % \@thirdstudent, and \@fourthstudent --%
+   \@firststudent, \@secondstudent % \@thirdstudent, and \@fourthstudent --%
    \par%
    %\@abstractchairman\bigskip\\
        {\large\bf ABSTRACT}\end{center}}}
@@ -567,7 +567,8 @@ Project Advisor
   \newpage\thispagestyle{empty}
   {{\Large\bf\begin{center}\@title\end{center}}
    \begin{center}by\\
-   \@firststudent, \@secondstudent, \@thirdstudent, and \@fourthstudent \par%
+     \@firststudent, \@secondstudent, %\@thirdstudent, and \@fourthstudent --%
+     \par%
    \@abstractchairman\bigskip\\{\large\bf EXECUTIVE SUMMARY}\end{center}}}
   {\newpage}
 

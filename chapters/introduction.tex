@@ -1,81 +1,229 @@
 \chapter{Introduction}\label{introduction}
 
-The blockchain technology first gained its popularity as a decentralised
-ledger focusing on the exchange of asset or cryptocurrency like Bitcoin.
-Initially, this design provides solution to the problem of
-double-spending in digital money without the need of third-party entity
-like banks. Every transaction in blockchain is publicly recorded in a
-way that they cannot be changed (tamper-proof) using cryptography. This
-ensures trust between the participants in the network eventhough they do
-not know each other personally.
+After the inception of blockchain as a distributed ledger in 2009 with
+the invention of Bitcoin, the concept of \textbf{blockchain
+interoperability (BI)} soon followed and started to receive attention
+\citep{Belchior_2021}. It is the ability of different blockchain
+networks to communicate and exchange data, or currency and assets
+without needing a centralised arbiter
+\citep{kishore2025interoperability}. This is motivated by the
+realisation that blockchains have become isolated silos or systems
+incapable of communicating with their outside environment.
+Interoperability permits technology to develop beyond its limitation to
+scalability, reduces fragmentation in the ecosystem, and increases the
+use of liquidity in different platforms \citep{belenkov2025review}
+\citep{Saleh2024}. Without this, innovation will remain limited as
+digital assets and information remain stagnant and isolated within their
+own blockchain networks.
 
-Today, blockchains have evolved from simply exchanging currency to
-becoming a general-purpose platform with the introduction of Ethereum
-and smart contracts. For this reason, it became programmable that
-eventually led its use in different sectors like in supply chain,
-healthcare, voting, and Internet of Things (IoT). At this point,
-blockchain is no longer about financial transaction; it has become a
-means of safe storage and sharing of information that depends on the
-needs of individual industries.
+The early protocols for BI started development within 2015-2016. They
+are mainly focused on the atomic exchanage of digital asset or tokens
+between different networks
+\citep{wilson2026exploringblockchaininteroperabilityframeworks}. These
+protocols, such as sidechains, notary schemes, and hashed time-lock
+contracts (HTLC), are categorised as \textbf{asset-based} since their
+original goal is to facilitate the exchange of value and cryptocurrency
+through an autonomous and synchronised way \citep{wang2021sok}.
 
-This growth in its capabilities led to an array of independent
-blockchain platforms that together contributed to the problem of
-interoperability. Despite their growth both in their capabilities and
-number, blockchains have not yet been widely adopted or succesfully
-integrated into today\textquotesingle s mainstream technological
-systems. To address this, they need not only solutions to issues of
-decentralisation, scalability, and security (the blockchain trilemma),
-but also their capability to communicate with each other. Without
-interoperability, they will continue to remain only as information silos
-or disconnected islands of information that cannot exchange value and
-data directly. This limits the real potential of blockchain technology.
+When the blockchain usage moved beyond cryptocurrency to complicated
+applications like provenance, tracking, and Internet of Things (IoT),
+new protocols aimed to handle arbitrary data evolved \citep{Kotey_2024}.
+As data from many applications quickly grow in volume, the need to
+prioritise sharing arbitrary information and state transitions between
+networks has become more evident \citep{wang2021sok}
+\citep{kishore2025interoperability}. Since the earlier blockchains are
+treated as isolated silos, the mere exchange of value is insufficient
+for sectors like supply chain and healthcare that need wider
+coordination and sharing of information
+\citep{wilson2026exploringblockchaininteroperabilityframeworks}
+\citep{madine2021appxchain}. This need led to the creation of
+cross-blockchain smart contracts and messaging frameworks allowing
+decentralised applications (dApps) to coordinate and verify information
+from different chain without undergoing a centralised arbiter
+\citep{Belchior_2021}.
 
-Solutions to interoperability exist like cross-chain bridges, relays,
-and sidechains. In recent literature, blockchain interoperability (BI)
-is divided into two aspects: digital asset interoperability (for
-cryptocurrency) and arbitrary data interoperability (for general
-information). This difference has been used by recent papers in order to
-understand the different logic and mechanisms needed by each category.
-Because of this, the issue of semantic interoperability surfaces. It is
-the challenge on how the meaning and correct interpretation of data
-remain consistent while they are being transferred to different
-blockchain networks.
+Recognising the limitations of single-purpose protocols, developers
+created unified interoperability protocols capable of handling both
+assets and arbitrary data. The \textbf{Interblockchain (IBC)} protocol
+is the leading example of this. It handles both digital assets and
+arbitraty data by means of its payload-agnostic design; information is
+delivered as byte-encoded packets whatever it contains
+\citep{cosmos2024ibcintro} \citep{goes2020interblockchain}. This works
+by separating the transport layer (TAO) (that focuses on transportation,
+authentication, and arrangment of data) and the application layer (that
+gives meaning to each payload) \citep{ibc2025howworks}.
 
-The different protocols of BI also reflects the developmental evolution
-of blockchains. Earlier protocols were designed to facilitate transfer
-of assets from one blockchain network to another. Meanwhile, recent
-developments of protocols move towards the exchange of arbitrary data.
+For assets, IBC uses guidelines like (InterChain Standards) ICS-20 for
+locking the original asset and minting the corresponding vouchers in the
+target blockchain \citep{quasar2023litepaper}
+\citep{ibc2024transportapp} \citep{goes2020interblockchain}. Meanwhile
+for arbitrary data and application logic, ICS-27 (Interchain Accounts)
+and ICS-31 (Interchain Queries) are used in order to execute commands or
+read states from other network without needing a centralised arbiter
+\citep{quasar2023litepaper} \citep{ibc2024transportapp}. IBC serves as a
+general-purpose communication layer similar to TCP/IP of the Internet
+that allows heterogenous blockchains to exchange whatever type of
+information in a way that is safe and trust-minimised.
 
-\section{Problem Statement}\label{problem-statement}
+\section{Project Context}\label{project-context}
 
-How do asset-based and a data-based blockchain interoperability compare
-in terms of their semantically defined observable behaviour?
-Specifically, this research aims to answer the following research
-questions:
+The \textbf{Inter-Blockchain Communication (IBC) Protocol} is considered
+as the most used and widely adopted interoperability protocol that can
+handle both digital assets and arbitrary data
+\citep{ibc2024transportapp} \citep{Belchior_2021}. As a general-purpose
+message-passing protocol, it serves as the connective tissue of more
+than 100 different blockchains (where 107 chains uses reference
+implementation of IBC-Go) to cooperate in a way that is secure,
+permissionless, and trust-minimised. Its payload-agnostic design enables
+it to deliver whatever information that is encoded in bytes --- from
+simple token transfers using ICS-20 standard to more complex arbitrary
+data and application logic like ICS-27 (Interchain Accounts) and ICS-31
+(Interchain Queries). Because of its wide adoption and ability to serve
+as a universal standard like TCP/IP of Internet, it is the leading
+solution in creating an Internet of Blockchains that supports different
+workflows in the whole ecosystem \citep{kishore2025interoperability}.
+
+However, despite IBC\textquotesingle s widespread adoption, a
+fundamental question remains unanswered: Do IBC\textquotesingle s
+asset-transfer and data-transfer behaviours share the same core
+semantics (unified), are assets semantics merely built on top of data
+transport without fundamental integration (staked), or do these
+behaviours interfere with each other in ways that create observable
+anomalies (conflicting)?
+
+\textbf{Semantic interoperability}, or the ability of different
+blockchain networks to understand exchanged data and use it meaningfully
+in their own systems, depends on answering this question
+\citep{Saleh2024} \citep{Belchior_2021}. Without a clear understanding
+of how asset and data behaviours relate within a unified protocol like
+IBC, developers cannot be certain that cross-chain operations will
+behave predictably. At the same time, auditors cannot guarantee that
+security properties hold across both asset transfers and arbitrary
+message passing.
+
+\textbf{Formal modelling} answers the problem of semantic
+interoperability by providing a mathematical and clear description of
+the characteristics of the systems that removes ambiguity or
+misconceptions on how data should be understood and processed
+\citep{verma2022formalmethods}. It serves as the foundation in ensuring
+that application-specific semantics are maintained amidst the
+differences in architecture and consensus mechanisms \citep{Saleh2024}
+\citep{Belchior_2021}. Formal verification like model checking, provides
+irrefutable evidence to the developers and auditors that the
+coordination of the behaviours of assets and arbitrary data remain
+predictable and safe within a unified protocol like the IBC.
+
+Currently, formalisation on IBC is focused on its TAO using tools like
+TLA+ in order to verify the correctness, safety, and liveness of its
+protocol \citep{Wei_2023}. There is a need to formalise its semantic
+interoperability layer because although ICS dictates guidelines for
+applications, there is insufficient mathematical foundation that
+verifies the coordination of the behaviours of assset and arbitrary data
+within system.
+
+This research will use \textbf{Process Algebra} to model the behaviour
+of IBC protocol.
+
+\section{Purpose and Description}\label{purpose-and-description}
+
+The main purpose of this research is to formally specify and analyse the
+observable behaviours of the IBC protocol using process algebra and
+labelled transition systems (LTS). Specifically, this research will:
 
 \begin{enumerate}
+\tightlist
 \item
-  How can asset-based and data-based blockchain interoperability
-  protocols be formally defined?
+  Produce the first complete process algebra specification of
+  IBC\textquotesingle s core protocols (ICS-004 for data transport and
+  ICS-020 for asset transfer).
 \item
-  What observable behaviours emerge form the semantic models?
+  Extract LTS behavioural models from these specifications.
 \item
-  In what ways do these obsservabe behaviours differ or align under a
-  semantic framework?
+  Analyse whether IBC\textquotesingle s asset-transfer and data-transfer
+  behaviours are unified, stacked, or conflicting.
 \end{enumerate}
 
-increasing need for data interop, so we find out the semantic of these
-crypto based interop, and the semantic of data- based interop, and then
-find their differences.
+Unlike the prior formal analyses of IBC using TLA+ trace-based
+verification, this research uses process algebra which is a formalism
+uniquely suited to capturing concurrent interaction, branching
+structure, and silent abstraction. This provides a complementary
+perspective that can reveal behavioural anomalies that trace-based
+methods might miss.
+
+Aside from developers and auditors, this will give dApp developers
+assurance and predictability in developing ccross-chain applications.
+For chain operator and validator, this will reduce development risk and
+ensures stability of the system against dynamic runtime errors like
+deadlock or livelock \citep{Kotey_2024} \citep{Duan2018}. Lastly,
+end-users can ensure the integrity and security of their asset and
+transaction in a trust-minimised environment \citep{Kotey_2024}.
+
+To guide this research, the following questions are posed:
+
+\begin{enumerate}
+\tightlist
+\item
+  How can IBC (including both asset transfer and data transfer) be
+  formally specified using process algebra?
+\item
+  What obervable behaviours (traces, ordering constraints, branching
+  structure, deadlocks, synchronisation patterns) emerge from the LTS
+  model of IBC?
+\item
+  Within the IBC specification, are the behavioural patterns for asset
+  transfer and data transfer: a. Unified (they share the same core
+  semantics)? b. Stacked (asset semantics are built on top of data
+  transport without fundamental integration?) c. Conflicting (they
+  interfere with each other in ways that cause observable behavioural
+  anomalies?)
+\end{enumerate}
 
 \section{Objectives}\label{objectives}
 
-\subsection{Main Objective}\label{main-objective}
+To achive the main purpose of this research, the following specific
+objectives must be accomplished:
 
-\subsection{Specific Objectives}\label{specific-objectives}
+\begin{enumerate}
+\tightlist
+\item
+  Identify and define the atomic actions, alphabets, communication
+  ports, and data types necessary to model IBC\textquotesingle s ICS-004
+  and ICS-020 in process algebra.
+\item
+  Formally specify IBC\textquotesingle s core interaction patterns using
+  process algebra operators.
+\item
+  Extract LTS models from the process algebra specifications, capturing
+  all reachable states and observable transitions.
+\item
+  Analyse the LTS models to identify traces, ordering constraints,
+  branching structures, deadlock states, and synchrnisation pattern for
+  both asset-transfer and data-transfer scenarios.
+\item
+  Compare the behavioural patterns for asset transfer and data transfer
+  within IBC specification to determine whether they are unified,
+  stacked, or conflicting.
+\item
+  Document the process algebra specification and LTS models in a
+  reusable form suitable for future comparative studies with other
+  interoperability protocols like Polkadot XCM and Axelar.
+\end{enumerate}
 
 \section{Scope and Limitations}\label{scope-and-limitations}
 
-\subsection{Scope}\label{scope}
+The formal model abstracts away low-level details such as cryptographic
+verification (Merkle proofs), light client synchronisation, and relayer
+behaviour
 
-\subsection{Limitations}\label{limitations}
+Economic incentives (gas costs, slashing, liquidity constraints) are not
+modelled
+
+The analysis focuses on observable behaviour only; security properties
+beyond what is observable (e.g., double-spending resistance) are not
+verified
+
+Only IBC\textquotesingle s core ICS-004 and ICS-020 standards are
+modelled; other application standards (ICS-27, ICS-31) are excluded
+
+No empirical validation or actual protocol instance execution is
+performed

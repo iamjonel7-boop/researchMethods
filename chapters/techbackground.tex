@@ -1,5 +1,14 @@
 \chapter{Theoretical Framework}\label{theoretical-framework}
 
+This section provides the mathematical vocabulary and analytical tools
+necessary in answering the three research questions guiding this
+research. Specifically, it establishes: (1) how to formally specify
+IBC\textquotesingle s atomic actions and processes, (2) how to extract
+observable behaviours including traces, deadlocks, and branching
+structures from such specifications, (3) how to operationally determine
+whether asset and data behaviours within IBC are unified, stacked, or
+conflicting using behavioural equivalence.
+
 \section{Systems and System
 Behaviour}\label{systems-and-system-behaviour}
 
@@ -32,51 +41,42 @@ removes ambiguity and ensures the correctness in comparing asset-bsed
 and data-based mechanisms under one theoretical framework
 \citep{Duan2018} \citep{fokkink2007introduction}.
 
-\section{Semantic Modelling Using Labelled Transition Systems
-(LTS)}\label{semantic-modelling-using-labelled-transition-systems-lts}
+\section{Interoperability as System
+Composition}\label{interoperability-as-system-composition}
 
-Labelled Transition System (LTS) is a fundamental mathematical structure
-used to model computations and dynamic behaviour of systems
-\citep{vanBenthemBergstra1995}. It represents systems as states and
-transitions labelled by actions.
+In process theory, interoperability can be formally described as a
+composition of two or more systems that work together to achieve a
+particular goal \citep{lalli2024}. Under the framework of Process
+Algebra, this communication is symbolised by the parallel composition
+\[ (P || Q) \], wherein every blockchain network is treated as separate
+process that runs concurrently and independently from the other networks
+but with the ability to communicate to each other.
 
-However, in order to capture the complex behaviour of blockchain
-interoperability, the system is modelled as a \textbf{Probabilistic
-Lablled Transition System (pLTS)}. It is composed of quadruple
-\[ ( S, Act, P,  \rightarrow ) \]. In this framework, the transition
-relation \((\rightarrow)\) does not only connects states but also refers
-to a probability distribution \((\Delta)\) above the group of states
-\((S)\). This probability distribution is crucial in modelling
-nondeterministic environments of consensus protocols and frame
-collisions \citep{van_Glabbeek_2019}.
+The communication inside this composition is run by the mechanism of
+\textbf{synchronisation} \citep{milner1989communication}. By means of a
+formal \textbf{communication function}, the individual actions of every
+blokchain gets to communicate. For example, the action that delivers the
+message \((send)\) from a system needs to match the action of receiving
+\((read)\) at the other system in order to complete a succefull
+communication.
 
-The \textbf{observable behaviour} of the system is composed of the
-\textbf{traces}. They are the series of actions from the starting state
-\citep{Gorrieri_2017}. This formalism allows the abstraction from the
-inside implementation to the outside communication
-\citep{plotkin2004structural}. These traces serve as the guidelines to
-analyse whether a protocol follows its intended semantic
-interoperability.
+The behaviour of the formed composition is treated as observable from
+the perspective of an outsider viewer \citep{milner1989communication}.
+Using the \textbf{abstraction operator} the complex details of the
+internal communication between blockchains are hidden or made as
+\emph{silent steps (\(\tau\)),} so that what only remains are the
+external input-output relation of the whole inter-operational system
+\citep{fokkink2007introduction}. The resulting traces or series
+observable actions serve as the evidence if the operation of the
+composed systems remain consistent to the original semantic
+specification.
 
-It is important to notice when two systems with differing structure
-representation or graph can share the same behaviour
-\citep{baeten1995concrete}. This concept is called \textbf{behavioural
-equivalence} wherein the states of different LTSs are treated as equal
-if they exhibit the same pattern of transitions such as what the theory
-of bisimulation describes \citep{baeten1995concrete}
-\citep{Gorrieri_2017}. This abstraction allows the inquiry of comparison
-of protocols for asset-based and data-based interoperability in
-blockchains without limiting particular details of their internal
-implementation \citep{plotkin2004structural}.
+This framework of formal composition gives way to formally analyse and
+compare the two ways of blockchain communications: the asset-based and
+data-based interoperability.
 
-Nevertheless, the simple usage of state transition graphs can lead to
-the problem of state explosion that makes formal verification difficult
-\citep{vaandrager1986verification}. For this reason, there is a need to
-a more expressive framework that allows algebraic manipulation and
-composition of processes.
-
-\section{Process Algebra for System Composition and
-Communication}\label{process-algebra-for-system-composition-and-communication}
+\section{Foundations of Process
+Algebra}\label{foundations-of-process-algebra}
 
 \textbf{Process Algebra} serve as the main theoretical instrument of
 this research particularly the principles of communication, composition,
@@ -107,7 +107,7 @@ paradigm where communication happens only through synchronisation
 between matching send and read actions. Isolated actions are disallowed
 to ensure correctness in system interaction \citep{Vaandrager_1990}.
 
-\subsection{Core Operators}\label{core-operators}
+\subsection{Process Operators}\label{process-operators}
 
 In this framework, every system\textquotesingle s process is composed of
 atomic actions (actions that has no duration) combined using the
@@ -127,34 +127,46 @@ regouped to see the whole behaviour of the inter-operational system
 analysis of the connection between asset-based and data-based protocols
 as a series of concurrent processes \citep{fokkink2007introduction}.
 
-\subsection{Encapsulation and
-Abstraction}\label{encapsulation-and-abstraction}
+\subsection{Encapsulation}\label{encapsulation}
 
 To control system visibility: \textbf{Encapsulation (\(\partial_H\))}
 blocks unmatched internal actions. It is used in order to ensure these
 internal actions do not happen alone but as a part if a synchronized
 communciation that causes transition to the state of the whole
-composition. \textbf{Abstraction (\(\tau_I\))} hides internal
-communications as silent steps (\(\tau\))
-\citep{fokkink2007introduction}.
+composition.
 
-\subsection{Timed and Reliable
-Behaviour}\label{timed-and-reliable-behaviour}
+\subsection{Recursion and Abstraction}\label{recursion-and-abstraction}
 
-Since interoperability protocols operate in asynchronous environments,
-timing and reliability must be incorporated. The framework adopts the
-principles of \textbf{Positive Acknowledgement with Retransmission
-(PAR):} Successful delivery → acknowledgement (\(ac\)) Failure or delay
-→ timeout (\(to\)) Recovery → retransmission To regulate behaviour, a
-priority operator (\(\theta\)) is introduced. It assigns lower priority
-to timeout actions than successful communications to prevent premature
-retransmissions.
+Recursion allows specification of infinite or repetitive behaviours
+using fixed-point operators. For blockchain protocols, recursion models
+continuous channel operation:
 
-Also, process algebra alone may not be sufficient in modelling
-interoperability mechanisms like HTLC. Because these mechanisms depend
-on timeouts, the formalism needs to be a Timed Process Algebra where in
-each process, there is a local variable \emph{now} to keep track the
-passing of discrete time \citep{van_Glabbeek_2019}.
+\[
+Channel = Open \cdot (Send \cdot Receive + Timeout) \cdot Channel
+\]
+
+The \textbf{silent action (\(\tau\))} represents internal, unobservable
+steps. Relayer forwarding, proof verification, and internal state
+updates are modelled as \(\tau\) actions. That is, they affect the
+system\textquotesingle s internal state but are not visible to an
+external observer.
+
+The \textbf{abstraction operator \(\tau_I\)} renames all actions in set
+\(I\) to \(\tau\), hiding implementation details. For IBC:
+
+\[
+\tau_{\{forward\_packet, verify\_proof\}}(P_{IBC})
+\]
+
+makes only packet sends, receives, acknowledgements, and timeouts
+observable. Meanwhile, internal relayer behaviour becomes silent steps.
+
+Key properties of \(\tau\):
+
+\begin{itemize}
+    \item \(\tau \cdot P = P\) (silent steps can be removed without changing observable behaviour)
+    \item \(a \cdot (\tau \cdot (b + c))\) is observationally equivalent to \(a \cdot (b + c)\)
+\end{itemize}
 
 \subsection{Operation Semantics}\label{operation-semantics}
 
@@ -163,8 +175,61 @@ The meaning of process expressions is formally defined using
 specify how processes evolve. This ensures that every behaviour is
 derivable and mathematically well-defined \citep{Vaandrager_1990}.
 
-\subsection{Behavioural Equivalence and
-Verification}\label{behavioural-equivalence-and-verification}
+\section{Labelled Transition Systems as Semantic
+Model}\label{labelled-transition-systems-as-semantic-model}
+
+Labelled Transition System (LTS) is a fundamental mathematical structure
+used to model computations and dynamic behaviour of systems
+\citep{vanBenthemBergstra1995}. A Labelled Transition System (LTS) is
+formally defined as a tuple \((S, I, Act, \rightarrow, \checkmark)\)
+where:
+
+\begin{itemize}
+    \item \(S\) is a set of states
+    \item \(I \in S\) is the initial state
+    \item \(Act\) is a set of action labels
+    \item \(\rightarrow \subseteq S \times Act \times S\) is the transition relation
+    \item \(\checkmark \subseteq S\) is the set of \textbf{successfully terminated states}
+\end{itemize}
+
+A \textbf{deadlock state} is a state with no outgoing transitions
+(\(\nexists a, s'\) such that \(s \xrightarrow{a} s'\)) AND
+\(s \notin \checkmark\). Deadlock represents protocol failure wherein a
+packet can neither be delivered nor timed out.
+
+For IBC, deadlock occurs when:
+
+\begin{itemize}
+    \item A handshake remains incomplete (OpenInit sent, no OpenTry received)
+    \item A packet is sent but neither acknowledged nor timed out
+\end{itemize}
+
+The \textbf{observable behaviour} of the system is composed of the
+\textbf{traces}. They are the series of actions from the starting state
+\citep{Gorrieri_2017}. This formalism allows the abstraction from the
+inside implementation to the outside communication
+\citep{plotkin2004structural}. These traces serve as the guidelines to
+analyse whether a protocol follows its intended semantic
+interoperability.
+
+It is important to notice when two systems with differing structure
+representation or graph can share the same behaviour
+\citep{baeten1995concrete}. This concept is called \textbf{behavioural
+equivalence} wherein the states of different LTSs are treated as equal
+if they exhibit the same pattern of transitions such as what the theory
+of bisimulation describes \citep{baeten1995concrete}
+\citep{Gorrieri_2017}. This abstraction allows the inquiry of comparison
+of protocols for asset-based and data-based interoperability in
+blockchains without limiting particular details of their internal
+implementation \citep{plotkin2004structural}.
+
+Nevertheless, the simple usage of state transition graphs can lead to
+the problem of state explosion that makes formal verification difficult
+\citep{vaandrager1986verification}. For this reason, there is a need to
+a more expressive framework that allows algebraic manipulation and
+composition of processes.
+
+\section{Behavioural Equivalences}\label{behavioural-equivalences}
 
 In order to identify whether an implementation of a protocol matches to
 its expected behaviour, the concept of \textbf{behavioural equivalence}
@@ -179,73 +244,161 @@ where every state in an implementation is mapped to a particular focus
 point at a specification that shows similar external behaviour
 \citep{Fokkink2004}.
 
-\section{Interoperability as System
-Composition}\label{interoperability-as-system-composition}
+\subsection{Trace Equivalence (Partial and
+Completed)}\label{trace-equivalence-partial-and-completed}
 
-In process theory, interoperability can be formally described as a
-composition of two or more systems that work together to achieve a
-particular goal \citep{lalli2024}. Under the framework of Process
-Algebra, this communication is symbolised by the parallel composition
-\((P || Q)\), wherein every blockchain network is treated as separate
-process that runs concurrently and independently from the other networks
-but with the ability to communicate to each other.
+A \textbf{partial trace} is any finite sequence of observable actions
+from the initial state. On the otherhand, a \textbf{completed trace} is
+a sequence ending in a deadlock or termination state.
 
-The communication inside this composition is run by the mechanism of
-\textbf{synchronisation} \citep{milner1989communication}. By means of a
-formal \textbf{communication function (\(\gamma\))}, the individual
-actions of every blokchain gets to communicate. For example, the action
-that delivers the message \((send)\) from a system needs to match the
-action of receiving \((read)\) at the other system in order to complete
-a succefull communication.
+Two processes \(P\) and \(Q\) are \textbf{trace-equivalent}
+(\(P \approx_{tr} Q\)) if \(Traces(P) = Traces(Q)\).
 
-The behaviour of the formed composition is treated as observable from
-the perspective of an outsider viewer \citep{milner1989communication}.
-Using the \textbf{abstraction operator (\(\tau_I\)),} the complex
-details of the internal communication between blockchains are hidden or
-made as \emph{silent steps (\(\tau\)),} so that what only remains are
-the external input-output relation of the whole inter-operational system
-\citep{fokkink2007introduction}. The resulting traces or series
-observable actions serve as the evidence if the operation of the
-composed systems remain consistent to the original semantic
-specification.
+\textbf{Limitation}: Trace equivalence collapses branching structure.
+The processes \(a.(b + c)\) (choose between b or c after a) and
+\(a.b + a.c\) (choose between doing a then b or a then c) have identical
+trace sets \(\{ab, ac\}\) but exhibit different branching behaviour at
+the moment of choice.
 
-This framework of formal composition gives way to formally analyse and
-compare the two ways of blockchain communications: the asset-based and
-data-based interoperability.
+For interoperability, trace equivalence cannot distinguish a protocol
+that offers a choice between acknowledgement and timeout
+\((ack + timeout)\) from one that forces acknowledgement then timeout
+\((ack \cdot timeout)\).
 
-\section{Distinction Between Asset-Based and Data-Based
-Interoperability}\label{distinction-between-asset-based-and-data-based-interoperability}
+\subsection{Bisimulation (Strong and
+Weak)}\label{bisimulation-strong-and-weak}
 
-In order to analyse the semantic behaviour of interoperability
-protocols, it is important to identify the difference between the two
-major category of interation in blockchain: asset-based and data-based
-interoperability.
+\textbf{Strong bisimulation} (\(\leftrightarrow\)) requires that every
+action of \(P\) is matched by exactly the same action of \(Q\),
+including \(\tau\). A relation \(R\) is a strong bisimulation if
+whenever \((P,Q) \in R\):
 
-Asset-based interoperability is formally illustrated as a mechanism to
-transfer ownership or value between different blockchain network. Under
-this model, a digital asset, like cryptocurrency, is formally burned or
-locked from its source chain in order to create an equal value at its
-destination chain. The primary goal here is the maintaining of the
-linear logic of the value wherein one asset cannot exit simultaneously
-in two different systems.
+\begin{itemize}
+    \item If \(P \xrightarrow{a} P'\), then \(\exists Q'\) such that \(Q \xrightarrow{a} Q'\) and \((P',Q') \in R\)
+    \item If \(Q \xrightarrow{a} Q'\), then \(\exists P'\) such that \(P \xrightarrow{a} P'\) and \((P',Q') \in R\)
+\end{itemize}
 
-On the other hand, data-based interoperability is focused on the exhange
-of information or arbitrary data without needing to have a definite
-value. This type of interoperability allows a blockchain to read or
-verify the state of other blockchain, which is usually used to trigger
-\textbf{smart contract invocation}. Instead of transferring ownership,
-its focus is the delivery of messages from an external source towards an
-on-chain environment which is usually run by mechanisms like Oracle.
+\textbf{Weak bisimulation} (\(\approx\)) abstracts over \(\tau\) steps.
+Define \(\Rightarrow\) as zero or more \(\tau\) steps. Then
+\(P \xrightarrow{a} \Rightarrow Q\) means
+\(P \Rightarrow \xrightarrow{a} \Rightarrow Q\). Weak bisimulation
+requires matching actions after absorbing \(\tau\) steps.
 
-This difference leads to different behavioural implication for each
-protocol. In asset-based interoperability, the behaviour of the system
-is critcally tied to atomicity or the guarantee that the whole
-transaction between chains will be all successful or failure in order to
-avoid losing of value. In data-based interoperability, the behaviour is
-focused on semantic consistency and data integrity, wherein the goal is
-to make sure that the message received by the destination chain is
-authentic and true to its representation in the original state from
-where it came from.
+For IBC, weak bisimulation is appropriate because relayer forwarding
+(\(\tau\)) should not affect observable correctness.
 
-The understanding of this difference will lead way to the creation of a
-formal model that will analyse their transitions.
+\subsection{Branching Bisimulation and Cones and
+Foci}\label{branching-bisimulation-and-cones-and-foci}
+
+\textbf{Branching bisimulation} (\(\leftrightarrow_{rb}\)) preserves the
+branching structure of processes, unlike trace equivalence. It is
+crucial for identifying deadlocks which can result in loss of value or
+messages \cite{Fokkink2004}.
+
+To prove bisimulation between two processes (e.g., asset and data
+specifications), this research adopts the
+\textbf{Cones and Foci methodology} \cite{Fokkink2004}:
+
+\begin{itemize}
+    \item A \textbf{cone} is the set of all states reachable from a given state
+    \item A \textbf{focus} is a state in the specification that the implementation maps to
+    \item Construct a state mapping function \(\phi\) from implementation states to specification states
+    \item Prove each \(\tau\)-step either preserves \(\phi\) or moves closer to a focus point
+\end{itemize}
+
+This methodology establishes branching bisimulation between
+IBC\textquotesingle s concrete behaviour and its abstract specification.
+
+\section{From Process Algebra to LTS: Operational
+Semantics}\label{from-process-algebra-to-lts-operational-semantics}
+
+Structural Operational Semantics (SOS) defines how process terms
+transition. Each operator has inference rules \citep{Vaandrager_1990}.
+
+\subsection{Atomic Action}\label{atomic-action}
+
+\[
+\frac{}{a \xrightarrow{a} \checkmark}
+\]
+
+\subsection{\texorpdfstring{Sequential Composition
+(\(P \cdot Q\))}{Sequential Composition (P \textbackslash cdot Q)}}\label{sequential-composition-p-cdot-q}
+
+\[
+\frac{P \xrightarrow{a} P'}{P \cdot Q \xrightarrow{a} P' \cdot Q} \quad
+\frac{P \xrightarrow{a} \checkmark}{P \cdot Q \xrightarrow{a} Q}
+\]
+
+\subsection{\texorpdfstring{Alternative Composition
+(\(P + Q\))}{Alternative Composition (P + Q)}}\label{alternative-composition-p-q}
+
+\[
+\frac{P \xrightarrow{a} P'}{P + Q \xrightarrow{a} P'} \quad
+\frac{Q \xrightarrow{a} Q'}{P + Q \xrightarrow{a} Q'}
+\]
+
+\subsection{\texorpdfstring{Parallel Composition
+(\(P \parallel Q\))}{Parallel Composition (P \textbackslash parallel Q)}}\label{parallel-composition-p-parallel-q}
+
+\[
+\frac{P \xrightarrow{a} P'}{P \parallel Q \xrightarrow{a} P' \parallel Q} \quad
+\frac{Q \xrightarrow{a} Q'}{P \parallel Q \xrightarrow{a} P \parallel Q'}
+\]
+
+\subsection{Communication
+(Synchronisation)}\label{communication-synchronisation}
+
+\[
+\frac{P \xrightarrow{s_p(d)} P' \quad Q \xrightarrow{r_p(d)} Q'}{P \parallel Q \xrightarrow{c_p(d)} P' \parallel Q'}
+\] where \(\gamma(s_p(d), r_p(d)) = c_p(d)\).
+
+\subsection{\texorpdfstring{Encapsulation
+(\(\partial_H(P)\))}{Encapsulation (\textbackslash partial\_H(P))}}\label{encapsulation-partial_hp}
+
+\[
+\frac{P \xrightarrow{a} P' \quad a \notin H}{\partial_H(P) \xrightarrow{a} \partial_H(P')}
+\]
+
+\subsection{\texorpdfstring{Abstraction
+(\(\tau_I(P)\))}{Abstraction (\textbackslash tau\_I(P))}}\label{abstraction-tau_ip}
+
+\[
+\frac{P \xrightarrow{a} P' \quad a \notin I}{\tau_I(P) \xrightarrow{a} \tau_I(P')} \quad
+\frac{P \xrightarrow{a} P' \quad a \in I}{\tau_I(P) \xrightarrow{\tau} \tau_I(P')}
+\]
+
+These rules provide the formal basis for extracting LTS models from
+process algebra specifications of IBC.
+
+\section{Application to Blockchain
+Interoperability}\label{application-to-blockchain-interoperability}
+
+Process algebra has been successfully applied to blockchain systems,
+establishing precedent for this research.
+
+\begin{itemize}
+\item
+  The \(\natural\)-calculus (nu-calculus) is a process calculus embedded
+  in Haskell and formalised in Isabelle/HOL, has been used to verify the
+  Ouroboros consensus protocol for Cardano. Key innovation: using two
+  stacked LTSs to handle data transfer and channel scope modularly
+  \citep{jeltsh2019}.
+\item
+  CCS (Calculus of Communicating Systems) and weak bisimulation has been
+  used to verify optimising transformations on smart contracts written
+  in Cardano\textquotesingle s Marlowe eDSL. They proved that
+  transformed contracts preserve observable behaviour
+  (\(P_{original} \approx P_{transformed}\)) \citep{mcilwaine2025}.
+\end{itemize}
+
+\textbf{Why Process Algebra for IBC Specifically}:
+
+\begin{enumerate}
+    \item \textbf{Concurrent channels}: IBC allows multiple channels between same chains. Parallel operator (\(\parallel\)) models this naturally.
+    \item \textbf{Branching choices}: IBC's handshake includes choice points (OpenInit → OpenTry OR timeout). Alternative composition (\(+\)) preserves branching structure.
+    \item \textbf{Silent abstraction}: Relayer behaviour is internal. \(\tau\) operator and weak bisimulation allow abstraction while preserving observable correctness.
+    \item \textbf{Compositional analysis}: IBC separates TAO from application layer. Process algebra allows verifying assets and data separately, then composing them to detect conflicts.
+    \item \textbf{Behavioural equivalence}: The central question (unified/stacked/conflicting) requires weak bisimulation as the mathematical criterion.
+\end{enumerate}
+
+\section{Framework Synthesis}\label{framework-synthesis}

@@ -4,24 +4,23 @@ Literature}\label{review-of-related-literature}
 In the current landscape of blockchain technology, the emergence of
 heterogeneous networks has revealed the term "information isolated
 isalands" or "value silos" \citep{wang2021sok} \citep{Bigiotti2025}
-\citep{Wu_2023}. Although individual blockchains are STRONG/GREAT as
+\citep{Wu_2023}. Although individual blockchains proved to be useful as
 independent ledgers, the lack of communication between them limits their
 potential widespread adoption \citep{Hassan_2025} \citep{Cheng_2024}
-\citep{Lohachab_2021}. Blockchain interoperability then is not just a
-feature; but a critical interaction between distributed systems
-\citep{wang2021sok} \citep{Li2025} \citep{Lohachab_2021}.
+\citep{Lohachab_2021}. Blockchain interoperability then becomes a
+critical interaction between distributed systems \citep{wang2021sok}
+\citep{Li2025} \citep{Lohachab_2021}.
 
-It is vital to understand that every blockchain acts as an independent
-state machine with its own concensus rules and encryption standards
-\citep{Bigiotti2025} \citep{Belchior_2021}. Since there are no shared
-state or global clock between these different blockchains, their
-interactions must happen asynchronously; they must instead use message
-passing and state synchronisation \citep{wang2021sok}
-\citep{wei2023formal}. In other words, blockchain interoperability is a
-process wherein one source chain is trying to change the state of a
-target chain by means of delivering information or assets under certain
-securoty assumptions \citep{wang2021sok} \citep{Wang_2023}
-\citep{belchior2021survey}.
+Blockchain systems have been described as an independent state machine
+with its own concensus rules and encryption standards
+\citep{Bigiotti2025} \citep{Belchior_2021}. Because they do not have a
+shared state or global clock between them, their interactions must
+happen asynchronously; they must instead use message passing and state
+synchronisation \citep{wang2021sok} \citep{Wei_2023}. In other words,
+blockchain interoperability is a process wherein one source chain is
+trying to change the state of a target chain by means of delivering
+information or assets under certain securoty assumptions
+\citep{wang2021sok} \citep{Wang_2023} \citep{belchior2021survey}.
 
 Most of study in the literature focus on the blockchain interoperability
 architecture. That is, whether it uses relays, sidechains, or notaries
@@ -38,17 +37,16 @@ network \citep{wang2021sok} \citep{Bigiotti2025} \citep{Wang_2023}
 This means that the sequencing of state transitions, timing of
 cyrptographic proofs, and reactions to failure or timeout reveals the
 system\textquotesingle s behaviour \citep{Ou_2022}
-\citep{Chervinski_2023} \citep{deng2025} \citep{wei2023formal}.The
-analysis of behaviours, instead of the static design, gives deeper
-understanding on how different components (such as smart contracts and
-relayers) interact during different processe. That is so to achieve
-semantic interoperability where the meaning and context of data or asset
-from the source chain gets accurately interpreted and valid to the
-target chain \citep{Belchior_2023} \citep{sottomayor2024enterprise}
-\citep{Li2025}.
+\citep{Chervinski_2023} \citep{deng2025} \citep{Wei_2023}.The analysis
+of behaviours, instead of the static design, gives deeper understanding
+on how different components (such as smart contracts and relayers)
+interact during different processe. That is so to achieve semantic
+interoperability where the meaning and context of data or asset from the
+source chain gets accurately interpreted and valid to the target chain
+\citep{Belchior_2023} \citep{sottomayor2024enterprise} \citep{Li2025}.
 
-\section{Approaches to Blockchain
-Interoperability}\label{approaches-to-blockchain-interoperability}
+\section{Evolution of Blockchain
+Interoperability}\label{evolution-of-blockchain-interoperability}
 
 Surveying the literature, it is noticeable that the classifications of
 interoperability reflects the underlying logic on how to trust and treat
@@ -63,23 +61,28 @@ derived from the OSI model of the internet \citep{Hassan_2025}
 The common abstraction from most of the sources is the
 \textbf{source-target model}. In this model, an operation from the
 source chain needs to trigger a corresponding state change to the target
-chain \citep{deng2025} \citep{Cheng_2024}. Nonetheless, here comes the
-critical difference on how this interaction gets seen:
+chain \citep{deng2025} \citep{Cheng_2024}. The following differentiates
+a critical difference on how this interaction gets seen:
 
-\textbf{Interoperability as Transfer:} In this perspective, the logic
-focuses on migration or transfer of ownership. Every transaction must
-follow all-or-nothing atomicity in order to avoid double-spending
-\citep{wang2021sok} \citep{Llambas2024patterns} \citep{deng2025}. Here
-belongs asset-based protocols that ensure that the value will not vanish
-or duplicated between silos \citep{Belchior_2023} \citep{wang2023}.
-
-\textbf{Interoperability as Communication:} Here, the system gets
-treated as a \textbf{message-oriented service} \citep{wang2021sok}
-\citep{Kotey_2023} \citep{kang2022}. The goal is not to transfer the
-content of the source chain but to invoke a functionality in the target
-chain using arbitrary data \citep{Pillai_2022} \citep{Belchior_2021}.
-This is the logic of the data-based protocols like Arbitrary Message
-Passing (AMP) \citep{augusto2025}.
+\begin{itemize}
+\item
+  \textbf{Interoperability as Transfer:} In this perspective, the logic
+  focuses on migration or transfer of ownership. Every transaction must
+  follow all-or-nothing atomicity in order to avoid double-spending
+  \citep{wang2021sok} \citep{Llambas2024patterns} \citep{deng2025}.
+  Asset-based protocols belong here, ensuring that the value will not
+  vanish or gets duplicated between different silos
+  \citep{Belchior_2023} \citep{wang2023}.
+\item
+  \textbf{Interoperability as Communication:} In this perspective, the
+  system gets treated as a \textbf{message-oriented service}
+  \citep{wang2021sok} \citep{Kotey_2023} \citep{kang2022}. The goal is
+  not to transfer the content of the source chain but to invoke a
+  functionality in the target chain using arbitrary data
+  \citep{Pillai_2022} \citep{Belchior_2021}. This is the logic of the
+  data-based protocols like Arbitrary Message Passing (AMP)
+  \citep{augusto2025}.
+\end{itemize}
 
 It is critical to make the distinction between asset-based and
 data-based interoperability because they usually remain implicit in a
@@ -106,8 +109,11 @@ This forms the need of a \textbf{comparative semantic analysis} to see
 if these models are enough to encompass the behaviour of both asset and
 data exchanges \citep{Li2025}.
 
-\section{Asset-Based
-Interoperability}\label{asset-based-interoperability}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Asset-Based Interoperability}
+\end{itemize}
 
 The literature treats asset-based interoperability not solely as a tool
 to transfer currency but also as a \textbf{closed system of value
@@ -115,8 +121,6 @@ synchronisation} \citep{Pillai_2022} \citep{Cheng_2024}. The fundamental
 logic of these protocols is the preservation of the INTEGRITY of assets
 while they are moving between different ledgers
 \citep{Llambas2024patterns} \citep{Pillai_2022} \citep{Belchior_2023}.
-
-\subsection{System Perspective}\label{system-perspective}
 
 As a system, asset-based interoperability comprises the following
 interdependent components: \textbf{Chains (Source and Target):} These
@@ -137,9 +141,6 @@ of asset (e.g. ERC-20 standard) in order to ensure that the minted token
 is semantically equal to the original asset \citep{Llambas2025}
 \citep{Pillai_2022} \citep{deng2025}.
 
-\subsection{Behavioural Patterns: Logic of
-Ordering}\label{behavioural-patterns-logic-of-ordering}
-
 The observable behaviour of asset-based protocols follow a strict
 sequential execution flow. Based on existing formal models (such as
 Event-B analysis), the usual sequence follows: \textbf{Lock/Burn
@@ -158,9 +159,6 @@ is not followed, there is a risk of atomicity failure where there is a
 possibility of minting assets that are not locked; resulting to
 double-spending \citep{Llambas2024patterns} \citep{Belchior_2023}
 \citep{deng2025} \citep{Li_2023}.
-
-\subsection{Invariants and Safety
-Guarantees}\label{invariants-and-safety-guarantees}
 
 The major invariant that safeguards this system is the Global Supply
 Invariant. This refers to maintaning a constant value to the overall
@@ -187,7 +185,11 @@ though the safety of asset transfers can be formally modelled, there is
 insufficient comparison if this strict ordering is also needed for
 arbitrary data exchange \citep{Llambas2025} \citep{Llambas2024eventb}.
 
-\section{Data-Based Interoperability}\label{data-based-interoperability}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data-Based Interoperability}
+\end{itemize}
 
 Unlike asset-based interoperability where it is illustrated as a
 mechanism of changing ownership, the literature describes data-based
@@ -197,9 +199,6 @@ asset-based focuses on liquidity, data-based on the other hand focuses
 on the arbitrary message passimg (AMP). This is a mechanism where the
 system acts as a transport layer for whatever type of information
 \citep{Delgado_von_Eitzen_2025} \citep{augusto2025}.
-
-\subsection{System Perspective: The TCP/IP of
-Blockchains}\label{system-perspective-the-tcpip-of-blockchains}
 
 Being a communication system, its architecture comprises of the
 following interdependent components: \textbf{Chains and Modules:} Every
@@ -221,9 +220,6 @@ ensure that the opaque bytes are delivered with integrity
 \citep{Kotey_2023} \citep{Delgado_von_Eitzen_2025}
 \citep{Chervinski_2023} \citep{Bigiotti2025}.
 
-\subsection{Behavioural Patterns: Handshake and
-Asynchrony}\label{behavioural-patterns-handshake-and-asynchrony}
-
 The observable behaviour of data-based interoperability is guided by
 handshake protocols and asynchronous execution \citep{lu2024atomicity}
 \citep{Bigiotti2025} \citep{Wei_2023}. \textbf{Handshake Process:} This
@@ -240,9 +236,6 @@ interaction depends on Acknowledgements (ACK) or Timeouts. They are
 observable events that dictates if an operation is deemed Delivered or
 Expired \citep{Chervinski_2023} \citep{Wei_2023}.
 
-\subsection{Comparison to Asset-Based
-Interoperability}\label{comparison-to-asset-based-interoperability}
-
 The fundamental difference between the two is rooted on their
 interaction logic: \textbf{State-Dependent vs. Instruction-Dependent:}
 Unlike the asset-based that depends on state provenance (it needs the
@@ -257,16 +250,248 @@ liveness and delivery guarantees. It means that every message should
 have a definite result (accepted or timeout) inside the asynchronous
 network \citep{Bigiotti2025} \citep{Pillai_2022} \citep{Wei_2023}.
 
-The behaviour here depends on the reliabilit of the transport layer.
+The behaviour here depends on the reliability of the transport layer.
 Nonetheless, the critique in the current literature is the dependency of
 these systems to untrusted layers \citep{Wei_2023}
 \citep{Delgado_von_Eitzen_2025}. Formal analyses (such as the TLA+)
 shows that even the standardized protocols can have trapped packets or
 incomplete handshakes if the relayers\textquotesingle{} behaviour cannot
-be properly modelled \citep{wei2023formal}. This pushed the need for
-deeper comparative semantic analysis to see how it is possible to
-converge the safety of assets and the liveness of data in one
-behavioural model.
+be properly modelled \citep{Wei_2023}. This pushed the need for deeper
+comparative semantic analysis to see how it is possible to converge the
+safety of assets and the liveness of data in one behavioural model.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Survey and Protocol Design Literature}\tabularnewline
+\toprule\noalign{}
+Citation & Type of Work & Key Limitation \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Citation & Type of Work & Key Limitation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\citep{soureshjani2026} & Survey / Protocol Design (Asset) & No formal
+model; no behavioural analysis \\
+\citep{Notland_2026} & Survey / SoK (Hybrid bridges) & Lacks formal
+system model; no concurrency semantics \\
+\citep{Caetano_da_Silva_2025} & Survey (Cross-chain general) &
+Architectural focus only; no behavioural equivalence \\
+\citep{augusto2025} & Framework / Dataset (Data/AMP) & No
+process-algebraic specification \\
+\citep{Li2025} & Survey (Cross-chain general) & No formal comparison of
+asset vs data behaviours \\
+\citep{Delgado_von_Eitzen_2025} & Protocol Analysis (Data/IBC) & No
+formal semantics; no LTS extraction \\
+\citep{kishore2025interoperability} & Survey (Cross-chain general) &
+Lacks behavioural criteria for unification/stacking \\
+\citep{deng2025} & Survey (Asset + Data) & Identifies asset/data
+distinction, no formal comparison \\
+\citep{A_Alzahrani_2025} & Survey (General) & No concurrency or
+bisimulation \\
+\citep{Hassan_2025} & SoK (Layered architecture) & No process algebra;
+static taxonomy only \\
+\citep{Kumar_2025} & Protocol Design (Cross-chain transactions) & No
+formal verification of behaviour \\
+\citep{Bigiotti2025} & Survey (Data) & No behavioural semantics for
+handshake protocols \\
+\citep{Cheng_2024} & Protocol Design (Asset + Data) & Security
+assumptions only; no behavioural model \\
+\citep{sottomayor2024enterprise} & Framework (Semantic interoperability)
+& No formal concurrency semantics \\
+\citep{Mohammed_Abdul_2024} & Protocol Design (Cross-chain
+communication) & No formal verification \\
+\citep{Li_2024} & Survey (Data/logistics) & Domain-specific; no general
+behavioural theory \\
+\citep{Augusto_2023} & Protocol (Asset) & No formal semantics \\
+\citep{Chen_2023} & Protocol Design (Asset/notary) & No behavioural
+equivalence \\
+\citep{Li_2023} & Survey (Cross-chain technology) & No formal
+comparison \\
+\citep{wang2023} & Systematic Survey (Asset + Data) & Identifies gap but
+no formal solution \\
+\citep{Belchior_2023} & Survey / Gap Analysis (Asset + Data) & Calls for
+formal methods but does not apply PA \\
+\citep{Wu_2023} & Protocol Design (Asset/notary + signatures) & No LTS
+or bisimulation \\
+\citep{Harris_2023} & Survey (Cross-chain challenges) & High-level
+only \\
+\citep{Kotey_2023} & Survey (Heterogeneous communication) & No formal
+behaviour model \\
+\citep{Mao_2023} & Survey (Cross-chain technology) & No concurrency
+semantics \\
+\citep{Wang_2022} & Protocol Design (Asset + Data) & No formal
+verification \\
+\citep{Sober_2022} & Protocol (Asset) & No behavioural equivalence \\
+\citep{kang2022} & Survey (Interoperability landscape) & No formal
+methods applied \\
+\citep{Ou_2022} & Survey (Cross-chain mechanisms) & No process
+algebra \\
+\citep{Pillai_2022} & Framework (Asset/burn-to-claim) & No LTS or
+branching behaviour \\
+\citep{Lohachab_2021} & Survey (Interoperability role) & Behavioural
+analysis missing \\
+\citep{Belchior_2021} & Survey (Past, present, future trends) & No
+formal semantics \\
+\citep{wang2021sok} & SoK (Asset + Data) & Calls for behavioural
+semantics but does not provide \\
+\end{longtable}
+
+\section{The IBC Protocol: A Unified Approach to
+Interoperability}\label{the-ibc-protocol-a-unified-approach-to-interoperability}
+
+While the previous sections have treated asset-based and data-based
+interoperability as conceptually distinct categories, the
+Inter-Blockchain Communication (IBC) protocol represents an attempt to
+unify both within a single framework. Developed by the Cosmos ecosystem,
+IBC has become the most widely adopted interoperability protocol,
+connecting over 100 blockchains as of 2025 \citep{ibc2024transportapp}
+\citep{Belchior_2021}.
+
+\subsection{Protocol Architecture: Separation of Transport and
+Application
+Layer}\label{protocol-architecture-separation-of-transport-and-application-layer}
+
+IBC is designed as a general-purpose message-passing protocol analogous
+to TCP/IP for the Internet. Its architecture explicitly separates two
+layers \citep{cosmos2024ibcintro} \citep{goes2020interblockchain}:
+
+\begin{itemize}
+\item
+  \textbf{Transport, Authentication, and Ordering (TAO) Layer
+  (ICS-004):} This layer handles the low-level concerns of packet
+  delivery: establishing connections via a 4-step handshake (OpenInit →
+  OpenTry → OpenAck → OpenConfirm), ordering packets, timeouts, and
+  acknowledgements. The TAO is payload-agnostic -- it treats all data as
+  opaque bytes \citep{Wei_2023} \citep{ibc2025howworks}.
+\item
+  \textbf{Application Layer (ICS-020, ICS-027, ICS-031):} This layer
+  gives meaning to the payload. ICS-020 defines fungible token transfers
+  (asset interoperability). ICS-027 defines Interchain Accounts
+  (allowing one chain to control an account on another). ICS-031 defines
+  Interchain Queries (reading state from another chain). The separation
+  allows the same TAO to support both asset and data semantics
+  \citep{quasar2023litepaper} \citep{ibc2024transportapp}.
+\end{itemize}
+
+\subsection{Asset Transfer in IBC
+(ICS-020)}\label{asset-transfer-in-ibc-ics-020}
+
+Under ICS-020, asset transfer follows a \textbf{lock-and-mint} pattern
+consistent with asset-based interoperability described earlier:
+
+\begin{enumerate}
+\tightlist
+\item
+  \textbf{Lock/Burn on Source Chain:} The source chain locks the
+  original tokens in a module account or burns them.
+\item
+  \textbf{Packet Transmission:} The lock event is packaged into an IBC
+  packet and sent via the TAO layer.
+\item
+  \textbf{Mint on Target Chain:} Upon packet receipt and proof
+  verification, the target chain mints an equivalent amount of vouchers
+  (typically prefixed with the source chain\textquotesingle s channel
+  identifier).
+\item
+  \textbf{Reverse Path (Transfer Back):} The same process in reverse
+  burns vouchers and unlocks original tokens.
+\end{enumerate}
+
+This behaviour preserves the \textbf{Global Supply Invariant} or the
+total supply across both chains remains constant \citep{Pillai_2022}
+\citep{Li_2023}.
+
+\subsection{Arbitrary Data Transfer in IBC
+(ICS-004)}\label{arbitrary-data-transfer-in-ibc-ics-004}
+
+At the TAO layer, the protocol exhibits data-based interoperability
+semantics:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Asynchronous Packet Delivery:} Source chain commits a packet;
+  target chain receives it independently. The source chain may continue
+  other operations while the packet is in-flight
+  \citep{lu2024atomicity}.
+\item
+  \textbf{Acknowledgement and Timeout:} Every packet must eventually
+  result in either an acknowledgement (successful receipt and
+  processing) or a timeout (failure to receive within a deadline). The
+  alternative composition `ack + timeout` creates observable branching
+  behaviour \citep{Chervinski_2023} \citep{Wei_2023}.
+\item
+  \textbf{Relayer-Mediated Forwarding:} Off-chain relayers scan both
+  chains, detect packet commitments, and submit proofs to the target
+  chain. Relayer behaviour is internal to the protocol -- from an
+  external observer\textquotesingle s perspective, only packet send and
+  receive/ack events are visible \citep{Delgado_von_Eitzen_2025}.
+\end{itemize}
+
+\subsection{Existing Formal Analysis of
+IBC}\label{existing-formal-analysis-of-ibc}
+
+To date, formal verification of IBC has focused primarily on the TAO
+layer using trace-based methods: \textbf{Wei et al. (2023)} modelled
+IBC\textquotesingle s TAO in TLA+ and discovered two critical
+design-level issues: (1) \textbf{incomplete handshakes due to identifier
+exhaustion} where channels could enter a state where no further
+handshake steps were possible; (2) \textbf{trapped packets} where
+packets could neither be received nor timed out under certain relayer
+conditions \citep{Wei_2023}. While this analysis confirmed safety and
+liveness properties of packet delivery, it left several questions
+unanswered from a \textbf{behavioural semantics} perspective:
+
+\begin{itemize}
+\tightlist
+\item
+  Does the asset transfer behaviour (ICS-020) share the same core
+  semantics as the data transport behaviour (ICS-004), or are assets
+  simply stacked on top of data with additional constraints?
+\item
+  Do asset and data behaviours interfere with each other when both flow
+  through the same channels?
+\item
+  What branching structures (e.g., timeout vs acknowledgement choices)
+  characterise each behaviour, and are they equivalent?
+\end{itemize}
+
+These questions require a \textbf{behavioural} rather than trace-based
+analysis. A behavioural analysis preserves the branching structure of
+the system and can compare processes using bisimulation equivalence.
+
+\subsection{The Need for Process-Algebraic Analysis of
+IBC}\label{the-need-for-process-algebraic-analysis-of-ibc}
+
+TLA+ verification, while valuable for detecting linear temporal logic
+violations, models behaviour as sequences of states (traces). As will be
+established in the theoretical framework, trace equivalence collapses
+branching structure: `ack+timeout` (choice) is indistinguishable from
+`ack.timeout` (sequence) under trace equivalence \citep{Fokkink2004}.
+
+To answer whether IBC\textquotesingle s asset and data behaviours are
+\textbf{unified}, \textbf{stacked}, or \textbf{conflicting}, a
+process-algebraic approach is required. Process algebra can:
+
+\begin{enumerate}
+\tightlist
+\item
+  Model the concurrent composition of asset and data flows using the
+  parallel operator
+\item
+  Preserve branching structure using alternative composition
+\item
+  Abstract internal relayer behaviour using the silent action
+\item
+  Compare behaviours using weak bisimulation rather than trace
+  equivalence
+\end{enumerate}
+
+This research provides the first process algebra specification of
+IBC\textquotesingle s ICS-004 and ICS-020 standards, filling the gap
+identified above.
 
 \section{Formal Methods to Blockchain
 Interoperability}\label{formal-methods-to-blockchain-interoperability}
@@ -275,170 +500,313 @@ In the study of interoperability protocols, simple architecture diagrams
 alone are insufficient to guarantee the security and correctness of
 systems. Formal Methods surfaces in the literature as critical tools to
 avoid design flaws that can lead to large financial losses
-\citep{wei2023formal} \citep{Llambas2024eventb}. In surverying the
-literature, it is noticeable that each formal method has its own
-modelling philosophy that dictates what aspects of behaviour are being
-emphasized.
+\citep{Wei_2023} \citep{Llambas2024eventb}. In surveying the literature,
+formalisations of blockchain interoperability protocols have been
+developed using a variety of methodologies such as interactive theorem
+proving, model checking, and symbolic logic. They generally focus on
+ensuring atomicity, safety, liveness, and consistency across
+heterogeneous networks.
 
-\subsection{Modelling Philosophies and
-Methodogies}\label{modelling-philosophies-and-methodogies}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Mechanised Proofs and Refinement (Isabelle/HOL, Coq, Event-B})
+  Isabelle/HOL has been used to provide rigorous, high-assurance proofs
+  for several interoperability frameworks.
 
-From what has been gathered in the literature, formalisations done on
-blockchain interoperability is divided into four major philosophies:
-\textbf{Event-B (State + Invariants):} This approach in focused on
-modelling the system as a discrete transition system
-\citep{Llambas2024eventb}. The strength of this is in verifying the
-safety properties of the system using mathematical proofs and
-invariants. For example, this is used to ensure that a token cannot be
-minted if it is not yet officially locked on the source chain
-\citep{Llambas2025}. Nevertheless, this philosophy has its own
-limitation in capturing the liveness (or the guarantee that something
-will happen at the end), and is usually struggles in modelling
-asynchronous timing issues \citep{Llambas2025}
-\citep{Llambas2024eventb}. \textbf{TLA+ (Traces + Temporal Behaviour):}
-In data-based protocols like IBC, TLA+ is the dominating method
-\citep{Wei_2023} \citep{Llambas2025}. Its philosophy is rooted in Linear
-Temporal Logic where the behaviour is seen as a sequence of states or
-traces. This is effective in detecting bugs in asynchronous
-communication like trapped packets or incomplete handshakes
-\citep{Wei_2023}. However, because of its high level of abstraction, it
-usually disregards the internal logic of smart contracts
-\citep{Llambas2024eventb} \citep{Wei_2023}. \textbf{Abstract State
-Machine or ASM (Abstrac Execution):} The philosophy is to abstract the
-whole blockchain as a deterministic transition function
-\citep{lu2024atomicity}. Its focus is the operational semantics of the
-remote calls and how they maintain atomicity in multi-chain
-transactions. This focuses mmore on the execution flow more than the
-static invariants of assets. \textbf{CSP\# and pi-calculus (Interaction
-+ Concurrency):} These methods focus on process algebra
-\citep{Wang_2024}. Its philosophy is in the treatment of
-interoperability as a series of inter-process communications. This is
-useful in modelling interactive protocols like atomic swaps where it is
-needed that two untrusted parties simultaneously do an action.
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Hierarchical Transactions (Canton)}: The Canton
+    interoperability protocol\textquotesingle s transactions were
+    formalised as authenticated data structures using a modular "Merkle
+    functor" pattern \citep{lochbihler2020}. This approach allows for
+    defining inclusion proofs and merging them into multi-proofs while
+    maintaining the data integrity.
+  \item
+    \textbf{Global Consistency in IBC}: The IBC protocol was formalised
+    as an instantiation of the Isabelle Infrastructure framework
+    \citep{kammuller2020}. This model established a "global
+    inconsistency" property, proving that scanning and submitting
+    transactions between blockchains does not introduce inconsistencies
+    across their respective ledgers.
+  \item
+    \textbf{Fail-Safe Cross-Chain Bridges}: A formal model of the Sonic
+    Gateway bridge was verified to be safe using a stepwise refinement
+    approach \citep{maric2025}. This verification proved that even if
+    the receiver chain fails (a "dead bridge" scenario), users can still
+    retrieve their assets on the sender chain via specific recovery
+    transactions.
+  \item
+    \textbf{Cross-Domain Regulatory State Preservation}: A formal proof
+    was established for regulatory state transitions (e.g., active or
+    frozen status) across multiple domains \citep{kim2026}. It verified
+    safety (bidirectional roundtrip preservation) and liveness
+    (deterministic resolution of conflicting actions under Byzantine
+    faults).
+  \item
+    \textbf{Bitcoin Validation Procedure}: The first formal model of
+    Bitcoin\textquotesingle s transaction data structures and validation
+    logic was mechanised in Coq \citep{rupic2020}. It provided
+    machine-verified proofs for essential properties like the
+    impossibility of double-spending and the uniqueness of transactions.
+  \item
+    \textbf{Inter-Contract Communication}: Coq has also been used to
+    construct models that allow for interactions between contracts on
+    different types of blockchains (e.g., depth-first vs. breadth-first
+    execution models) \citep{kammuller2020}.
+  \item
+    \textbf{Gateway-Based Interoperability}: A gateway-based
+    interoperability solution between Ethereum and Hyperledger Fabric
+    was formalised in Event-B using the Rodin platform
+    \citep{Llambas2024eventb}. It automatically discharged 23 proof
+    obligations (17 invariant preservation, 6 well-definedness) using
+    Rodin\textquotesingle s provers, confirming functional correctness
+    and safety properties.
+  \end{itemize}
+\item
+  \textbf{Temporal Logic of Actions (TLA+) and Model Checking} TLA+ and
+  the TLC moderl checker have been utilised to identify functional and
+  timing-related vulnerabilities in inter-chain protocols.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{IBC TAO Layer}: The TAO layer of IBC was modelled in TLA+
+    \citep{Wei_2023} (see the preceeding section on IBC Protocol).
+  \item
+    \textbf{Tendermint Synchronisation (Fastsync)}: The Fastsync
+    protocol was formalised at multiple levels (high-level, low-level,
+    and concurrency) in TLA+ \citep{braithwaite2020}. Model checking
+    helped refine properties related to termination and synchronisation,
+    revealing that a global timeout might terminate the process before
+    the node reaches the maximum height of its correct peers.
+  \item
+    \textbf{Cross-Chain Swaps}: Other efforts have included TLA+ formal
+    proofs for specific cross-chain swap protocols and the
+    "burn-to-claim" asset transfer protocol \citep{Wei_2023}.
+  \end{itemize}
+\item
+  \textbf{Symbolic Logic and Tamarin}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Hash Time Lock Contracts (HTLC)}: The security properties of
+    HTLCs, the most common mechanism for atomic cross-chain swaps, were
+    formally analysed using the Tamarin prover \citep{boyd2020}. This
+    formalisation identified a critical "hidden" assumption: for the
+    protocol to be secure, the growth speeds of the two blockchains
+    involved must remain stable.
+  \end{itemize}
+\item
+  \textbf{Timed Automata and UPPAAL}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Pub-Sub Interoperability Protocol}: This protocol, which
+    establishes communication between Hyperledger Fabric and Besu
+    networks via a broker, was formalised as stochastic timed automata
+    (STA) \citep{Alam_2023}. Using UPPAAL-SMC, researchers verified
+    real-time properties and provided probabilistic estimations for
+    message delivery, revealing an 8\% probability of failure when the
+    broker\textquotesingle s throughput is significantly higher than
+    that of the publishers and subscribers.
+  \end{itemize}
+\item
+  \textbf{Abstract and Unified Frameworks}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Atomic Multi-Chain Transaction Protocol}: Researches defined
+    a uniform communication interface and a protocol inspired by
+    two-phase commits to handle general transactions spanning several
+    chains \citep{lu2024atomicity}. This was supported by formal
+    modelling of blockchains as \textbf{abstract state machines} to
+    prove atomicity.
+  \item
+    \textbf{SmartML and WhyISon}: Modelling languages like SmartML
+    provide a platform-independent framework for analysing smart
+    contracts \citep{veschetti2024smartmlmodelinglanguagesmart}.
+    Similarly, WhyISon translates Michelson (Tezos) smart contracts into
+    WhyML for automated deductive verification in the Why3 framework
+    \citep{horta2020}.
+  \item
+    \textbf{QLink Architecture}: A quantom-safe bridge architecture was
+    modelled mathematically to link cryptographic (Post-Quantom
+    Cryptography) and physical-layer (Quantom Key Distribution) security
+    \citep{silva2025}.
+  \end{itemize}
+\end{itemize}
+
+Comparative Analysis: Process Algebra vs. Exisiting Formalisms
+
+In contract to the state-based and trace-based approaches above,
+\textbf{Process Algebras} (e.g., ACP, CSP, pi-calculus) offer a
+compositionally rich behavioural perspective on interoperability. Below
+is a summary of what each surveyed method lacks.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Formal Methods Literature (Asset-Focused)}\tabularnewline
+\toprule\noalign{}
+Citation & Formal Method Used & Key Limitation \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Citation & Formal Method Used & Key Limitation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\citep{Llambas2025} & Event-B & State-based only; no concurrency or
+branching \\
+\citep{Llambas2024patterns} & Event-B & Lacks liveness and asynchronous
+communication \\
+\citep{Llambas2024eventb} & Event-B & No dynamic process creation; no
+mobility \\
+\citep{lochbihler2020} & Isabelle/HOL & No concurrency or branching
+behaviour \\
+\citep{maric2025} & Event-B refinement & State-based; no concurrency
+semantics \\
+\citep{rupic2020} & Coq & Single ledger; not interoperability-focused \\
+\citep{boyd2020} & Tamarin & No true concurrency or liveness for data \\
+\citep{silva2025} & Mathematical model & No process algebra; no
+bisimulation \\
+\citep{Wang_2024} & CSP (Process Algebra) & Single protocol; no
+comparison of asset vs data \\
+\end{longtable}
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Formal Methods Literature (Data-Focused and
+General)}\tabularnewline
+\toprule\noalign{}
+Citation & Formal Method Used & Key Limitation \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Citation & Formal Method Used & Key Limitation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\citep{Wei_2023} & TLA+ & Trace-based only; no bisimulation or
+branching \\
+\citep{lu2024atomicity} & Abstract State Machines & No process algebra;
+no bisimulation \\
+\citep{kammuller2020} & Isabelle/HOL & No process algebra; trace-based
+only \\
+\citep{kim2026} & Isabelle/HOL & Safety/liveness but no branching
+equivalence \\
+\citep{braithwaite2020} & TLA+ & Not IBC-specific; no asset-data
+comparison \\
+\citep{Alam_2023} & Timed Automata (UPPAAL) & Probabilistic; no
+behavioural refinement laws \\
+\citep{horta2020} & Why3/WhyML & Single chain; not interoperability \\
+\citep{Chervinski_2023} & Empirical / Measurement & No formal
+specification \\
+\end{longtable}
+
+This gap motivates the need for a unified behavioural semantics --- one
+that treats both asset and data interoperability as observable
+interaction patterns rather than isolated state transitions.
 
 \section{Synthesis and Research Gap}\label{synthesis-and-research-gap}
 
 In surveying the literature, a clear pattern surfaces: although the
 improvement in the technical solutions to blokchain interoperability is
 growing fast, its theoretical and formal foundation still remains slow
-and fragmented. The following discussions lay outs the critical gaps
-that reasons the need for this research.
+and fragmented. The following lay outs the critical gaps that reasons
+the need for this research.
 
-\subsection{Fragmentaion in Knowledge and
-Technology}\label{fragmentaion-in-knowledge-and-technology}
+\begin{enumerate}
+\tightlist
+\item
+  \textbf{Gap of comparison}: No formal comparison of asset vs data
+  behaviours within a single protocol.
+\item
+  \textbf{Gap of method}: No use of Process Algebra/LTS for
+  interoperability semantics.
+\item
+  \textbf{Gap of behavioural criteria}: No operational definition of
+  "unified/stacked/conflicting" in terms of observable behaviour.
+\item
+  \textbf{Gap of IBC semantics}: No process-algebra model of IBC that
+  separates transport vs application behaviour.
+\end{enumerate}
 
-Every study in the current literature focuses on particular silo or
-isolated implementations. It can be observed that the current research
-landscape is divided into walled gardens where one group of the
-literature is exclusively discussing asset-specific bridges while the
-others solely focus on messaging-agnostic hubs. For this reason, the
-understanding of interoperability is not being hollistic. This
-fragmentation is not only technical but also conceptual; there is no
-unity in the literature on what really is the standard interaction
-process to be followed by all protocols.
-
-\subsection{Lack of Unified
-Abstraction}\label{lack-of-unified-abstraction}
-
-There is no unified way to represent the semantics of cross-chain
-interactions using a framework that is not dependent on codes. Most of
-the gathered studies give ad hoc architectures or intentionally made for
-one particular use case. This shows that the literature currently has
-insufficient behavioural primitives. These are guiding action units like
-locking, proving, or emitting that can be used to describe any protocol
-whether it is an asset-based or data-based. Without this abstraction,
-developers and researchers will struggle in verifying the security of
-systems when different protocols gets interconnected.
-
-\subsection{Lack in Direct Comparison of
-Behaviours}\label{lack-in-direct-comparison-of-behaviours}
-
-There is direct comparison done on the behaviour of asset-based and
-data-based protocols inside one formal semantic framework. Although
-there are surveys that list features such as whether they are
-decentralised or have notary, they do not survey the fundamental
-difference in terms of interaction logic. Asset-based protocols are
-described as state-dependent (it needs lock before minting), while
-data-based are instruction-depended (triggering functions) but the
-implication of this difference in their observable behaviour is not
-fomally written. Meaning, although their goal is known, their difference
-in their execution traces cannot be formally shown.
-
-\subsection{Methodological Gap in Formal
-Modelling}\label{methodological-gap-in-formal-modelling}
-
-Most of the current formal models are state-based, not
-interaction-based. The literature is currently limited to one dichotomy:
-The usage of Event-B for verifying static invariants and safety of
-assets and the usage of TLA+ to survey liveness and traces of data
-packets. This gap is having no model that can unify the low-level state
-transitions (ownership changes) and high-level messaging flow (function
-calls) in one language. This does not directly analyses the interaction
-of value and data as connected manifestation of system behaviour.
-
-\subsection{Conclusion and Research
-Direction}\label{conclusion-and-research-direction}
-
-In conclusion, there is a need to have an approach that will abstract
-these protocols as formal systems of interaction instead solely as
-implementations. The current gap in the literature is not just only a
-topic of fastness or throughput, but the lack of deep semantic
-understanding on how blockchain interoperability operates on the
-behavioural level. One possible way is the usage of a comparative
-semantic analysis that focus on the creation of formal model for asset
-and data transfers. This research aims to fill the aforementioned gaps
-by means of identifying the observable behaviours that will give clarity
-to the similarities and differences of the two paradigm. This will serve
-as a guideline for making more robust and standardized interoperability
-frameworks in the future.
+This research fills these gaps by providing the first process algebra
+specificatio of IBC\textquotesingle s core interoperability standards
+(ICS-004, ICS-020), extracting LTS models, and analysing whether asset
+and data behaviours are unified, stacked, or conflicting.
 
 \begin{longtable}[]{@{}lllll@{}}
-\caption{Matrix}\tabularnewline
+\caption{Summary of Existing Work Against This
+Research\textquotesingle s Key Criteria}\tabularnewline
 \toprule\noalign{}
+Reference & Formal Method & Asset-Data Comparison? & Uses Bisimulation?
+& Models IBC? \\
+\midrule\noalign{}
 \endfirsthead
+\toprule\noalign{}
+Reference & Formal Method & Asset-Data Comparison? & Uses Bisimulation?
+& Models IBC? \\
+\midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Citation & Type & Interoperability Type & Formalisation & Limitations \\
-\citep{soureshjani2026} & Survey/Protocol Design & Asset & & \\
-\citep{Notland_2026} & Survey/SoK & Hybrid (bridges) & - & Lacks formal
-system model \\
-\citep{Caetano_da_Silva_2025} & & & & \\
-\citep{augusto2025} & & & & \\
-\citep{Li2025} & & & & \\
-\citep{Delgado_von_Eitzen_2025} & & & & \\
-\citep{kishore2025interoperability} & & & & \\
-\citep{deng2025} & & & & \\
-\citep{A_Alzahrani_2025} & & & & \\
-\citep{Hassan_2025} & & & & \\
-\citep{Kumar_2025} & & & & \\
-\citep{Llambas2025} & & & & \\
-\citep{Bigiotti2025} & & & & \\
-\citep{lu2024atomicity} & & & & \\
-\citep{Llambas2024patterns} & & & & \\
-\citep{Llambas2024eventb} & & & & \\
-\citep{Cheng_2024} & & & & \\
-\citep{sottomayor2024enterprise} & & & & \\
-\citep{Mohammed_Abdul_2024} & & & & \\
-\citep{Li_2024} & & & & \\
-\citep{Wang_2024} & & & & \\
-\citep{Wei_2023} & & & & \\
-\citep{Augusto_2023} & & & & \\
-\citep{Chen_2023} & & & & \\
-\citep{Li_2023} & & & & \\
-\citep{wang2023} & & & & \\
-\citep{Belchior_2023} & & & & \\
-\citep{Wu_2023} & & & & \\
-\citep{Harris_2023} & & & & \\
-\citep{Kotey_2023} & & & & \\
-\citep{Chervinski_2023} & & & & \\
-\citep{Mao_2023} & & & & \\
-\citep{Wang_2022} & & & & \\
-\citep{Sober_2022} & & & & \\
-\citep{kang2022} & & & & \\
-\citep{Ou_2022} & & & & \\
-\citep{Pillai_2022} & & & & \\
-\citep{Lohachab_2021} & & & & \\
-\citep{Belchior_2021} & & & & \\
-\citep{wang2021sok} & & & & \\
+\citep{wang2021sok} & None & No (calls for it) & No & No \\
+\citep{Wei_2023} & TLA+ & No & No & \(\checkmark\) (TAO only) \\
+\citep{Llambas2025} & Event-B & No & No & No \\
+\citep{Llambas2024eventb} & Event-B & No & No & No \\
+\citep{Llambas2024patterns} & Event-B & No & No & No \\
+\citep{Wang_2024} & CSP & No (asset only) & Yes & No \\
+\citep{lu2024atomicity} & ASM & No & No & No \\
+\citep{kammuller2020} & Isabelle/HOL & No & No & Yes (consistency) \\
+\citep{lochbihler2020} & Isabelle/HOL & No & No & No \\
+\citep{maric2025} & Event-B & No & No & No \\
+\citep{kim2026} & Isabelle/HOL & No & No & No \\
+\citep{rupic2020} & Coq & No & No & No \\
+\citep{boyd2020} & Tamarin & No & No & No \\
+\citep{braithwaite2020} & TLA+ & No & No & No \\
+\citep{Alam_2023} & Timed Automata & No & No & No \\
+\citep{silva2025} & Mathematical & No & No & No \\
+\citep{deng2025} & None & Yes (identifies gap) & No & No \\
+\citep{Belchior_2023} & None & Yes (calls for formal) & No & No \\
+\citep{Li2025} & None & Yes (calls for formal) & No & No \\
+\citep{Hassan_2025} & None & No & No & No \\
+\citep{Bigiotti2025} & None & No & No & No \\
+\citep{Chervinski_2023} & Empirical & No & No & Yes (performance) \\
+\citep{Delgado_von_Eitzen_2025} & Empirical & No & No & Yes
+(empirical) \\
+\citep{soureshjani2026} & None & No & No & No \\
+\citep{Notland_2026} & None & No & No & No \\
+\citep{Augusto_2023} & None & No & No & No \\
+\citep{Pillai_2022} & None & No & No & No \\
+\citep{Cheng_2024} & None & No & No & No \\
+\citep{Kotey_2023} & None & No & No & No \\
+\citep{Li_2023} & None & No & No & No \\
+\citep{wang2023} & None & No & No & No \\
+\citep{Wu_2023} & None & No & No & No \\
+\citep{Chen_2023} & None & No & No & No \\
+\citep{Sober_2022} & None & No & No & No \\
+\citep{Wang_2022} & None & No & No & No \\
+\citep{Mohammed_Abdul_2024} & None & No & No & No \\
+\citep{Kumar_2025} & None & No & No & No \\
+\citep{Caetano_da_Silva_2025} & None & No & No & No \\
+\citep{augusto2025} & None & No & No & No \\
+\citep{kishore2025interoperability} & None & No & No & No \\
+\citep{A_Alzahrani_2025} & None & No & No & No \\
+\citep{sottomayor2024enterprise} & None & No & No & No \\
+\citep{Li_2024} & None & No & No & No \\
+\citep{Harris_2023} & None & No & No & No \\
+\citep{Mao_2023} & None & No & No & No \\
+\citep{Ou_2022} & None & No & No & No \\
+\citep{kang2022} & None & No & No & No \\
+\citep{Lohachab_2021} & None & No & No & No \\
+\citep{Belchior_2021} & None & No & No & No \\
+\citep{horta2020} & Why3/WhyML & No & No & No \\
+\textbf{\textbf{This research}} & \textbf{\textbf{ACP}} &
+\textbf{\textbf{Yes}} & \textbf{\textbf{Yes}} & \textbf{\textbf{Yes}} \\
 \end{longtable}
